@@ -1,0 +1,97 @@
+GeoFIPS,GeoName,Region,TableName,LineCode,IndustryClassification,Description,Unit,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024
+ "15000","Hawaii",8,SAGDP5,1,"...","All industry total ","Thousands of dollars",-177552,-149525,-143756,-148497,-259177,-156189,-217509,-169442,-204948,-199175,-196345,-194908,-237326,-213701,-237835,-231474,-233998,-246440,-245183,-238371,-238343,-244824,-252068,-3614864,-3756081,-525659,-418053,-405337
+ "15000","Hawaii",8,SAGDP5,2,"..."," Private industries ","Thousands of dollars",-82130,-71977,-73291,-80554,-191192,-78840,-145171,-102264,-132656,-125289,-116587,-115501,-140865,-127059,-141817,-141212,-143039,-143658,-141565,-138304,-140579,-134944,-138182,-3399003,-3537804,-256774,-210811,-188350
+ "15000","Hawaii",8,SAGDP5,3,"11","  Agriculture, forestry, fishing and hunting ","Thousands of dollars",-470,-196,-708,-10252,-3439,-1661,-1272,-2041,-4052,-3243,-5472,-7129,-11434,-13727,-14312,-9428,-10658,-20460,-21141,-10629,-10124,-12567,-13571,-90965,-52635,-20090,-20675,-15183
+ "15000","Hawaii",8,SAGDP5,4,"111-112","   Farms ","Thousands of dollars",-470,-196,-708,-10252,-3439,-1661,-1272,-2041,-4052,-3243,-5472,-7129,-11434,-13727,-14312,-9428,-10658,-20460,-21141,-10629,-10124,-12567,-13571,-85111,-50124,-20085,-20675,-15183
+ "15000","Hawaii",8,SAGDP5,5,"113-115","   Forestry, fishing, and related activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-5854,-2511,-5,0,0
+ "15000","Hawaii",8,SAGDP5,6,"21","  Mining, quarrying, and oil and gas extraction ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-214,-364,-1,0,0
+ "15000","Hawaii",8,SAGDP5,7,"211","   Oil and gas extraction ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+ "15000","Hawaii",8,SAGDP5,8,"212","   Mining (except oil and gas) ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-59,-167,0,0,0
+ "15000","Hawaii",8,SAGDP5,9,"213","   Support activities for mining ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-154,-197,-1,0,0
+ "15000","Hawaii",8,SAGDP5,10,"22","  Utilities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-12503,-10930,-219,0,0
+ "15000","Hawaii",8,SAGDP5,11,"23","  Construction ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-463746,-206552,-412,0,0
+ "15000","Hawaii",8,SAGDP5,12,"31-33","  Manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,-8,-6,-9,-128,-491,-273,-735,-140,-591,-34,-46,-49,-49,-50,-109848,-78931,-69,-54,-65
+ "15000","Hawaii",8,SAGDP5,13,"321,327-339","   Durable goods manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,-5,-19,-54,-118,-62,-11,-7,-9,-11,-16,-15,-17,-61564,-33493,-31,-22,-29
+ "15000","Hawaii",8,SAGDP5,14,"321","    Wood product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1279,-1833,-1,0,0
+ "15000","Hawaii",8,SAGDP5,15,"327","    Nonmetallic mineral product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-25789,-8359,0,0,0
+ "15000","Hawaii",8,SAGDP5,16,"331","    Primary metal manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-601,-516,0,0,0
+ "15000","Hawaii",8,SAGDP5,17,"332","    Fabricated metal product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-3828,-3238,-2,0,0
+ "15000","Hawaii",8,SAGDP5,18,"333","    Machinery manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-3740,-1837,-1,0,0
+ "15000","Hawaii",8,SAGDP5,19,"334","    Computer and electronic product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-3875,-2133,-1,0,0
+ "15000","Hawaii",8,SAGDP5,20,"335","    Electrical equipment, appliance, and component manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,-5,-19,-54,-118,-62,-11,-7,-9,-11,-16,-15,-17,-1770,-1519,-19,-22,-29
+ "15000","Hawaii",8,SAGDP5,21,"3361-3363","    Motor vehicles, bodies and trailers, and parts manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-311,-458,0,0,0
+ "15000","Hawaii",8,SAGDP5,22,"3364-3466,3369","    Other transportation equipment manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-11170,-4325,0,0,0
+ "15000","Hawaii",8,SAGDP5,23,"337","    Furniture and related product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1673,-1846,-1,0,0
+ "15000","Hawaii",8,SAGDP5,24,"339","    Miscellaneous manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-7529,-7429,-5,0,0
+ "15000","Hawaii",8,SAGDP5,25,"311-316,322-326","   Nondurable goods manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,-8,-6,-5,-109,-437,-156,-673,-129,-584,-25,-34,-34,-34,-33,-48284,-45438,-38,-31,-36
+ "15000","Hawaii",8,SAGDP5,26,"311-312","    Food and beverage and tobacco product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-30272,-29410,-6,0,0
+ "15000","Hawaii",8,SAGDP5,27,"313-314","    Textile mills and textile product mills ","Thousands of dollars",0,0,0,0,0,0,0,0,0,-8,-6,-5,-6,-4,-4,-4,-3,-3,-22,-31,-31,-30,-30,-2435,-2130,-19,-23,-22
+ "15000","Hawaii",8,SAGDP5,28,"315-316","    Apparel, leather, and allied product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2567,-2554,-2,0,0
+ "15000","Hawaii",8,SAGDP5,29,"322","    Paper manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-61,-123,0,0,0
+ "15000","Hawaii",8,SAGDP5,30,"323","    Printing and related support activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-4833,-5341,-3,0,0
+ "15000","Hawaii",8,SAGDP5,31,"324","    Petroleum and coal products manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-100,-430,-127,-662,-115,-571,0,0,0,0,0,-1457,-1498,0,0,0
+ "15000","Hawaii",8,SAGDP5,32,"325","    Chemical manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-3,-3,-24,-8,-11,-10,-2,-3,-3,-4,-3,-6488,-3573,-9,-8,-14
+ "15000","Hawaii",8,SAGDP5,33,"326","    Plastics and rubber products manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-172,-810,0,0,0
+ "15000","Hawaii",8,SAGDP5,34,"42","  Wholesale trade ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-97423,-46371,-52,0,0
+ "15000","Hawaii",8,SAGDP5,35,"44-45","  Retail trade ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-12735,-1367,-13,0,0,0,0,0,0,0,0,-195733,-201384,-322,0,0
+ "15000","Hawaii",8,SAGDP5,36,"48-49","  Transportation and warehousing ","Thousands of dollars",-2025,-773,-328,-751,-120296,-7710,-61972,-12510,-11300,-18057,-12863,-8300,-10785,-7945,-9579,-15817,-8191,-6431,-6361,-9919,-7865,-6854,-9630,-675221,-1208618,-17295,-9890,-7493
+ "15000","Hawaii",8,SAGDP5,37,"481","   Air transportation ","Thousands of dollars",-468,23,0,-23,-117598,-3742,-58822,-398,-1427,-2175,-2199,-3298,-3999,-4795,-5520,-6058,-5473,-5122,-5613,-7121,-7001,-6411,-9317,-622548,-1165963,-17031,-9532,-7401
+ "15000","Hawaii",8,SAGDP5,38,"482","   Rail transportation ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+ "15000","Hawaii",8,SAGDP5,39,"483","   Water transportation ","Thousands of dollars",-1557,-797,-328,-728,-2698,-3968,-3144,-12078,-9839,-15789,-10640,-4977,-6775,-3151,-4060,-9759,-2718,-1309,-747,-2799,-863,-443,-313,-1585,-8025,-153,-358,-92
+ "15000","Hawaii",8,SAGDP5,40,"484","   Truck transportation ","Thousands of dollars",0,0,0,0,0,0,-5,-35,-35,-92,-24,-25,-11,0,0,0,0,0,0,0,0,0,0,-10168,-4384,-14,0,0
+ "15000","Hawaii",8,SAGDP5,41,"485","   Transit and ground passenger transportation ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-12604,-16385,-64,0,0
+ "15000","Hawaii",8,SAGDP5,42,"486","   Pipeline transportation ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+ "15000","Hawaii",8,SAGDP5,43,"487-488,492","   Other transportation and support activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-27076,-13159,-31,0,0
+ "15000","Hawaii",8,SAGDP5,44,"493","   Warehousing and storage ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1239,-701,-2,0,0
+ "15000","Hawaii",8,SAGDP5,45,"51","  Information ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-142,-397,-1675,-2372,-1302,-321,-341,18,-38,-17,-20,-20173,-33233,-5162,0,0
+ "15000","Hawaii",8,SAGDP5,46,"511","   Publishing industries (except Internet) ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-7225,-5547,-15,0,0
+ "15000","Hawaii",8,SAGDP5,47,"512","   Motion picture and sound recording industries ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-3423,-20756,-5134,0,0
+ "15000","Hawaii",8,SAGDP5,48,"515,517","   Broadcasting (except Internet) and telecommunications ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-142,-397,-1675,-2372,-1302,-321,-341,18,-38,-17,-20,-3680,-6016,-12,0,0
+ "15000","Hawaii",8,SAGDP5,49,"518-519","   Data processing, hosting, and other information services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-5844,-915,-1,0,0
+ "15000","Hawaii",8,SAGDP5,50,"52,53","  Finance, insurance, real estate, rental, and leasing ","Thousands of dollars",-79635,-71008,-72255,-69551,-67457,-69469,-81928,-87712,-117304,-103982,-98246,-100063,-105642,-101137,-101065,-104239,-111899,-104832,-106698,-113468,-121068,-115409,-114864,-282362,-244425,-130010,-143496,-148125
+ "15000","Hawaii",8,SAGDP5,51,"52","   Finance and insurance ","Thousands of dollars",-27,-81,-176,-227,-184,-367,-150,-127,-205,-121,-178,-288,-483,-1049,-1309,-1623,-1005,-1290,-962,-1130,-1355,-1328,-699,-36359,-21172,-2001,-8341,-1461
+ "15000","Hawaii",8,SAGDP5,52,"521-522","    Monetary Authorities- central bank, credit intermediation, and related services ","Thousands of dollars",-27,-81,-176,-227,-184,-367,-150,-127,-205,-121,-178,-288,-483,-1049,-1309,-1623,-1005,-1290,-962,-1130,-1355,-1328,-699,-5933,-8903,-1965,-8327,-1459
+ "15000","Hawaii",8,SAGDP5,53,"523","    Securities, commodity contracts, and other financial investments and related activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-9616,-2155,-9,-13,-1
+ "15000","Hawaii",8,SAGDP5,54,"524","    Insurance carriers and related activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-20541,-9835,-27,0,0
+ "15000","Hawaii",8,SAGDP5,55,"525","    Funds, trusts, and other financial vehicles ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-270,-280,0,0,0
+ "15000","Hawaii",8,SAGDP5,56,"53","   Real estate and rental and leasing ","Thousands of dollars",-79607,-70926,-72079,-69324,-67273,-69101,-81778,-87585,-117099,-103860,-98068,-99775,-105159,-100088,-99756,-102617,-110895,-103542,-105736,-112337,-119712,-114081,-114165,-246002,-223252,-128010,-135155,-146665
+ "15000","Hawaii",8,SAGDP5,57,"531","    Real estate ","Thousands of dollars",-79607,-70926,-72079,-69324,-67273,-69101,-81778,-87585,-117099,-103860,-98068,-99775,-105159,-100088,-99756,-102617,-110895,-103542,-105736,-112337,-119712,-114081,-114165,-228865,-206952,-127960,-135155,-146665
+ "15000","Hawaii",8,SAGDP5,58,"532-533","    Rental and leasing services and lessors of nonfinancial intangible assets ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-17137,-16300,-50,0,0
+ "15000","Hawaii",8,SAGDP5,59,"54,55,56","  Professional and business services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-422792,-189810,-309,-60,-7
+ "15000","Hawaii",8,SAGDP5,60,"54","   Professional, scientific, and technical services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-280341,-121220,-203,0,0
+ "15000","Hawaii",8,SAGDP5,61,"5411","    Legal services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-54983,-23694,-42,0,0
+ "15000","Hawaii",8,SAGDP5,62,"5415","    Computer systems design and related services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-34020,-18194,-30,0,0
+ "15000","Hawaii",8,SAGDP5,63,"5412-5414,5416-5419","    Miscellaneous professional, scientific, and technical services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-191338,-79332,-132,0,0
+ "15000","Hawaii",8,SAGDP5,64,"55","   Management of companies and enterprises ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-4020,-8178,-55,-60,-7
+ "15000","Hawaii",8,SAGDP5,65,"56","   Administrative and support and waste management and remediation services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-138430,-60411,-51,0,0
+ "15000","Hawaii",8,SAGDP5,66,"561","    Administrative and support services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-115634,-55356,-46,0,0
+ "15000","Hawaii",8,SAGDP5,67,"562","    Waste management and remediation services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-22796,-5055,-5,0,0
+ "15000","Hawaii",8,SAGDP5,68,"61,62","  Educational services, health care, and social assistance ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,-1995,-14900,-8619,-10848,-11023,-6991,-4260,-1435,-47,-47,-455901,-352557,-71745,-36636,-17477
+ "15000","Hawaii",8,SAGDP5,69,"61","   Educational services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-19944,-23656,-44,0,0
+ "15000","Hawaii",8,SAGDP5,70,"62","   Health care and social assistance ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,-1995,-14900,-8619,-10848,-11023,-6991,-4260,-1435,-47,-47,-435957,-328902,-71701,-36636,-17477
+ "15000","Hawaii",8,SAGDP5,71,"621","    Ambulatory health care services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-320719,-224913,-28139,-4245,-2927
+ "15000","Hawaii",8,SAGDP5,72,"622","    Hospitals ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,-1995,-14900,-8619,-10848,-11023,-6991,-4260,-1435,-47,-47,-53803,-22912,-10577,-1626,-1011
+ "15000","Hawaii",8,SAGDP5,73,"623","    Nursing and residential care facilities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-36744,-15945,-1594,-235,-146
+ "15000","Hawaii",8,SAGDP5,74,"624","    Social assistance ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-24691,-65132,-31391,-30530,-13393
+ "15000","Hawaii",8,SAGDP5,75,"71,72","  Arts, entertainment, recreation, accommodation, and food services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-464212,-810158,-10934,0,0
+ "15000","Hawaii",8,SAGDP5,76,"71","   Arts, entertainment, and recreation ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-41889,-75940,-10353,0,0
+ "15000","Hawaii",8,SAGDP5,77,"711-712","    Performing arts, spectator sports, museums, and related activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-9897,-41710,-10296,0,0
+ "15000","Hawaii",8,SAGDP5,78,"713","    Amusement, gambling, and recreation industries ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-31992,-34230,-58,0,0
+ "15000","Hawaii",8,SAGDP5,79,"72","   Accommodation and food services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-422323,-734218,-581,0,0
+ "15000","Hawaii",8,SAGDP5,80,"721","    Accommodation ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-124008,-126837,-104,0,0
+ "15000","Hawaii",8,SAGDP5,81,"722","    Food services and drinking places ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-298315,-607380,-477,0,0
+ "15000","Hawaii",8,SAGDP5,82,"81","  Other services (except government and government enterprises) ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-107912,-101835,-152,0,0
+ "15000","Hawaii",8,SAGDP5,83,"92"," Government and government enterprises ","Thousands of dollars",-95422,-77547,-70464,-67943,-67985,-77349,-72338,-67178,-72292,-73886,-79758,-79407,-96461,-86642,-96018,-90262,-90959,-102782,-103618,-100067,-97764,-109880,-113886,-215861,-218278,-268885,-207241,-216987
+ "15000","Hawaii",8,SAGDP5,84,"...","  Federal civilian ","Thousands of dollars",-594,-473,-674,-894,-748,-876,-733,-676,-620,-632,-826,-980,-854,-738,-651,-861,-1060,-1301,-1134,-923,-685,-760,-894,-1101,-1151,-1158,-1249,-1037
+ "15000","Hawaii",8,SAGDP5,85,"...","  Military ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+ "15000","Hawaii",8,SAGDP5,86,"...","  State and local ","Thousands of dollars",-94829,-77074,-69791,-67048,-67238,-76473,-71605,-66503,-71672,-73254,-78933,-78427,-95608,-85904,-95367,-89401,-89899,-101481,-102484,-99144,-97080,-109119,-112993,-214759,-217126,-267726,-205992,-215951
+ "15000","Hawaii",8,SAGDP5,87,"11,21","Natural resources and mining ","Thousands of dollars",-470,-196,-708,-10252,-3439,-1661,-1272,-2041,-4052,-3243,-5472,-7129,-11434,-13727,-14312,-9428,-10658,-20460,-21141,-10629,-10124,-12567,-13571,-91179,-52999,-20091,-20675,-15183
+ "15000","Hawaii",8,SAGDP5,88,"42,44-45","Trade ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-12735,-1367,-13,0,0,0,0,0,0,0,0,-293155,-247754,-374,0,0
+ "15000","Hawaii",8,SAGDP5,89,"22,48-49","Transportation and utilities ","Thousands of dollars",-2025,-773,-328,-751,-120296,-7710,-61972,-12510,-11300,-18057,-12863,-8300,-10785,-7945,-9579,-15817,-8191,-6431,-6361,-9919,-7865,-6854,-9630,-687723,-1219549,-17515,-9890,-7493
+ "15000","Hawaii",8,SAGDP5,90,"31-33,51","Manufacturing and information ","Thousands of dollars",0,0,0,0,0,0,0,0,0,-8,-6,-9,-270,-888,-1948,-3108,-1442,-912,-375,-28,-87,-67,-69,-130021,-112164,-5231,-54,-65
+ "15000","Hawaii",8,SAGDP5,91,"...","Private goods-producing industries 2/","Thousands of dollars",-470,-196,-708,-10252,-3439,-1661,-1272,-2041,-4052,-3251,-5477,-7138,-11562,-14218,-14585,-10164,-10797,-21051,-21175,-10675,-10174,-12616,-13620,-664773,-338483,-20572,-20729,-15248
+ "15000","Hawaii",8,SAGDP5,92,"...","Private services-providing industries 3/","Thousands of dollars",-81660,-71781,-72583,-70302,-187753,-77179,-143900,-100223,-128604,-122038,-111109,-108363,-129303,-112841,-127231,-131048,-132241,-122607,-120390,-127630,-130405,-122328,-124561,-2734230,-3199321,-236202,-190082,-173102
+"Note: See the included footnote file."
+"SAGDP5: Subsidies 1."
+"Last updated: September 26, 2025-- new statistics for 2024; revised statistics for 2020-2023."
+"U.S. Bureau of Economic Analysis"

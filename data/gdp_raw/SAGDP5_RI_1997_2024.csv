@@ -1,0 +1,97 @@
+GeoFIPS,GeoName,Region,TableName,LineCode,IndustryClassification,Description,Unit,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024
+ "44000","Rhode Island",1,SAGDP5,1,"...","All industry total ","Thousands of dollars",-104821,-95111,-99671,-98629,-116106,-118381,-135773,-140422,-167592,-158466,-152523,-154326,-188093,-187422,-199830,-176657,-176056,-171724,-169340,-183118,-168056,-167574,-170893,-1860045,-1820936,-448419,-398064,-368112
+ "44000","Rhode Island",1,SAGDP5,2,"..."," Private industries ","Thousands of dollars",-55985,-55602,-59278,-59584,-73634,-66205,-79674,-80916,-98071,-87762,-86723,-86963,-113752,-114438,-125980,-106191,-105687,-98918,-93666,-91432,-96395,-90270,-92601,-1729133,-1689870,-198244,-207091,-166617
+ "44000","Rhode Island",1,SAGDP5,3,"11","  Agriculture, forestry, fishing and hunting ","Thousands of dollars",-103,-142,-757,-1047,-260,-565,-929,-1279,-4135,-2201,-8802,-3069,-5431,-5403,-3281,-3177,-1765,-1573,-3415,-1346,-2483,-1996,-1977,-19017,-11567,-4143,-8357,-6363
+ "44000","Rhode Island",1,SAGDP5,4,"111-112","   Farms ","Thousands of dollars",-103,-142,-757,-1047,-260,-565,-929,-1279,-4135,-2201,-8802,-3069,-5431,-5403,-3281,-3177,-1765,-1573,-3415,-1346,-2483,-1996,-1977,-11445,-8200,-4136,-8357,-6363
+ "44000","Rhode Island",1,SAGDP5,5,"113-115","   Forestry, fishing, and related activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-7572,-3367,-6,0,0
+ "44000","Rhode Island",1,SAGDP5,6,"21","  Mining, quarrying, and oil and gas extraction ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-539,-441,-2,0,0
+ "44000","Rhode Island",1,SAGDP5,7,"211","   Oil and gas extraction ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+ "44000","Rhode Island",1,SAGDP5,8,"212","   Mining (except oil and gas) ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-539,-441,-2,0,0
+ "44000","Rhode Island",1,SAGDP5,9,"213","   Support activities for mining ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+ "44000","Rhode Island",1,SAGDP5,10,"22","  Utilities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2963,-5182,-117,0,0
+ "44000","Rhode Island",1,SAGDP5,11,"23","  Construction ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-191144,-90048,-174,0,0
+ "44000","Rhode Island",1,SAGDP5,12,"31-33","  Manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,-86,-44,-810,-1355,-1283,-2731,-2855,-2002,-1406,-1293,-1068,-1038,-992,-1012,-178340,-136727,-1013,-1102,-1418
+ "44000","Rhode Island",1,SAGDP5,13,"321,327-339","   Durable goods manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,-762,-1265,-1182,-2483,-2685,-1839,-1198,-959,-760,-747,-692,-784,-109097,-76708,-790,-880,-1176
+ "44000","Rhode Island",1,SAGDP5,14,"321","    Wood product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1854,-2045,-1,0,0
+ "44000","Rhode Island",1,SAGDP5,15,"327","    Nonmetallic mineral product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-9358,-2320,0,0,0
+ "44000","Rhode Island",1,SAGDP5,16,"331","    Primary metal manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-464,-5879,0,0,0
+ "44000","Rhode Island",1,SAGDP5,17,"332","    Fabricated metal product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-18507,-8438,-4,0,0
+ "44000","Rhode Island",1,SAGDP5,18,"333","    Machinery manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-5639,-5755,-3,0,0
+ "44000","Rhode Island",1,SAGDP5,19,"334","    Computer and electronic product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-10513,-10806,-5,0,0
+ "44000","Rhode Island",1,SAGDP5,20,"335","    Electrical equipment, appliance, and component manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,-762,-1265,-1182,-2483,-2685,-1839,-1198,-959,-760,-747,-692,-784,-7459,-3044,-762,-880,-1176
+ "44000","Rhode Island",1,SAGDP5,21,"3361-3363","    Motor vehicles, bodies and trailers, and parts manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-990,-1038,-1,0,0
+ "44000","Rhode Island",1,SAGDP5,22,"3364-3466,3369","    Other transportation equipment manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-7056,-16625,0,0,0
+ "44000","Rhode Island",1,SAGDP5,23,"337","    Furniture and related product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-3368,-2888,-2,0,0
+ "44000","Rhode Island",1,SAGDP5,24,"339","    Miscellaneous manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-43890,-17869,-12,0,0
+ "44000","Rhode Island",1,SAGDP5,25,"311-316,322-326","   Nondurable goods manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,-86,-44,-48,-90,-100,-249,-170,-163,-208,-335,-308,-292,-301,-228,-69242,-60020,-222,-222,-242
+ "44000","Rhode Island",1,SAGDP5,26,"311-312","    Food and beverage and tobacco product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-17983,-16596,-3,0,0
+ "44000","Rhode Island",1,SAGDP5,27,"313-314","    Textile mills and textile product mills ","Thousands of dollars",0,0,0,0,0,0,0,0,0,-86,-44,-48,-65,-47,-42,-47,-42,-50,-297,-277,-254,-264,-210,-12563,-11718,-168,-179,-165
+ "44000","Rhode Island",1,SAGDP5,28,"315-316","    Apparel, leather, and allied product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-360,-2266,-2,0,0
+ "44000","Rhode Island",1,SAGDP5,29,"322","    Paper manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-7990,-3155,0,0,0
+ "44000","Rhode Island",1,SAGDP5,30,"323","    Printing and related support activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-11854,-3220,-1,0,0
+ "44000","Rhode Island",1,SAGDP5,31,"324","    Petroleum and coal products manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-5,-28,-8,-56,-7,-41,0,0,0,0,0,-1012,-242,0,0,0
+ "44000","Rhode Island",1,SAGDP5,32,"325","    Chemical manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-21,-25,-198,-68,-113,-117,-38,-31,-38,-37,-18,-11553,-13059,-43,-43,-78
+ "44000","Rhode Island",1,SAGDP5,33,"326","    Plastics and rubber products manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-5927,-9763,-6,0,0
+ "44000","Rhode Island",1,SAGDP5,34,"42","  Wholesale trade ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-68300,-31125,-30,0,0
+ "44000","Rhode Island",1,SAGDP5,35,"44-45","  Retail trade ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-8973,-968,-9,0,0,0,0,0,0,0,0,-141862,-144993,-225,0,0
+ "44000","Rhode Island",1,SAGDP5,36,"48-49","  Transportation and warehousing ","Thousands of dollars",-10194,-7676,-8723,-9571,-25742,-16351,-23735,-21265,-23061,-24503,-22610,-27898,-35904,-42139,-32386,-20915,-19469,-18991,-20061,-20939,-25850,-29686,-25682,-102002,-130383,-43111,-81325,-53419
+ "44000","Rhode Island",1,SAGDP5,37,"481","   Air transportation ","Thousands of dollars",-63,3,0,-3,-15951,-508,-7979,-54,-194,-295,-298,-447,-542,-650,-749,-822,-742,-695,-761,-392,-400,-321,-378,-29316,-37617,-925,-551,-393
+ "44000","Rhode Island",1,SAGDP5,38,"482","   Rail transportation ","Thousands of dollars",-10045,-7634,-8696,-9511,-9519,-15265,-15239,-19711,-22059,-23078,-21635,-27048,-34683,-41172,-31293,-19277,-18497,-18194,-19245,-20334,-25380,-29325,-25275,-45184,-66274,-42078,-80738,-53016
+ "44000","Rhode Island",1,SAGDP5,39,"483","   Water transportation ","Thousands of dollars",-85,-45,-27,-57,-272,-578,-511,-1463,-774,-1041,-654,-379,-668,-316,-344,-816,-229,-103,-55,-214,-69,-40,-29,-171,-1109,-16,-36,-10
+ "44000","Rhode Island",1,SAGDP5,40,"484","   Truck transportation ","Thousands of dollars",0,0,0,0,0,0,-6,-37,-34,-89,-22,-24,-10,0,0,0,0,0,0,0,0,0,0,-8145,-4425,-20,0,0
+ "44000","Rhode Island",1,SAGDP5,41,"485","   Transit and ground passenger transportation ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-5499,-13537,-46,0,0
+ "44000","Rhode Island",1,SAGDP5,42,"486","   Pipeline transportation ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-26,-15,0,0,0
+ "44000","Rhode Island",1,SAGDP5,43,"487-488,492","   Other transportation and support activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-12809,-6421,-26,0,0
+ "44000","Rhode Island",1,SAGDP5,44,"493","   Warehousing and storage ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-853,-985,0,0,0
+ "44000","Rhode Island",1,SAGDP5,45,"51","  Information ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-119,-317,-1279,-1784,-911,-225,-216,11,-25,-11,-13,-10933,-12081,-695,0,0
+ "44000","Rhode Island",1,SAGDP5,46,"511","   Publishing industries (except Internet) ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-4066,-2358,-5,0,0
+ "44000","Rhode Island",1,SAGDP5,47,"512","   Motion picture and sound recording industries ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1499,-4423,-681,0,0
+ "44000","Rhode Island",1,SAGDP5,48,"515,517","   Broadcasting (except Internet) and telecommunications ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-119,-317,-1279,-1784,-911,-225,-216,11,-25,-11,-13,-1690,-3421,-7,0,0
+ "44000","Rhode Island",1,SAGDP5,49,"518-519","   Data processing, hosting, and other information services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-3679,-1878,-3,0,0
+ "44000","Rhode Island",1,SAGDP5,50,"52,53","  Finance, insurance, real estate, rental, and leasing ","Thousands of dollars",-45687,-47784,-49798,-48966,-47632,-49288,-55010,-58371,-70876,-60972,-55267,-55187,-61970,-61401,-63166,-64260,-65225,-61895,-60066,-63275,-65341,-57534,-63868,-170184,-158531,-76368,-83887,-90242
+ "44000","Rhode Island",1,SAGDP5,51,"52","   Finance and insurance ","Thousands of dollars",-363,-460,-702,-1482,-1822,-2201,-898,-795,-151,-103,-225,-590,-1686,-3646,-4109,-4582,-4030,-3855,-2313,-2221,-2001,-1566,-2111,-32587,-30342,-2449,-3660,-637
+ "44000","Rhode Island",1,SAGDP5,52,"521-522","    Monetary Authorities- central bank, credit intermediation, and related services ","Thousands of dollars",-363,-460,-702,-1482,-1822,-2201,-898,-795,-151,-103,-225,-590,-1686,-3646,-4109,-4582,-4030,-3855,-2313,-2221,-2001,-1566,-2111,-6994,-14874,-2420,-3641,-635
+ "44000","Rhode Island",1,SAGDP5,53,"523","    Securities, commodity contracts, and other financial investments and related activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-11109,-5097,-11,-19,-2
+ "44000","Rhode Island",1,SAGDP5,54,"524","    Insurance carriers and related activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-14272,-10181,-18,0,0
+ "44000","Rhode Island",1,SAGDP5,55,"525","    Funds, trusts, and other financial vehicles ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-212,-190,0,0,0
+ "44000","Rhode Island",1,SAGDP5,56,"53","   Real estate and rental and leasing ","Thousands of dollars",-45324,-47324,-49096,-47483,-45810,-47088,-54112,-57576,-70725,-60869,-55043,-54597,-60284,-57755,-59057,-59678,-61196,-58040,-57752,-61054,-63340,-55967,-61758,-137597,-128189,-73919,-80226,-89606
+ "44000","Rhode Island",1,SAGDP5,57,"531","    Real estate ","Thousands of dollars",-45324,-47324,-49096,-47483,-45810,-47088,-54112,-57576,-70725,-60869,-55043,-54597,-60284,-57755,-59057,-59678,-61196,-58040,-57752,-61054,-63340,-55967,-61758,-129499,-119647,-73888,-80226,-89606
+ "44000","Rhode Island",1,SAGDP5,58,"532-533","    Rental and leasing services and lessors of nonfinancial intangible assets ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-8098,-8542,-30,0,0
+ "44000","Rhode Island",1,SAGDP5,59,"54,55,56","  Professional and business services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-245649,-135172,-176,-95,-10
+ "44000","Rhode Island",1,SAGDP5,60,"54","   Professional, scientific, and technical services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-180093,-89964,-141,0,0
+ "44000","Rhode Island",1,SAGDP5,61,"5411","    Legal services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-55878,-21626,-36,0,0
+ "44000","Rhode Island",1,SAGDP5,62,"5415","    Computer systems design and related services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-27126,-15517,-21,0,0
+ "44000","Rhode Island",1,SAGDP5,63,"5412-5414,5416-5419","    Miscellaneous professional, scientific, and technical services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-97089,-52821,-84,0,0
+ "44000","Rhode Island",1,SAGDP5,64,"55","   Management of companies and enterprises ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-7101,-9454,-11,-95,-10
+ "44000","Rhode Island",1,SAGDP5,65,"56","   Administrative and support and waste management and remediation services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-58456,-35754,-24,0,0
+ "44000","Rhode Island",1,SAGDP5,66,"561","    Administrative and support services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-52532,-33193,-22,0,0
+ "44000","Rhode Island",1,SAGDP5,67,"562","    Waste management and remediation services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-5924,-2560,-2,0,0
+ "44000","Rhode Island",1,SAGDP5,68,"61,62","  Educational services, health care, and social assistance ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,-2928,-23128,-13199,-16315,-14827,-8615,-4815,-1658,-50,-50,-340361,-337875,-66921,-32324,-15164
+ "44000","Rhode Island",1,SAGDP5,69,"61","   Educational services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-13656,-30526,-35,0,0
+ "44000","Rhode Island",1,SAGDP5,70,"62","   Health care and social assistance ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,-2928,-23128,-13199,-16315,-14827,-8615,-4815,-1658,-50,-50,-326705,-307349,-66886,-32324,-15164
+ "44000","Rhode Island",1,SAGDP5,71,"621","    Ambulatory health care services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-218322,-176696,-23950,-3618,-1965
+ "44000","Rhode Island",1,SAGDP5,72,"622","    Hospitals ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,-2928,-23128,-13199,-16315,-14827,-8615,-4815,-1658,-50,-50,-47680,-28713,-14659,-2254,-1161
+ "44000","Rhode Island",1,SAGDP5,73,"623","    Nursing and residential care facilities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-39659,-47680,-2737,-410,-250
+ "44000","Rhode Island",1,SAGDP5,74,"624","    Social assistance ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-21044,-54260,-25540,-26042,-11788
+ "44000","Rhode Island",1,SAGDP5,75,"71,72","  Arts, entertainment, recreation, accommodation, and food services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-201707,-422238,-5148,0,0
+ "44000","Rhode Island",1,SAGDP5,76,"71","   Arts, entertainment, and recreation ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-23373,-42672,-4881,0,0
+ "44000","Rhode Island",1,SAGDP5,77,"711-712","    Performing arts, spectator sports, museums, and related activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-6867,-23714,-4857,0,0
+ "44000","Rhode Island",1,SAGDP5,78,"713","    Amusement, gambling, and recreation industries ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-16507,-18957,-25,0,0
+ "44000","Rhode Island",1,SAGDP5,79,"72","   Accommodation and food services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-178334,-379567,-267,0,0
+ "44000","Rhode Island",1,SAGDP5,80,"721","    Accommodation ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-51888,-69166,-88,0,0
+ "44000","Rhode Island",1,SAGDP5,81,"722","    Food services and drinking places ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-126446,-310400,-179,0,0
+ "44000","Rhode Island",1,SAGDP5,82,"81","  Other services (except government and government enterprises) ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-56131,-73507,-122,0,0
+ "44000","Rhode Island",1,SAGDP5,83,"92"," Government and government enterprises ","Thousands of dollars",-48837,-39509,-40393,-39045,-42472,-52176,-56099,-59507,-69521,-70704,-65800,-67363,-74341,-72984,-73851,-70466,-70369,-72806,-75674,-91686,-71661,-77304,-78292,-130912,-131066,-250176,-190973,-201495
+ "44000","Rhode Island",1,SAGDP5,84,"...","  Federal civilian ","Thousands of dollars",-14,-29,-42,-61,-48,-57,-36,-42,-45,-45,-49,-55,-57,-37,-43,-53,-72,-84,-53,-59,-63,-70,-71,-86,-90,-88,-106,-85
+ "44000","Rhode Island",1,SAGDP5,85,"...","  Military ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+ "44000","Rhode Island",1,SAGDP5,86,"...","  State and local ","Thousands of dollars",-48823,-39480,-40351,-38984,-42424,-52120,-56063,-59464,-69477,-70659,-65751,-67309,-74283,-72947,-73808,-70413,-70297,-72722,-75621,-91626,-71597,-77234,-78221,-130826,-130976,-250088,-190867,-201411
+ "44000","Rhode Island",1,SAGDP5,87,"11,21","Natural resources and mining ","Thousands of dollars",-103,-142,-757,-1047,-260,-565,-929,-1279,-4135,-2201,-8802,-3069,-5431,-5403,-3281,-3177,-1765,-1573,-3415,-1346,-2483,-1996,-1977,-19556,-12009,-4144,-8357,-6363
+ "44000","Rhode Island",1,SAGDP5,88,"42,44-45","Trade ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-8973,-968,-9,0,0,0,0,0,0,0,0,-210162,-176117,-255,0,0
+ "44000","Rhode Island",1,SAGDP5,89,"22,48-49","Transportation and utilities ","Thousands of dollars",-10194,-7676,-8723,-9571,-25742,-16351,-23735,-21265,-23061,-24503,-22610,-27898,-35904,-42139,-32386,-20915,-19469,-18991,-20061,-20939,-25850,-29686,-25682,-104965,-135565,-43228,-81325,-53419
+ "44000","Rhode Island",1,SAGDP5,90,"31-33,51","Manufacturing and information ","Thousands of dollars",0,0,0,0,0,0,0,0,0,-86,-44,-810,-1474,-1600,-4010,-4639,-2913,-1631,-1510,-1057,-1063,-1003,-1025,-189273,-148808,-1708,-1102,-1418
+ "44000","Rhode Island",1,SAGDP5,91,"...","Private goods-producing industries 2/","Thousands of dollars",-103,-142,-757,-1047,-260,-565,-929,-1279,-4135,-2287,-8846,-3878,-6786,-6686,-6012,-6032,-3767,-2979,-4708,-2414,-3521,-2988,-2989,-389040,-238784,-5331,-9459,-7781
+ "44000","Rhode Island",1,SAGDP5,92,"...","Private services-providing industries 3/","Thousands of dollars",-55881,-55459,-58521,-58537,-73373,-65639,-78744,-79636,-93936,-85475,-77877,-83085,-106966,-107752,-119968,-100159,-101920,-95939,-88958,-89018,-92874,-87281,-89612,-1340093,-1451086,-192913,-197631,-158835
+"Note: See the included footnote file."
+"SAGDP5: Subsidies 1."
+"Last updated: September 26, 2025-- new statistics for 2024; revised statistics for 2020-2023."
+"U.S. Bureau of Economic Analysis"

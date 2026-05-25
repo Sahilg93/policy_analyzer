@@ -1,0 +1,97 @@
+GeoFIPS,GeoName,Region,TableName,LineCode,IndustryClassification,Description,Unit,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024
+ "10000","Delaware",2,SAGDP5,1,"...","All industry total ","Thousands of dollars",-94069,-93443,-107490,-107275,-112626,-116701,-126634,-131141,-161633,-144632,-136087,-152356,-174859,-232817,-239940,-216983,-225916,-211054,-179251,-190195,-188794,-185516,-194228,-1830012,-1743725,-403024,-357649,-313796
+ "10000","Delaware",2,SAGDP5,2,"..."," Private industries ","Thousands of dollars",-60094,-63848,-77502,-80758,-82338,-78235,-85456,-89693,-118953,-101307,-93180,-105607,-124706,-178446,-181852,-161199,-168598,-154510,-126351,-131507,-132122,-122178,-130053,-1720019,-1621725,-245057,-235710,-189276
+ "10000","Delaware",2,SAGDP5,3,"11","  Agriculture, forestry, fishing and hunting ","Thousands of dollars",-4856,-9227,-17141,-21583,-22361,-10374,-15880,-13825,-25314,-18875,-17648,-20632,-13527,-20662,-17796,-12687,-12398,-6234,-7183,-15491,-19405,-15617,-34566,-49343,-35849,-20230,-9823,-7621
+ "10000","Delaware",2,SAGDP5,4,"111-112","   Farms ","Thousands of dollars",-4856,-9227,-17141,-21583,-22361,-10374,-15880,-13825,-25314,-18875,-17648,-20632,-13527,-20662,-17796,-12687,-12398,-6234,-7183,-15491,-19405,-15617,-34566,-47570,-34762,-20228,-9823,-7621
+ "10000","Delaware",2,SAGDP5,5,"113-115","   Forestry, fishing, and related activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1773,-1088,-2,0,0
+ "10000","Delaware",2,SAGDP5,6,"21","  Mining, quarrying, and oil and gas extraction ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-19,-161,0,0,0
+ "10000","Delaware",2,SAGDP5,7,"211","   Oil and gas extraction ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+ "10000","Delaware",2,SAGDP5,8,"212","   Mining (except oil and gas) ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-19,-161,0,0,0
+ "10000","Delaware",2,SAGDP5,9,"213","   Support activities for mining ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+ "10000","Delaware",2,SAGDP5,10,"22","  Utilities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-776,-3156,-45,0,0
+ "10000","Delaware",2,SAGDP5,11,"23","  Construction ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-208917,-98133,-187,0,0
+ "10000","Delaware",2,SAGDP5,12,"31-33","  Manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,-30,-17,-392,-1076,-2899,-3970,-1759,-780,-1122,-971,-565,-606,-561,-752,-70429,-92046,-859,-1069,-1359
+ "10000","Delaware",2,SAGDP5,13,"321,327-339","   Durable goods manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,-372,-934,-2685,-3320,-1168,-556,-521,-820,-437,-481,-426,-621,-36610,-37368,-666,-841,-1037
+ "10000","Delaware",2,SAGDP5,14,"321","    Wood product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-570,-10833,-7,0,0
+ "10000","Delaware",2,SAGDP5,15,"327","    Nonmetallic mineral product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-3656,-1496,0,0,0
+ "10000","Delaware",2,SAGDP5,16,"331","    Primary metal manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-504,-1978,0,0,0
+ "10000","Delaware",2,SAGDP5,17,"332","    Fabricated metal product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-5617,-6319,-4,0,0
+ "10000","Delaware",2,SAGDP5,18,"333","    Machinery manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-4466,-3286,-2,0,0
+ "10000","Delaware",2,SAGDP5,19,"334","    Computer and electronic product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-12526,-3766,-1,0,0
+ "10000","Delaware",2,SAGDP5,20,"335","    Electrical equipment, appliance, and component manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,-372,-934,-2685,-3320,-1168,-556,-521,-820,-437,-481,-426,-621,-743,-1740,-650,-841,-1037
+ "10000","Delaware",2,SAGDP5,21,"3361-3363","    Motor vehicles, bodies and trailers, and parts manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-43,-572,0,0,0
+ "10000","Delaware",2,SAGDP5,22,"3364-3466,3369","    Other transportation equipment manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1653,-3067,0,0,0
+ "10000","Delaware",2,SAGDP5,23,"337","    Furniture and related product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1981,-866,-1,0,0
+ "10000","Delaware",2,SAGDP5,24,"339","    Miscellaneous manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-4851,-3445,-3,0,0
+ "10000","Delaware",2,SAGDP5,25,"311-316,322-326","   Nondurable goods manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,-30,-17,-20,-142,-214,-650,-591,-225,-601,-151,-128,-125,-135,-131,-33820,-54678,-193,-229,-322
+ "10000","Delaware",2,SAGDP5,26,"311-312","    Food and beverage and tobacco product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-19472,-32923,-2,0,0
+ "10000","Delaware",2,SAGDP5,27,"313-314","    Textile mills and textile product mills ","Thousands of dollars",0,0,0,0,0,0,0,0,0,-30,-17,-20,-29,-18,-17,-17,-16,-16,-91,-97,-93,-100,-96,-461,-730,-81,-88,-82
+ "10000","Delaware",2,SAGDP5,28,"315-316","    Apparel, leather, and allied product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-650,-830,0,0,0
+ "10000","Delaware",2,SAGDP5,29,"322","    Paper manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-181,-731,0,0,0
+ "10000","Delaware",2,SAGDP5,30,"323","    Printing and related support activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-5643,-4834,-2,0,0
+ "10000","Delaware",2,SAGDP5,31,"324","    Petroleum and coal products manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-46,-116,-50,-468,-110,-492,0,0,0,0,0,-829,-3266,0,0,0
+ "10000","Delaware",2,SAGDP5,32,"325","    Chemical manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-67,-80,-582,-106,-99,-93,-60,-31,-33,-35,-35,-4824,-9299,-105,-141,-240
+ "10000","Delaware",2,SAGDP5,33,"326","    Plastics and rubber products manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1759,-2064,-2,0,0
+ "10000","Delaware",2,SAGDP5,34,"42","  Wholesale trade ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-39171,-30949,-35,0,0
+ "10000","Delaware",2,SAGDP5,35,"44-45","  Retail trade ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-9517,-1014,-10,0,0,0,0,0,0,0,0,-157230,-165034,-259,0,0
+ "10000","Delaware",2,SAGDP5,36,"48-49","  Transportation and warehousing ","Thousands of dollars",-17922,-14334,-17147,-17484,-16393,-22657,-21201,-24508,-27198,-24717,-20743,-24873,-30280,-36688,-27780,-17716,-17410,-16368,-17081,-17235,-20876,-23842,-20470,-100985,-84482,-56486,-56925,-46921
+ "10000","Delaware",2,SAGDP5,37,"481","   Air transportation ","Thousands of dollars",-3,0,0,0,-780,-25,-390,-3,-9,-14,-15,-22,-27,-32,-37,-40,-36,-34,-37,-2,-2,-2,-3,-32,-448,-5,-17,-9
+ "10000","Delaware",2,SAGDP5,38,"482","   Rail transportation ","Thousands of dollars",-17891,-14322,-17141,-17470,-15548,-22493,-20715,-24233,-27036,-24465,-20598,-24758,-30132,-36606,-27684,-17549,-17337,-16316,-17031,-17171,-20848,-23827,-20459,-40138,-48307,-56336,-56894,-46908
+ "10000","Delaware",2,SAGDP5,39,"483","   Water transportation ","Thousands of dollars",-28,-12,-7,-14,-65,-139,-90,-232,-120,-154,-110,-72,-112,-50,-59,-127,-37,-18,-12,-62,-25,-13,-8,-94,-927,-11,-14,-4
+ "10000","Delaware",2,SAGDP5,40,"484","   Truck transportation ","Thousands of dollars",0,0,0,0,0,0,-6,-41,-33,-83,-21,-21,-9,0,0,0,0,0,0,0,0,0,0,-17385,-8865,-47,0,0
+ "10000","Delaware",2,SAGDP5,41,"485","   Transit and ground passenger transportation ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-4401,-11098,-37,0,0
+ "10000","Delaware",2,SAGDP5,42,"486","   Pipeline transportation ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-11,-6,0,0,0
+ "10000","Delaware",2,SAGDP5,43,"487-488,492","   Other transportation and support activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-34065,-8700,-36,0,0
+ "10000","Delaware",2,SAGDP5,44,"493","   Warehousing and storage ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-4859,-6130,-15,0,0
+ "10000","Delaware",2,SAGDP5,45,"51","  Information ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-86,-230,-915,-1286,-642,-135,-131,7,-15,-7,-8,-24864,-16590,-179,0,0
+ "10000","Delaware",2,SAGDP5,46,"511","   Publishing industries (except Internet) ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-10100,-8894,-27,0,0
+ "10000","Delaware",2,SAGDP5,47,"512","   Motion picture and sound recording industries ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2744,-3035,-143,0,0
+ "10000","Delaware",2,SAGDP5,48,"515,517","   Broadcasting (except Internet) and telecommunications ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-86,-230,-915,-1286,-642,-135,-131,7,-15,-7,-8,-1669,-2460,-4,0,0
+ "10000","Delaware",2,SAGDP5,49,"518-519","   Data processing, hosting, and other information services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-10351,-2201,-5,0,0
+ "10000","Delaware",2,SAGDP5,50,"52,53","  Finance, insurance, real estate, rental, and leasing ","Thousands of dollars",-37316,-40288,-43213,-41691,-43584,-45205,-48374,-51359,-66441,-57685,-54772,-59710,-70220,-114390,-109797,-114887,-120715,-114514,-91221,-92428,-89192,-82084,-74189,-188205,-195657,-99320,-137335,-118151
+ "10000","Delaware",2,SAGDP5,51,"52","   Finance and insurance ","Thousands of dollars",-1905,-2106,-3115,-2789,-5668,-6173,-2468,-1871,-2500,-2210,-1798,-8114,-13198,-60237,-52602,-57731,-63248,-58221,-36082,-31780,-24352,-18976,-9479,-54064,-67928,-20284,-50851,-8636
+ "10000","Delaware",2,SAGDP5,52,"521-522","    Monetary Authorities- central bank, credit intermediation, and related services ","Thousands of dollars",-1905,-2106,-3115,-2789,-5668,-6173,-2468,-1871,-2500,-2210,-1798,-8114,-13198,-60237,-52602,-57731,-63248,-58221,-36082,-31780,-24352,-18976,-9479,-30321,-53647,-20257,-50851,-8636
+ "10000","Delaware",2,SAGDP5,53,"523","    Securities, commodity contracts, and other financial investments and related activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-10327,-7010,-6,-1,0
+ "10000","Delaware",2,SAGDP5,54,"524","    Insurance carriers and related activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-12346,-6895,-21,0,0
+ "10000","Delaware",2,SAGDP5,55,"525","    Funds, trusts, and other financial vehicles ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1070,-376,0,0,0
+ "10000","Delaware",2,SAGDP5,56,"53","   Real estate and rental and leasing ","Thousands of dollars",-35411,-38181,-40099,-38902,-37915,-39032,-45907,-49488,-63941,-55475,-52975,-51596,-57022,-54153,-57195,-57156,-57467,-56293,-55139,-60649,-64840,-63108,-64709,-134142,-127729,-79036,-86484,-109515
+ "10000","Delaware",2,SAGDP5,57,"531","    Real estate ","Thousands of dollars",-35411,-38181,-40099,-38902,-37915,-39032,-45907,-49488,-63941,-55475,-52975,-51596,-57022,-54153,-57195,-57156,-57467,-56293,-55139,-60649,-64840,-63108,-64709,-126991,-121753,-79018,-86484,-109515
+ "10000","Delaware",2,SAGDP5,58,"532-533","    Rental and leasing services and lessors of nonfinancial intangible assets ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-7151,-5977,-18,0,0
+ "10000","Delaware",2,SAGDP5,59,"54,55,56","  Professional and business services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-272624,-137386,-194,-80,-9
+ "10000","Delaware",2,SAGDP5,60,"54","   Professional, scientific, and technical services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-190882,-88822,-138,0,0
+ "10000","Delaware",2,SAGDP5,61,"5411","    Legal services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-41440,-12399,-16,0,0
+ "10000","Delaware",2,SAGDP5,62,"5415","    Computer systems design and related services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-37434,-15442,-24,0,0
+ "10000","Delaware",2,SAGDP5,63,"5412-5414,5416-5419","    Miscellaneous professional, scientific, and technical services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-112009,-60981,-99,0,0
+ "10000","Delaware",2,SAGDP5,64,"55","   Management of companies and enterprises ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-11482,-6985,-25,-80,-9
+ "10000","Delaware",2,SAGDP5,65,"56","   Administrative and support and waste management and remediation services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-70260,-41578,-31,0,0
+ "10000","Delaware",2,SAGDP5,66,"561","    Administrative and support services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-62900,-39820,-30,0,0
+ "10000","Delaware",2,SAGDP5,67,"562","    Waste management and remediation services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-7360,-1758,-1,0,0
+ "10000","Delaware",2,SAGDP5,68,"61,62","  Educational services, health care, and social assistance ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,-2563,-21585,-12865,-16652,-16137,-9765,-5794,-2029,-67,-68,-348356,-295108,-62541,-30477,-15215
+ "10000","Delaware",2,SAGDP5,69,"61","   Educational services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-18693,-19581,-47,0,0
+ "10000","Delaware",2,SAGDP5,70,"62","   Health care and social assistance ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,-2563,-21585,-12865,-16652,-16137,-9765,-5794,-2029,-67,-68,-329663,-275527,-62495,-30477,-15215
+ "10000","Delaware",2,SAGDP5,71,"621","    Ambulatory health care services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-216447,-162432,-19170,-2888,-1744
+ "10000","Delaware",2,SAGDP5,72,"622","    Hospitals ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,-2563,-21585,-12865,-16652,-16137,-9765,-5794,-2029,-67,-68,-52066,-32584,-16344,-2513,-1889
+ "10000","Delaware",2,SAGDP5,73,"623","    Nursing and residential care facilities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-35593,-23857,-2035,-301,-183
+ "10000","Delaware",2,SAGDP5,74,"624","    Social assistance ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-25558,-56654,-24946,-24775,-11398
+ "10000","Delaware",2,SAGDP5,75,"71,72","  Arts, entertainment, recreation, accommodation, and food services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-186559,-385813,-4538,0,0
+ "10000","Delaware",2,SAGDP5,76,"71","   Arts, entertainment, and recreation ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-22081,-47537,-4290,0,0
+ "10000","Delaware",2,SAGDP5,77,"711-712","    Performing arts, spectator sports, museums, and related activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-4803,-22534,-4262,0,0
+ "10000","Delaware",2,SAGDP5,78,"713","    Amusement, gambling, and recreation industries ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-17278,-25004,-28,0,0
+ "10000","Delaware",2,SAGDP5,79,"72","   Accommodation and food services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-164478,-338276,-247,0,0
+ "10000","Delaware",2,SAGDP5,80,"721","    Accommodation ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-25300,-46027,-56,0,0
+ "10000","Delaware",2,SAGDP5,81,"722","    Food services and drinking places ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-139178,-292249,-191,0,0
+ "10000","Delaware",2,SAGDP5,82,"81","  Other services (except government and government enterprises) ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-72541,-81362,-184,0,0
+ "10000","Delaware",2,SAGDP5,83,"92"," Government and government enterprises ","Thousands of dollars",-33976,-29595,-29988,-26517,-30288,-38466,-41178,-41448,-42680,-43325,-42907,-46749,-50153,-54371,-58088,-55784,-57318,-56544,-52900,-58688,-56672,-63338,-64175,-109992,-122000,-157968,-121939,-124520
+ "10000","Delaware",2,SAGDP5,84,"...","  Federal civilian ","Thousands of dollars",-678,-641,-682,-972,-1134,-1464,-3121,-2508,-2681,-2898,-4040,-6057,-6661,-4733,-6560,-6360,-8007,-7801,-6053,-5785,-6086,-5459,-6111,-6122,-8167,-9919,-8435,-5159
+ "10000","Delaware",2,SAGDP5,85,"...","  Military ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+ "10000","Delaware",2,SAGDP5,86,"...","  State and local ","Thousands of dollars",-33298,-28953,-29306,-25545,-29155,-37002,-38057,-38940,-39999,-40428,-38866,-40693,-43492,-49638,-51528,-49425,-49311,-48743,-46846,-52903,-50586,-57880,-58064,-103871,-113833,-148049,-113504,-119361
+ "10000","Delaware",2,SAGDP5,87,"11,21","Natural resources and mining ","Thousands of dollars",-4856,-9227,-17141,-21583,-22361,-10374,-15880,-13825,-25314,-18875,-17648,-20632,-13527,-20662,-17796,-12687,-12398,-6234,-7183,-15491,-19405,-15617,-34566,-49362,-36010,-20231,-9823,-7621
+ "10000","Delaware",2,SAGDP5,88,"42,44-45","Trade ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-9517,-1014,-10,0,0,0,0,0,0,0,0,-196400,-195983,-294,0,0
+ "10000","Delaware",2,SAGDP5,89,"22,48-49","Transportation and utilities ","Thousands of dollars",-17922,-14334,-17147,-17484,-16393,-22657,-21201,-24508,-27198,-24717,-20743,-24873,-30280,-36688,-27780,-17716,-17410,-16368,-17081,-17235,-20876,-23842,-20470,-101761,-87638,-56530,-56925,-46921
+ "10000","Delaware",2,SAGDP5,90,"31-33,51","Manufacturing and information ","Thousands of dollars",0,0,0,0,0,0,0,0,0,-30,-17,-392,-1162,-3129,-4885,-3044,-1422,-1258,-1102,-558,-621,-568,-760,-95293,-108636,-1038,-1069,-1359
+ "10000","Delaware",2,SAGDP5,91,"...","Private goods-producing industries 2/","Thousands of dollars",-4856,-9227,-17141,-21583,-22361,-10374,-15880,-13825,-25314,-18905,-17665,-21024,-14603,-23561,-21766,-14445,-13179,-7356,-8154,-16056,-20011,-16178,-35318,-328708,-226189,-21277,-10892,-8979
+ "10000","Delaware",2,SAGDP5,92,"...","Private services-providing industries 3/","Thousands of dollars",-55238,-54621,-60361,-59175,-59977,-67862,-69575,-75868,-93639,-82402,-75515,-84583,-110103,-154885,-160086,-146754,-155419,-147154,-118198,-115450,-112111,-105999,-94735,-1391311,-1395536,-223779,-224817,-180296
+"Note: See the included footnote file."
+"SAGDP5: Subsidies 1."
+"Last updated: September 26, 2025-- new statistics for 2024; revised statistics for 2020-2023."
+"U.S. Bureau of Economic Analysis"

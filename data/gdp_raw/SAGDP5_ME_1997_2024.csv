@@ -1,0 +1,97 @@
+GeoFIPS,GeoName,Region,TableName,LineCode,IndustryClassification,Description,Unit,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024
+ "23000","Maine",1,SAGDP5,1,"...","All industry total ","Thousands of dollars",-76974,-86819,-92608,-95356,-93558,-110272,-126534,-133081,-163103,-145809,-136709,-135514,-178509,-194481,-205863,-196416,-199243,-183676,-172314,-184234,-169833,-173352,-181938,-2425425,-2183711,-449741,-366179,-366126
+ "23000","Maine",1,SAGDP5,2,"..."," Private industries ","Thousands of dollars",-46231,-61805,-68223,-67989,-65147,-76399,-83902,-84771,-112676,-93783,-81899,-86798,-120370,-139071,-140289,-128397,-130561,-114465,-105116,-113342,-103156,-107003,-106703,-2290568,-2037190,-246643,-208659,-202278
+ "23000","Maine",1,SAGDP5,3,"11","  Agriculture, forestry, fishing and hunting ","Thousands of dollars",-3555,-5525,-10060,-11906,-6967,-11885,-10146,-9142,-18984,-12771,-11246,-12217,-17390,-41423,-14709,-18017,-14172,-12090,-10526,-13085,-11719,-14739,-14548,-135287,-79739,-19129,-20372,-17278
+ "23000","Maine",1,SAGDP5,4,"111-112","   Farms ","Thousands of dollars",-3555,-5525,-10060,-11906,-6967,-11885,-10146,-9142,-18984,-12771,-11246,-12217,-17390,-41423,-14709,-18017,-14172,-12090,-10526,-13085,-11719,-14739,-14548,-91583,-44509,-19061,-20372,-17278
+ "23000","Maine",1,SAGDP5,5,"113-115","   Forestry, fishing, and related activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-43703,-35231,-68,0,0
+ "23000","Maine",1,SAGDP5,6,"21","  Mining, quarrying, and oil and gas extraction ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2847,-1519,-6,0,0
+ "23000","Maine",1,SAGDP5,7,"211","   Oil and gas extraction ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+ "23000","Maine",1,SAGDP5,8,"212","   Mining (except oil and gas) ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2847,-1519,-6,0,0
+ "23000","Maine",1,SAGDP5,9,"213","   Support activities for mining ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+ "23000","Maine",1,SAGDP5,10,"22","  Utilities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-4184,-1882,-19,0,0
+ "23000","Maine",1,SAGDP5,11,"23","  Construction ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-193281,-120838,-226,0,0
+ "23000","Maine",1,SAGDP5,12,"31-33","  Manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,-55,-26,-136,-285,-725,-787,-614,-285,-349,-322,-318,-358,-328,-377,-270654,-211194,-491,-500,-593
+ "23000","Maine",1,SAGDP5,13,"321,327-339","   Durable goods manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,-107,-210,-531,-543,-353,-172,-128,-129,-115,-127,-131,-179,-166859,-105248,-276,-291,-380
+ "23000","Maine",1,SAGDP5,14,"321","    Wood product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-13524,-10097,-10,0,0
+ "23000","Maine",1,SAGDP5,15,"327","    Nonmetallic mineral product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-8265,-3800,0,0,0
+ "23000","Maine",1,SAGDP5,16,"331","    Primary metal manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-10776,-302,0,0,0
+ "23000","Maine",1,SAGDP5,17,"332","    Fabricated metal product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-24308,-8205,-4,0,0
+ "23000","Maine",1,SAGDP5,18,"333","    Machinery manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-31788,-12274,-7,0,0
+ "23000","Maine",1,SAGDP5,19,"334","    Computer and electronic product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-5739,-9677,-5,0,0
+ "23000","Maine",1,SAGDP5,20,"335","    Electrical equipment, appliance, and component manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,-107,-210,-531,-543,-353,-172,-128,-129,-115,-127,-131,-179,-431,-1213,-245,-291,-380
+ "23000","Maine",1,SAGDP5,21,"3361-3363","    Motor vehicles, bodies and trailers, and parts manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-38759,-11369,-1,0,0
+ "23000","Maine",1,SAGDP5,22,"3364-3466,3369","    Other transportation equipment manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-24524,-40991,0,0,0
+ "23000","Maine",1,SAGDP5,23,"337","    Furniture and related product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2631,-1769,-1,0,0
+ "23000","Maine",1,SAGDP5,24,"339","    Miscellaneous manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-6116,-5552,-4,0,0
+ "23000","Maine",1,SAGDP5,25,"311-316,322-326","   Nondurable goods manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,-55,-26,-29,-74,-194,-244,-261,-113,-222,-193,-203,-230,-197,-198,-103796,-105946,-215,-209,-213
+ "23000","Maine",1,SAGDP5,26,"311-312","    Food and beverage and tobacco product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-34972,-32447,-7,0,0
+ "23000","Maine",1,SAGDP5,27,"313-314","    Textile mills and textile product mills ","Thousands of dollars",0,0,0,0,0,0,0,0,0,-55,-26,-29,-31,-22,-21,-23,-26,-27,-173,-177,-194,-168,-175,-2249,-2168,-154,-168,-147
+ "23000","Maine",1,SAGDP5,28,"315-316","    Apparel, leather, and allied product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1551,-2415,-5,0,0
+ "23000","Maine",1,SAGDP5,29,"322","    Paper manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-29821,-37001,0,0,0
+ "23000","Maine",1,SAGDP5,30,"323","    Printing and related support activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-17637,-13721,-7,0,0
+ "23000","Maine",1,SAGDP5,31,"324","    Petroleum and coal products manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-24,-145,-38,-155,-18,-116,0,0,0,0,0,-1164,-2049,0,0,0
+ "23000","Maine",1,SAGDP5,32,"325","    Chemical manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-19,-27,-186,-83,-69,-78,-20,-26,-36,-29,-22,-15054,-10598,-39,-40,-66
+ "23000","Maine",1,SAGDP5,33,"326","    Plastics and rubber products manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1348,-5545,-4,0,0
+ "23000","Maine",1,SAGDP5,34,"42","  Wholesale trade ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-104599,-32003,-27,0,0
+ "23000","Maine",1,SAGDP5,35,"44-45","  Retail trade ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-15137,-1604,-15,0,0,0,0,0,0,0,0,-241735,-250419,-393,0,0
+ "23000","Maine",1,SAGDP5,36,"48-49","  Transportation and warehousing ","Thousands of dollars",-180,-73,-35,-82,-3809,-7053,-7666,-6562,-6784,-8065,-6607,-9219,-12018,-14891,-12508,-12140,-12436,-11802,-11047,-10957,-13942,-16996,-14433,-94411,-66459,-19633,-17167,-23137
+ "23000","Maine",1,SAGDP5,37,"481","   Air transportation ","Thousands of dollars",-14,1,0,-1,-3544,-113,-1773,-12,-43,-66,-66,-99,-121,-145,-166,-183,-165,-154,-169,-149,-183,-238,-255,-30191,-18945,-594,-388,-293
+ "23000","Maine",1,SAGDP5,38,"482","   Rail transportation ","Thousands of dollars",0,0,0,0,0,-6348,-5398,-5273,-6063,-6999,-5973,-8832,-11562,-14628,-12219,-11750,-12226,-11627,-10866,-10762,-13746,-16750,-14172,-12621,-23532,-18966,-16769,-22842
+ "23000","Maine",1,SAGDP5,39,"483","   Water transportation ","Thousands of dollars",-166,-74,-35,-81,-265,-592,-483,-1193,-597,-783,-513,-228,-308,-118,-123,-207,-45,-21,-12,-45,-13,-9,-6,-297,-479,-6,-10,-3
+ "23000","Maine",1,SAGDP5,40,"484","   Truck transportation ","Thousands of dollars",0,0,0,0,0,0,-13,-85,-81,-218,-55,-60,-27,0,0,0,0,0,0,0,0,0,0,-35380,-9591,-38,0,0
+ "23000","Maine",1,SAGDP5,41,"485","   Transit and ground passenger transportation ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-3712,-7412,-19,0,0
+ "23000","Maine",1,SAGDP5,42,"486","   Pipeline transportation ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-11,-36,0,0,0
+ "23000","Maine",1,SAGDP5,43,"487-488,492","   Other transportation and support activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-8679,-4291,-10,0,0
+ "23000","Maine",1,SAGDP5,44,"493","   Warehousing and storage ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-3520,-2174,-1,0,0
+ "23000","Maine",1,SAGDP5,45,"51","  Information ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-70,-203,-879,-1205,-639,-144,-153,8,-17,-9,-10,-16042,-14631,-450,0,0
+ "23000","Maine",1,SAGDP5,46,"511","   Publishing industries (except Internet) ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-5860,-5315,-13,0,0
+ "23000","Maine",1,SAGDP5,47,"512","   Motion picture and sound recording industries ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2269,-3326,-427,0,0
+ "23000","Maine",1,SAGDP5,48,"515,517","   Broadcasting (except Internet) and telecommunications ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-70,-203,-879,-1205,-639,-144,-153,8,-17,-9,-10,-4782,-4384,-8,0,0
+ "23000","Maine",1,SAGDP5,49,"518-519","   Data processing, hosting, and other information services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-3130,-1605,-2,0,0
+ "23000","Maine",1,SAGDP5,50,"52,53","  Finance, insurance, real estate, rental, and leasing ","Thousands of dollars",-42497,-56207,-58128,-56002,-54370,-57462,-66089,-69066,-86908,-72892,-64021,-65226,-75470,-76368,-79709,-77597,-79883,-68512,-70370,-81851,-74607,-74854,-77258,-205817,-183064,-100126,-119685,-138057
+ "23000","Maine",1,SAGDP5,51,"52","   Finance and insurance ","Thousands of dollars",-60,-43,-57,-101,-91,-342,-163,-92,-119,-67,-13,-74,-488,-1130,-674,-341,-379,-326,-19,-365,-1057,-1168,-937,-33648,-23812,-2182,-10614,-1996
+ "23000","Maine",1,SAGDP5,52,"521-522","    Monetary Authorities- central bank, credit intermediation, and related services ","Thousands of dollars",-60,-43,-57,-101,-91,-342,-163,-92,-119,-67,-13,-74,-488,-1130,-674,-341,-379,-326,-19,-365,-1057,-1168,-937,-6892,-11348,-2165,-10599,-1995
+ "23000","Maine",1,SAGDP5,53,"523","    Securities, commodity contracts, and other financial investments and related activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-12984,-2046,-7,-16,-1
+ "23000","Maine",1,SAGDP5,54,"524","    Insurance carriers and related activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-13432,-10163,-10,0,0
+ "23000","Maine",1,SAGDP5,55,"525","    Funds, trusts, and other financial vehicles ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-340,-255,0,0,0
+ "23000","Maine",1,SAGDP5,56,"53","   Real estate and rental and leasing ","Thousands of dollars",-42436,-56164,-58071,-55901,-54279,-57120,-65926,-68974,-86789,-72825,-64008,-65152,-74982,-75238,-79035,-77256,-79503,-68186,-70351,-81486,-73550,-73686,-76321,-172168,-159252,-97944,-109070,-136061
+ "23000","Maine",1,SAGDP5,57,"531","    Real estate ","Thousands of dollars",-42436,-56164,-58071,-55901,-54279,-57120,-65926,-68974,-86789,-72825,-64008,-65152,-74982,-75238,-79035,-77256,-79503,-68186,-70351,-81486,-73550,-73686,-76321,-168478,-153020,-97937,-109070,-136061
+ "23000","Maine",1,SAGDP5,58,"532-533","    Rental and leasing services and lessors of nonfinancial intangible assets ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-3690,-6232,-7,0,0
+ "23000","Maine",1,SAGDP5,59,"54,55,56","  Professional and business services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-306146,-122083,-144,-114,-15
+ "23000","Maine",1,SAGDP5,60,"54","   Professional, scientific, and technical services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-216071,-69746,-98,0,0
+ "23000","Maine",1,SAGDP5,61,"5411","    Legal services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-49656,-13548,-21,0,0
+ "23000","Maine",1,SAGDP5,62,"5415","    Computer systems design and related services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-26035,-11754,-15,0,0
+ "23000","Maine",1,SAGDP5,63,"5412-5414,5416-5419","    Miscellaneous professional, scientific, and technical services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-140381,-44444,-61,0,0
+ "23000","Maine",1,SAGDP5,64,"55","   Management of companies and enterprises ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-11463,-9141,-13,-114,-15
+ "23000","Maine",1,SAGDP5,65,"56","   Administrative and support and waste management and remediation services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-78612,-43196,-33,0,0
+ "23000","Maine",1,SAGDP5,66,"561","    Administrative and support services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-71591,-37326,-27,0,0
+ "23000","Maine",1,SAGDP5,67,"562","    Waste management and remediation services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-7022,-5870,-6,0,0
+ "23000","Maine",1,SAGDP5,68,"61,62","  Educational services, health care, and social assistance ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,-3858,-31682,-18824,-23146,-21568,-12698,-7138,-2513,-77,-77,-394793,-370503,-97892,-50821,-23199
+ "23000","Maine",1,SAGDP5,69,"61","   Educational services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-10618,-20049,-26,0,0
+ "23000","Maine",1,SAGDP5,70,"62","   Health care and social assistance ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,-3858,-31682,-18824,-23146,-21568,-12698,-7138,-2513,-77,-77,-384175,-350454,-97866,-50821,-23199
+ "23000","Maine",1,SAGDP5,71,"621","    Ambulatory health care services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-243444,-185432,-27775,-4203,-2683
+ "23000","Maine",1,SAGDP5,72,"622","    Hospitals ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,-3858,-31682,-18824,-23146,-21568,-12698,-7138,-2513,-77,-77,-64940,-40543,-20778,-3196,-1740
+ "23000","Maine",1,SAGDP5,73,"623","    Nursing and residential care facilities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-41824,-36622,-3727,-549,-330
+ "23000","Maine",1,SAGDP5,74,"624","    Social assistance ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-33967,-87857,-45586,-42874,-18445
+ "23000","Maine",1,SAGDP5,75,"71,72","  Arts, entertainment, recreation, accommodation, and food services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-243759,-506225,-8008,0,0
+ "23000","Maine",1,SAGDP5,76,"71","   Arts, entertainment, and recreation ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-25106,-53890,-7671,0,0
+ "23000","Maine",1,SAGDP5,77,"711-712","    Performing arts, spectator sports, museums, and related activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-6190,-30270,-7644,0,0
+ "23000","Maine",1,SAGDP5,78,"713","    Amusement, gambling, and recreation industries ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-18916,-23620,-27,0,0
+ "23000","Maine",1,SAGDP5,79,"72","   Accommodation and food services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-218653,-452335,-337,0,0
+ "23000","Maine",1,SAGDP5,80,"721","    Accommodation ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-57926,-91483,-106,0,0
+ "23000","Maine",1,SAGDP5,81,"722","    Food services and drinking places ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-160727,-360852,-231,0,0
+ "23000","Maine",1,SAGDP5,82,"81","  Other services (except government and government enterprises) ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-77014,-76632,-98,0,0
+ "23000","Maine",1,SAGDP5,83,"92"," Government and government enterprises ","Thousands of dollars",-30743,-25013,-24385,-27366,-28411,-33873,-42632,-48310,-50427,-52026,-54810,-48716,-58139,-55410,-65573,-68019,-68682,-69211,-67197,-70893,-66677,-66349,-75235,-134858,-146521,-203098,-157520,-163848
+ "23000","Maine",1,SAGDP5,84,"...","  Federal civilian ","Thousands of dollars",-1634,-1593,-2018,-2511,-2488,-2707,-3675,-2405,-3271,-3079,-2949,-3487,-4932,-3828,-3830,-5090,-7099,-8400,-6374,-6811,-7079,-7085,-6679,-7374,-7518,-7932,-8720,-6584
+ "23000","Maine",1,SAGDP5,85,"...","  Military ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+ "23000","Maine",1,SAGDP5,86,"...","  State and local ","Thousands of dollars",-29109,-23420,-22366,-24855,-25923,-31165,-38957,-45905,-47156,-48947,-51861,-45229,-53207,-51582,-61743,-62929,-61583,-60811,-60823,-64082,-59598,-59264,-68556,-127484,-139003,-195166,-148799,-157264
+ "23000","Maine",1,SAGDP5,87,"11,21","Natural resources and mining ","Thousands of dollars",-3555,-5525,-10060,-11906,-6967,-11885,-10146,-9142,-18984,-12771,-11246,-12217,-17390,-41423,-14709,-18017,-14172,-12090,-10526,-13085,-11719,-14739,-14548,-138133,-81258,-19135,-20372,-17278
+ "23000","Maine",1,SAGDP5,88,"42,44-45","Trade ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-15137,-1604,-15,0,0,0,0,0,0,0,0,-346334,-282422,-420,0,0
+ "23000","Maine",1,SAGDP5,89,"22,48-49","Transportation and utilities ","Thousands of dollars",-180,-73,-35,-82,-3809,-7053,-7666,-6562,-6784,-8065,-6607,-9219,-12018,-14891,-12508,-12140,-12436,-11802,-11047,-10957,-13942,-16996,-14433,-98595,-68341,-19652,-17167,-23137
+ "23000","Maine",1,SAGDP5,90,"31-33,51","Manufacturing and information ","Thousands of dollars",0,0,0,0,0,0,0,0,0,-55,-26,-136,-355,-927,-1666,-1819,-924,-493,-475,-310,-375,-337,-387,-286696,-225825,-942,-500,-593
+ "23000","Maine",1,SAGDP5,91,"...","Private goods-producing industries 2/","Thousands of dollars",-3555,-5525,-10060,-11906,-6967,-11885,-10146,-9142,-18984,-12826,-11272,-12353,-17675,-42147,-15495,-18631,-14458,-12439,-10849,-13404,-12077,-15067,-14924,-602068,-413290,-19852,-20872,-17871
+ "23000","Maine",1,SAGDP5,92,"...","Private services-providing industries 3/","Thousands of dollars",-42677,-56280,-58163,-56084,-58180,-64515,-73755,-75629,-93691,-80957,-70627,-74445,-102696,-96924,-124794,-109766,-116103,-102027,-94268,-99938,-91079,-91936,-91778,-1688500,-1623900,-226791,-187787,-184407
+"Note: See the included footnote file."
+"SAGDP5: Subsidies 1."
+"Last updated: September 26, 2025-- new statistics for 2024; revised statistics for 2020-2023."
+"U.S. Bureau of Economic Analysis"

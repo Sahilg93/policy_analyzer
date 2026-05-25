@@ -1,0 +1,97 @@
+GeoFIPS,GeoName,Region,TableName,LineCode,IndustryClassification,Description,Unit,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024
+ "16000","Idaho",7,SAGDP5,1,"...","All industry total ","Thousands of dollars",-147807,-232438,-250694,-293643,-263268,-223569,-226269,-228884,-284530,-227795,-209480,-235185,-269592,-270395,-251719,-253185,-273183,-233116,-221772,-279973,-304100,-470039,-336142,-4217580,-2927099,-613992,-476247,-432671
+ "16000","Idaho",7,SAGDP5,2,"..."," Private industries ","Thousands of dollars",-133667,-216424,-231703,-275576,-241234,-193316,-193577,-193885,-246588,-192816,-175271,-193735,-205930,-212682,-189668,-192012,-200198,-159096,-154782,-200752,-231254,-232338,-245485,-4069106,-2755829,-401201,-292330,-265318
+ "16000","Idaho",7,SAGDP5,3,"11","  Agriculture, forestry, fishing and hunting ","Thousands of dollars",-93635,-169205,-181906,-227009,-185040,-143335,-131002,-130745,-163895,-120297,-108058,-127420,-119044,-138878,-96033,-104308,-104624,-68825,-73401,-114705,-142408,-143211,-155359,-852711,-351374,-175915,-105208,-66938
+ "16000","Idaho",7,SAGDP5,4,"111-112","   Farms ","Thousands of dollars",-93635,-169205,-181906,-227009,-185040,-143335,-131002,-130745,-163895,-120297,-108058,-127420,-119044,-138878,-96033,-104308,-104624,-68825,-73401,-114705,-142408,-143211,-155359,-808902,-342359,-175899,-105208,-66938
+ "16000","Idaho",7,SAGDP5,5,"113-115","   Forestry, fishing, and related activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-43810,-9015,-16,0,0
+ "16000","Idaho",7,SAGDP5,6,"21","  Mining, quarrying, and oil and gas extraction ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-9354,-5630,-19,0,0
+ "16000","Idaho",7,SAGDP5,7,"211","   Oil and gas extraction ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-138,-697,-3,0,0
+ "16000","Idaho",7,SAGDP5,8,"212","   Mining (except oil and gas) ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-7666,-2987,-9,0,0
+ "16000","Idaho",7,SAGDP5,9,"213","   Support activities for mining ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1550,-1946,-7,0,0
+ "16000","Idaho",7,SAGDP5,10,"22","  Utilities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-3819,-5461,-89,0,0
+ "16000","Idaho",7,SAGDP5,11,"23","  Construction ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-500543,-245251,-472,0,0
+ "16000","Idaho",7,SAGDP5,12,"31-33","  Manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,-7,-3,-123,-465,-1594,-2271,-1915,-610,-501,-517,-756,-662,-663,-701,-340087,-226408,-2243,-2935,-4146
+ "16000","Idaho",7,SAGDP5,13,"321,327-339","   Durable goods manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,-118,-437,-1560,-2062,-1710,-529,-432,-465,-703,-611,-610,-661,-230863,-116646,-2144,-2846,-4018
+ "16000","Idaho",7,SAGDP5,14,"321","    Wood product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-42663,-11971,-15,0,0
+ "16000","Idaho",7,SAGDP5,15,"327","    Nonmetallic mineral product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-8149,-2745,0,0,0
+ "16000","Idaho",7,SAGDP5,16,"331","    Primary metal manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1557,-991,0,0,0
+ "16000","Idaho",7,SAGDP5,17,"332","    Fabricated metal product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-27032,-30655,-18,0,0
+ "16000","Idaho",7,SAGDP5,18,"333","    Machinery manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-69558,-13643,-7,0,0
+ "16000","Idaho",7,SAGDP5,19,"334","    Computer and electronic product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-6176,-11185,-2,0,0
+ "16000","Idaho",7,SAGDP5,20,"335","    Electrical equipment, appliance, and component manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,-118,-437,-1560,-2062,-1710,-529,-432,-465,-703,-611,-610,-661,-5816,-3304,-2089,-2846,-4018
+ "16000","Idaho",7,SAGDP5,21,"3361-3363","    Motor vehicles, bodies and trailers, and parts manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-35952,-18114,-1,0,0
+ "16000","Idaho",7,SAGDP5,22,"3364-3466,3369","    Other transportation equipment manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-6478,-5769,0,0,0
+ "16000","Idaho",7,SAGDP5,23,"337","    Furniture and related product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-9920,-8664,-6,0,0
+ "16000","Idaho",7,SAGDP5,24,"339","    Miscellaneous manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-17563,-9605,-6,0,0
+ "16000","Idaho",7,SAGDP5,25,"311-316,322-326","   Nondurable goods manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,-7,-3,-5,-28,-34,-210,-205,-81,-69,-52,-53,-51,-52,-40,-109223,-109762,-99,-89,-128
+ "16000","Idaho",7,SAGDP5,26,"311-312","    Food and beverage and tobacco product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-62191,-73558,-7,0,0
+ "16000","Idaho",7,SAGDP5,27,"313-314","    Textile mills and textile product mills ","Thousands of dollars",0,0,0,0,0,0,0,0,0,-7,-3,-5,-7,-6,-6,-7,-5,-6,-36,-38,-33,-34,-30,-1717,-1275,-31,-37,-37
+ "16000","Idaho",7,SAGDP5,28,"315-316","    Apparel, leather, and allied product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-5830,-1592,-2,0,0
+ "16000","Idaho",7,SAGDP5,29,"322","    Paper manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1119,-1483,0,0,0
+ "16000","Idaho",7,SAGDP5,30,"323","    Printing and related support activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-9310,-14592,-7,0,0
+ "16000","Idaho",7,SAGDP5,31,"324","    Petroleum and coal products manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-1,-9,-18,-129,-6,-26,0,0,0,0,0,-2539,-240,0,0,0
+ "16000","Idaho",7,SAGDP5,32,"325","    Chemical manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-20,-18,-186,-69,-70,-37,-16,-15,-18,-19,-10,-14249,-10653,-48,-53,-91
+ "16000","Idaho",7,SAGDP5,33,"326","    Plastics and rubber products manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-12270,-6368,-5,0,0
+ "16000","Idaho",7,SAGDP5,34,"42","  Wholesale trade ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-180666,-60313,-57,0,0
+ "16000","Idaho",7,SAGDP5,35,"44-45","  Retail trade ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-15015,-1578,-15,0,0,0,0,0,0,0,0,-303755,-326261,-522,0,0
+ "16000","Idaho",7,SAGDP5,36,"48-49","  Transportation and warehousing ","Thousands of dollars",-328,-104,-114,-127,-8670,-419,-4424,-301,-410,-680,-513,-552,-598,-646,-614,-769,-720,-672,-708,-608,-685,-723,-698,-184001,-83810,-2424,-1863,-2104
+ "16000","Idaho",7,SAGDP5,37,"481","   Air transportation ","Thousands of dollars",-34,2,0,-2,-8529,-271,-4266,-29,-103,-158,-159,-239,-290,-348,-400,-439,-397,-372,-407,-305,-368,-367,-428,-68342,-42916,-1519,-884,-886
+ "16000","Idaho",7,SAGDP5,38,"482","   Rail transportation ","Thousands of dollars",-251,-89,-105,-110,-114,-129,-129,-153,-189,-192,-248,-211,-257,-295,-204,-313,-320,-297,-298,-290,-314,-351,-266,-1782,-2312,-770,-972,-1216
+ "16000","Idaho",7,SAGDP5,39,"483","   Water transportation ","Thousands of dollars",-44,-16,-9,-16,-27,-18,-11,-2,-5,-22,-25,-14,-11,-4,-9,-17,-2,-3,-2,-13,-4,-5,-4,-221,-240,-4,-7,-2
+ "16000","Idaho",7,SAGDP5,40,"484","   Truck transportation ","Thousands of dollars",0,0,0,0,0,0,-17,-117,-113,-308,-81,-87,-39,0,0,0,0,0,0,0,0,0,0,-84824,-20097,-85,0,0
+ "16000","Idaho",7,SAGDP5,41,"485","   Transit and ground passenger transportation ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-11913,-10691,-27,0,0
+ "16000","Idaho",7,SAGDP5,42,"486","   Pipeline transportation ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-11,-49,0,0,0
+ "16000","Idaho",7,SAGDP5,43,"487-488,492","   Other transportation and support activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-14063,-5871,-16,0,0
+ "16000","Idaho",7,SAGDP5,44,"493","   Warehousing and storage ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2845,-1634,-2,0,0
+ "16000","Idaho",7,SAGDP5,45,"51","  Information ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-87,-240,-1048,-1497,-782,-190,-192,11,-25,-11,-14,-43407,-18403,-457,0,0
+ "16000","Idaho",7,SAGDP5,46,"511","   Publishing industries (except Internet) ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-26219,-7243,-18,0,0
+ "16000","Idaho",7,SAGDP5,47,"512","   Motion picture and sound recording industries ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2603,-3180,-423,0,0
+ "16000","Idaho",7,SAGDP5,48,"515,517","   Broadcasting (except Internet) and telecommunications ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-87,-240,-1048,-1497,-782,-190,-192,11,-25,-11,-14,-8794,-5248,-11,0,0
+ "16000","Idaho",7,SAGDP5,49,"518-519","   Data processing, hosting, and other information services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-5791,-2732,-5,0,0
+ "16000","Idaho",7,SAGDP5,50,"52,53","  Finance, insurance, real estate, rental, and leasing ","Thousands of dollars",-39704,-47115,-49683,-48440,-47525,-49562,-58152,-62839,-82284,-71832,-66696,-65640,-70721,-67443,-69551,-71301,-77330,-73318,-70442,-78847,-85738,-87672,-88654,-235580,-221870,-124737,-143379,-173757
+ "16000","Idaho",7,SAGDP5,51,"52","   Finance and insurance ","Thousands of dollars",-123,-132,-163,-166,-165,-166,-69,-48,-82,-64,-126,-175,-394,-773,-999,-1354,-1169,-1682,-1050,-1316,-1372,-1283,-512,-43177,-27804,-1554,-5226,-1053
+ "16000","Idaho",7,SAGDP5,52,"521-522","    Monetary Authorities- central bank, credit intermediation, and related services ","Thousands of dollars",-123,-132,-163,-166,-165,-166,-69,-48,-82,-64,-126,-175,-394,-773,-999,-1354,-1169,-1682,-1050,-1316,-1372,-1283,-512,-8392,-12000,-1522,-5207,-1051
+ "16000","Idaho",7,SAGDP5,53,"523","    Securities, commodity contracts, and other financial investments and related activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-12947,-3652,-11,-19,-2
+ "16000","Idaho",7,SAGDP5,54,"524","    Insurance carriers and related activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-20905,-11777,-21,0,0
+ "16000","Idaho",7,SAGDP5,55,"525","    Funds, trusts, and other financial vehicles ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-934,-376,0,0,0
+ "16000","Idaho",7,SAGDP5,56,"53","   Real estate and rental and leasing ","Thousands of dollars",-39581,-46983,-49519,-48274,-47359,-49396,-58083,-62791,-82201,-71768,-66570,-65466,-70327,-66670,-68551,-69947,-76161,-71636,-69392,-77531,-84366,-86389,-88142,-192402,-194066,-123183,-138153,-172704
+ "16000","Idaho",7,SAGDP5,57,"531","    Real estate ","Thousands of dollars",-39581,-46983,-49519,-48274,-47359,-49396,-58083,-62791,-82201,-71768,-66570,-65466,-70327,-66670,-68551,-69947,-76161,-71636,-69392,-77531,-84366,-86389,-88142,-184616,-184379,-123159,-138153,-172704
+ "16000","Idaho",7,SAGDP5,58,"532-533","    Rental and leasing services and lessors of nonfinancial intangible assets ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-7786,-9686,-24,0,0
+ "16000","Idaho",7,SAGDP5,59,"54,55,56","  Professional and business services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-391180,-190850,-257,-69,-9
+ "16000","Idaho",7,SAGDP5,60,"54","   Professional, scientific, and technical services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-256474,-123698,-185,0,0
+ "16000","Idaho",7,SAGDP5,61,"5411","    Legal services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-38171,-16715,-27,0,0
+ "16000","Idaho",7,SAGDP5,62,"5415","    Computer systems design and related services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-42354,-21876,-35,0,0
+ "16000","Idaho",7,SAGDP5,63,"5412-5414,5416-5419","    Miscellaneous professional, scientific, and technical services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-175949,-85108,-123,0,0
+ "16000","Idaho",7,SAGDP5,64,"55","   Management of companies and enterprises ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-4852,-6496,-33,-69,-9
+ "16000","Idaho",7,SAGDP5,65,"56","   Administrative and support and waste management and remediation services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-129853,-60656,-39,0,0
+ "16000","Idaho",7,SAGDP5,66,"561","    Administrative and support services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-116795,-55799,-36,0,0
+ "16000","Idaho",7,SAGDP5,67,"562","    Waste management and remediation services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-13058,-4857,-4,0,0
+ "16000","Idaho",7,SAGDP5,68,"61,62","  Educational services, health care, and social assistance ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,-2302,-20136,-12222,-16132,-15589,-9523,-5847,-1736,-59,-59,-638148,-416274,-89209,-38876,-18364
+ "16000","Idaho",7,SAGDP5,69,"61","   Educational services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-26446,-26650,-49,0,0
+ "16000","Idaho",7,SAGDP5,70,"62","   Health care and social assistance ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,-2302,-20136,-12222,-16132,-15589,-9523,-5847,-1736,-59,-59,-611702,-389624,-89161,-38876,-18364
+ "16000","Idaho",7,SAGDP5,71,"621","    Ambulatory health care services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-442281,-251327,-40655,-6160,-3123
+ "16000","Idaho",7,SAGDP5,72,"622","    Hospitals ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,-2302,-20136,-12222,-16132,-15589,-9523,-5847,-1736,-59,-59,-61378,-30592,-15596,-2398,-1958
+ "16000","Idaho",7,SAGDP5,73,"623","    Nursing and residential care facilities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-59538,-36486,-2704,-410,-249
+ "16000","Idaho",7,SAGDP5,74,"624","    Social assistance ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-48505,-71218,-30206,-29908,-13034
+ "16000","Idaho",7,SAGDP5,75,"71,72","  Arts, entertainment, recreation, accommodation, and food services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-275342,-506707,-4666,0,0
+ "16000","Idaho",7,SAGDP5,76,"71","   Arts, entertainment, and recreation ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-34221,-58659,-4440,0,0
+ "16000","Idaho",7,SAGDP5,77,"711-712","    Performing arts, spectator sports, museums, and related activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-7422,-21698,-4401,0,0
+ "16000","Idaho",7,SAGDP5,78,"713","    Amusement, gambling, and recreation industries ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-26799,-36961,-39,0,0
+ "16000","Idaho",7,SAGDP5,79,"72","   Accommodation and food services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-241121,-448049,-226,0,0
+ "16000","Idaho",7,SAGDP5,80,"721","    Accommodation ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-44581,-66418,-65,0,0
+ "16000","Idaho",7,SAGDP5,81,"722","    Food services and drinking places ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-196540,-381631,-161,0,0
+ "16000","Idaho",7,SAGDP5,82,"81","  Other services (except government and government enterprises) ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-110513,-97218,-134,0,0
+ "16000","Idaho",7,SAGDP5,83,"92"," Government and government enterprises ","Thousands of dollars",-14140,-16014,-18991,-18067,-22034,-30253,-32692,-34999,-37942,-34979,-34209,-41450,-63662,-57713,-62051,-61173,-72985,-74020,-66989,-79221,-72846,-237700,-90658,-148475,-171270,-212792,-183917,-167353
+ "16000","Idaho",7,SAGDP5,84,"...","  Federal civilian ","Thousands of dollars",-5772,-6939,-9123,-11009,-14460,-20995,-20844,-20784,-24264,-20463,-20797,-26894,-45574,-25426,-29599,-32854,-45121,-46322,-36705,-43373,-37753,-196934,-42558,-49031,-56260,-72207,-77276,-54651
+ "16000","Idaho",7,SAGDP5,85,"...","  Military ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+ "16000","Idaho",7,SAGDP5,86,"...","  State and local ","Thousands of dollars",-8368,-9075,-9868,-7058,-7573,-9258,-11848,-14215,-13677,-14516,-13412,-14557,-18088,-32287,-32452,-28319,-27864,-27698,-30285,-35848,-35093,-40767,-48099,-99443,-115010,-140585,-106641,-112702
+ "16000","Idaho",7,SAGDP5,87,"11,21","Natural resources and mining ","Thousands of dollars",-93635,-169205,-181906,-227009,-185040,-143335,-131002,-130745,-163895,-120297,-108058,-127420,-119044,-138878,-96033,-104308,-104624,-68825,-73401,-114705,-142408,-143211,-155359,-862065,-357004,-175934,-105208,-66938
+ "16000","Idaho",7,SAGDP5,88,"42,44-45","Trade ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-15015,-1578,-15,0,0,0,0,0,0,0,0,-484421,-386574,-579,0,0
+ "16000","Idaho",7,SAGDP5,89,"22,48-49","Transportation and utilities ","Thousands of dollars",-328,-104,-114,-127,-8670,-419,-4424,-301,-410,-680,-513,-552,-598,-646,-614,-769,-720,-672,-708,-608,-685,-723,-698,-187820,-89271,-2513,-1863,-2104
+ "16000","Idaho",7,SAGDP5,90,"31-33,51","Manufacturing and information ","Thousands of dollars",0,0,0,0,0,0,0,0,0,-7,-3,-123,-552,-1834,-3320,-3412,-1391,-691,-709,-745,-687,-674,-715,-383494,-244811,-2700,-2935,-4146
+ "16000","Idaho",7,SAGDP5,91,"...","Private goods-producing industries 2/","Thousands of dollars",-93635,-169205,-181906,-227009,-185040,-143335,-131002,-130745,-163895,-120303,-108062,-127543,-119509,-140472,-98305,-106223,-105233,-69327,-73918,-115461,-143071,-143874,-156060,-1702695,-828663,-178649,-108143,-71085
+ "16000","Idaho",7,SAGDP5,92,"...","Private services-providing industries 3/","Thousands of dollars",-40033,-47219,-49796,-48567,-56194,-49981,-62575,-63139,-82693,-72513,-67210,-66192,-86421,-72210,-91363,-85789,-94964,-89769,-80864,-85291,-88184,-88465,-89425,-2366410,-1927166,-222552,-184187,-194234
+"Note: See the included footnote file."
+"SAGDP5: Subsidies 1."
+"Last updated: September 26, 2025-- new statistics for 2024; revised statistics for 2020-2023."
+"U.S. Bureau of Economic Analysis"

@@ -1,0 +1,97 @@
+GeoFIPS,GeoName,Region,TableName,LineCode,IndustryClassification,Description,Unit,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024
+ "46000","South Dakota",4,SAGDP5,1,"...","All industry total ","Thousands of dollars",-296853,-442943,-752648,-763570,-756236,-414672,-614959,-511143,-882402,-540624,-527201,-698512,-624354,-710590,-725921,-809197,-892072,-1048844,-911123,-1021816,-1057826,-1222207,-1418749,-3917745,-3247465,-1979260,-1382491,-898487
+ "46000","South Dakota",4,SAGDP5,2,"..."," Private industries ","Thousands of dollars",-245034,-394711,-706950,-707030,-665889,-315309,-499346,-371413,-730674,-383986,-311164,-373401,-278206,-468206,-408086,-438762,-329320,-454165,-431614,-513853,-566285,-786019,-931756,-3403008,-2530006,-1100533,-623910,-406535
+ "46000","South Dakota",4,SAGDP5,3,"11","  Agriculture, forestry, fishing and hunting ","Thousands of dollars",-227373,-372080,-683151,-683924,-639097,-290446,-470783,-341883,-693285,-351738,-282891,-338651,-218191,-340316,-256969,-272470,-246001,-380621,-362363,-417522,-496708,-731088,-871852,-1759057,-1140742,-969112,-477029,-319557
+ "46000","South Dakota",4,SAGDP5,4,"111-112","   Farms ","Thousands of dollars",-227373,-372080,-683151,-683924,-639097,-290446,-470783,-341883,-693285,-351738,-282891,-338651,-218191,-340316,-256969,-272470,-246001,-380621,-362363,-417522,-496708,-731088,-871852,-1744322,-1132584,-969097,-477029,-319557
+ "46000","South Dakota",4,SAGDP5,5,"113-115","   Forestry, fishing, and related activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-14736,-8158,-16,0,0
+ "46000","South Dakota",4,SAGDP5,6,"21","  Mining, quarrying, and oil and gas extraction ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-3812,-6553,-24,0,0
+ "46000","South Dakota",4,SAGDP5,7,"211","   Oil and gas extraction ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-214,-239,-1,0,0
+ "46000","South Dakota",4,SAGDP5,8,"212","   Mining (except oil and gas) ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2181,-2531,-9,0,0
+ "46000","South Dakota",4,SAGDP5,9,"213","   Support activities for mining ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1416,-3782,-15,0,0
+ "46000","South Dakota",4,SAGDP5,10,"22","  Utilities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-4023,-4881,-92,0,0
+ "46000","South Dakota",4,SAGDP5,11,"23","  Construction ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-225691,-142158,-284,0,0
+ "46000","South Dakota",4,SAGDP5,12,"31-33","  Manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,-9,-4,-159,-487,-1057,-1330,-914,-472,-394,-354,-349,-405,-427,-522,-235866,-143148,-561,-651,-853
+ "46000","South Dakota",4,SAGDP5,13,"321,327-339","   Durable goods manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,-153,-465,-1028,-1165,-864,-419,-310,-300,-287,-339,-357,-456,-143281,-82632,-485,-576,-766
+ "46000","South Dakota",4,SAGDP5,14,"321","    Wood product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-6706,-6800,-6,0,0
+ "46000","South Dakota",4,SAGDP5,15,"327","    Nonmetallic mineral product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-6467,-2612,0,0,0
+ "46000","South Dakota",4,SAGDP5,16,"331","    Primary metal manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-802,-724,0,0,0
+ "46000","South Dakota",4,SAGDP5,17,"332","    Fabricated metal product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-29040,-35749,-22,0,0
+ "46000","South Dakota",4,SAGDP5,18,"333","    Machinery manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-36924,-12730,-5,0,0
+ "46000","South Dakota",4,SAGDP5,19,"334","    Computer and electronic product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-9251,-3044,-1,0,0
+ "46000","South Dakota",4,SAGDP5,20,"335","    Electrical equipment, appliance, and component manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,-153,-465,-1028,-1165,-864,-419,-310,-300,-287,-339,-357,-456,-1336,-1000,-441,-576,-766
+ "46000","South Dakota",4,SAGDP5,21,"3361-3363","    Motor vehicles, bodies and trailers, and parts manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-37047,-8166,-2,0,0
+ "46000","South Dakota",4,SAGDP5,22,"3364-3466,3369","    Other transportation equipment manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1107,-1194,0,0,0
+ "46000","South Dakota",4,SAGDP5,23,"337","    Furniture and related product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-7236,-3276,-2,0,0
+ "46000","South Dakota",4,SAGDP5,24,"339","    Miscellaneous manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-7367,-7338,-6,0,0
+ "46000","South Dakota",4,SAGDP5,25,"311-316,322-326","   Nondurable goods manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,-9,-4,-5,-22,-29,-165,-50,-53,-84,-54,-62,-66,-70,-66,-92585,-60515,-76,-75,-87
+ "46000","South Dakota",4,SAGDP5,26,"311-312","    Food and beverage and tobacco product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-56737,-39517,-3,0,0
+ "46000","South Dakota",4,SAGDP5,27,"313-314","    Textile mills and textile product mills ","Thousands of dollars",0,0,0,0,0,0,0,0,0,-9,-4,-5,-8,-7,-6,-6,-6,-7,-42,-47,-52,-59,-60,-1106,-671,-50,-58,-56
+ "46000","South Dakota",4,SAGDP5,28,"315-316","    Apparel, leather, and allied product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-792,-624,0,0,0
+ "46000","South Dakota",4,SAGDP5,29,"322","    Paper manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1369,-1919,0,0,0
+ "46000","South Dakota",4,SAGDP5,30,"323","    Printing and related support activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-4302,-3910,-2,0,0
+ "46000","South Dakota",4,SAGDP5,31,"324","    Petroleum and coal products manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-1,-5,-2,-19,-2,-9,0,0,0,0,0,-236,-185,0,0,0
+ "46000","South Dakota",4,SAGDP5,32,"325","    Chemical manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-13,-17,-157,-25,-44,-68,-12,-15,-14,-11,-6,-20641,-9624,-18,-17,-32
+ "46000","South Dakota",4,SAGDP5,33,"326","    Plastics and rubber products manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-7402,-4066,-3,0,0
+ "46000","South Dakota",4,SAGDP5,34,"42","  Wholesale trade ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-67752,-35062,-30,0,0
+ "46000","South Dakota",4,SAGDP5,35,"44-45","  Retail trade ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-8939,-983,-10,0,0,0,0,0,0,0,0,-151196,-155651,-246,0,0
+ "46000","South Dakota",4,SAGDP5,36,"48-49","  Transportation and warehousing ","Thousands of dollars",-15,1,0,-1,-3873,-124,-1950,-93,-123,-287,-127,-170,-159,-158,-182,-200,-180,-169,-185,-91,-127,-113,-150,-87458,-49336,-650,-273,-208
+ "46000","South Dakota",4,SAGDP5,37,"481","   Air transportation ","Thousands of dollars",-15,1,0,-1,-3873,-123,-1937,-13,-47,-72,-72,-109,-132,-158,-182,-199,-180,-169,-185,-91,-127,-113,-150,-33223,-19292,-519,-273,-208
+ "46000","South Dakota",4,SAGDP5,38,"482","   Rail transportation ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-84,-272,0,0,0
+ "46000","South Dakota",4,SAGDP5,39,"483","   Water transportation ","Thousands of dollars",0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,-1,0,0,0,0,0,0,0,-26,-18,0,0,0
+ "46000","South Dakota",4,SAGDP5,40,"484","   Truck transportation ","Thousands of dollars",0,0,0,0,0,0,-12,-80,-76,-216,-54,-61,-28,0,0,0,0,0,0,0,0,0,0,-36887,-19893,-108,0,0
+ "46000","South Dakota",4,SAGDP5,41,"485","   Transit and ground passenger transportation ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2437,-5554,-10,0,0
+ "46000","South Dakota",4,SAGDP5,42,"486","   Pipeline transportation ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-22,-72,0,0,0
+ "46000","South Dakota",4,SAGDP5,43,"487-488,492","   Other transportation and support activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-9353,-3188,-10,0,0
+ "46000","South Dakota",4,SAGDP5,44,"493","   Warehousing and storage ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-5426,-1047,-3,0,0
+ "46000","South Dakota",4,SAGDP5,45,"51","  Information ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-89,-266,-1218,-1788,-906,-215,-210,11,-23,-11,-13,-15069,-9683,-305,0,0
+ "46000","South Dakota",4,SAGDP5,46,"511","   Publishing industries (except Internet) ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-5873,-1649,-3,0,0
+ "46000","South Dakota",4,SAGDP5,47,"512","   Motion picture and sound recording industries ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-599,-1850,-290,0,0
+ "46000","South Dakota",4,SAGDP5,48,"515,517","   Broadcasting (except Internet) and telecommunications ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-89,-266,-1218,-1788,-906,-215,-210,11,-23,-11,-13,-7084,-5277,-11,0,0
+ "46000","South Dakota",4,SAGDP5,49,"518-519","   Data processing, hosting, and other information services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1513,-906,-2,0,0
+ "46000","South Dakota",4,SAGDP5,50,"52,53","  Finance, insurance, real estate, rental, and leasing ","Thousands of dollars",-17645,-22631,-23799,-23105,-22920,-24740,-26613,-29437,-37267,-31952,-28142,-34422,-50341,-123293,-130493,-151657,-68232,-59858,-60809,-91343,-67358,-54325,-59162,-144551,-157846,-73095,-123740,-75252
+ "46000","South Dakota",4,SAGDP5,51,"52","   Finance and insurance ","Thousands of dollars",-444,-535,-925,-1030,-1584,-2609,-1090,-2526,-3464,-1924,-2623,-7231,-20839,-92098,-99708,-117089,-33040,-27118,-27562,-54486,-29578,-21385,-21047,-63990,-83355,-26567,-74041,-16231
+ "46000","South Dakota",4,SAGDP5,52,"521-522","    Monetary Authorities- central bank, credit intermediation, and related services ","Thousands of dollars",-444,-535,-925,-1030,-1584,-2609,-1090,-2526,-3464,-1924,-2623,-7231,-20839,-92098,-99708,-117089,-33040,-27118,-27562,-54486,-29578,-21385,-21047,-30239,-69691,-26527,-74031,-16231
+ "46000","South Dakota",4,SAGDP5,53,"523","    Securities, commodity contracts, and other financial investments and related activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-7767,-2132,-8,-10,-1
+ "46000","South Dakota",4,SAGDP5,54,"524","    Insurance carriers and related activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-24054,-11399,-33,0,0
+ "46000","South Dakota",4,SAGDP5,55,"525","    Funds, trusts, and other financial vehicles ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1929,-134,0,0,0
+ "46000","South Dakota",4,SAGDP5,56,"53","   Real estate and rental and leasing ","Thousands of dollars",-17202,-22096,-22875,-22075,-21335,-22131,-25523,-26912,-33802,-30028,-25519,-27191,-29503,-31194,-30786,-34568,-35192,-32740,-33246,-36858,-37779,-32940,-38115,-80561,-74491,-46528,-49699,-59021
+ "46000","South Dakota",4,SAGDP5,57,"531","    Real estate ","Thousands of dollars",-17202,-22096,-22875,-22075,-21335,-22131,-25523,-26912,-33802,-30028,-25519,-27191,-29503,-31194,-30786,-34568,-35192,-32740,-33246,-36858,-37779,-32940,-38115,-75825,-70071,-46515,-49699,-59021
+ "46000","South Dakota",4,SAGDP5,58,"532-533","    Rental and leasing services and lessors of nonfinancial intangible assets ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-4736,-4420,-13,0,0
+ "46000","South Dakota",4,SAGDP5,59,"54,55,56","  Professional and business services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-179865,-75082,-117,-40,-5
+ "46000","South Dakota",4,SAGDP5,60,"54","   Professional, scientific, and technical services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-131243,-48577,-75,0,0
+ "46000","South Dakota",4,SAGDP5,61,"5411","    Legal services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-24282,-11711,-20,0,0
+ "46000","South Dakota",4,SAGDP5,62,"5415","    Computer systems design and related services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-25706,-5976,-8,0,0
+ "46000","South Dakota",4,SAGDP5,63,"5412-5414,5416-5419","    Miscellaneous professional, scientific, and technical services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-81255,-30890,-46,0,0
+ "46000","South Dakota",4,SAGDP5,64,"55","   Management of companies and enterprises ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-4756,-4675,-24,-40,-5
+ "46000","South Dakota",4,SAGDP5,65,"56","   Administrative and support and waste management and remediation services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-43866,-21830,-18,0,0
+ "46000","South Dakota",4,SAGDP5,66,"561","    Administrative and support services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-40995,-19227,-15,0,0
+ "46000","South Dakota",4,SAGDP5,67,"562","    Waste management and remediation services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2872,-2603,-3,0,0
+ "46000","South Dakota",4,SAGDP5,68,"61,62","  Educational services, health care, and social assistance ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,-2132,-17885,-11732,-13528,-12909,-7694,-4558,-1664,-55,-57,-287445,-233569,-52709,-22177,-10660
+ "46000","South Dakota",4,SAGDP5,69,"61","   Educational services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-14490,-9511,-14,0,0
+ "46000","South Dakota",4,SAGDP5,70,"62","   Health care and social assistance ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,-2132,-17885,-11732,-13528,-12909,-7694,-4558,-1664,-55,-57,-272954,-224059,-52695,-22177,-10660
+ "46000","South Dakota",4,SAGDP5,71,"621","    Ambulatory health care services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-150216,-110386,-16866,-2553,-1705
+ "46000","South Dakota",4,SAGDP5,72,"622","    Hospitals ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,-2132,-17885,-11732,-13528,-12909,-7694,-4558,-1664,-55,-57,-74724,-33997,-17195,-2644,-1561
+ "46000","South Dakota",4,SAGDP5,73,"623","    Nursing and residential care facilities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-27293,-35836,-1804,-262,-164
+ "46000","South Dakota",4,SAGDP5,74,"624","    Social assistance ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-20720,-43840,-16830,-16718,-7230
+ "46000","South Dakota",4,SAGDP5,75,"71,72","  Arts, entertainment, recreation, accommodation, and food services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-162049,-305805,-3198,0,0
+ "46000","South Dakota",4,SAGDP5,76,"71","   Arts, entertainment, and recreation ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-20525,-33837,-3021,0,0
+ "46000","South Dakota",4,SAGDP5,77,"711-712","    Performing arts, spectator sports, museums, and related activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-5871,-17573,-3005,0,0
+ "46000","South Dakota",4,SAGDP5,78,"713","    Amusement, gambling, and recreation industries ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-14654,-16264,-15,0,0
+ "46000","South Dakota",4,SAGDP5,79,"72","   Accommodation and food services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-141524,-271968,-177,0,0
+ "46000","South Dakota",4,SAGDP5,80,"721","    Accommodation ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-61971,-87646,-104,0,0
+ "46000","South Dakota",4,SAGDP5,81,"722","    Food services and drinking places ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-79553,-184323,-73,0,0
+ "46000","South Dakota",4,SAGDP5,82,"81","  Other services (except government and government enterprises) ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-79173,-70489,-107,0,0
+ "46000","South Dakota",4,SAGDP5,83,"92"," Government and government enterprises ","Thousands of dollars",-51819,-48232,-45697,-56539,-90347,-99363,-115613,-139730,-151728,-156638,-216037,-325110,-346148,-242384,-317835,-370435,-562753,-594679,-479510,-507963,-491542,-436188,-486993,-514737,-717459,-878727,-758582,-491952
+ "46000","South Dakota",4,SAGDP5,84,"...","  Federal civilian ","Thousands of dollars",-43496,-39213,-37617,-48828,-80908,-86594,-102070,-125625,-133532,-137881,-196143,-307039,-323715,-221789,-295908,-349732,-542455,-575090,-460050,-486550,-471818,-415345,-466935,-476875,-671591,-823763,-716641,-447671
+ "46000","South Dakota",4,SAGDP5,85,"...","  Military ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+ "46000","South Dakota",4,SAGDP5,86,"...","  State and local ","Thousands of dollars",-8323,-9020,-8081,-7712,-9438,-12769,-13543,-14105,-18196,-18758,-19894,-18071,-22434,-20595,-21926,-20704,-20298,-19590,-19460,-21413,-19724,-20843,-20058,-37862,-45868,-54964,-41941,-44281
+ "46000","South Dakota",4,SAGDP5,87,"11,21","Natural resources and mining ","Thousands of dollars",-227373,-372080,-683151,-683924,-639097,-290446,-470783,-341883,-693285,-351738,-282891,-338651,-218191,-340316,-256969,-272470,-246001,-380621,-362363,-417522,-496708,-731088,-871852,-1762869,-1147295,-969137,-477029,-319557
+ "46000","South Dakota",4,SAGDP5,88,"42,44-45","Trade ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-8939,-983,-10,0,0,0,0,0,0,0,0,-218947,-190713,-276,0,0
+ "46000","South Dakota",4,SAGDP5,89,"22,48-49","Transportation and utilities ","Thousands of dollars",-15,1,0,-1,-3873,-124,-1950,-93,-123,-287,-127,-170,-159,-158,-182,-200,-180,-169,-185,-91,-127,-113,-150,-91482,-54217,-743,-273,-208
+ "46000","South Dakota",4,SAGDP5,90,"31-33,51","Manufacturing and information ","Thousands of dollars",0,0,0,0,0,0,0,0,0,-9,-4,-159,-576,-1324,-2548,-2702,-1378,-609,-564,-338,-428,-437,-535,-250936,-152831,-866,-651,-853
+ "46000","South Dakota",4,SAGDP5,91,"...","Private goods-producing industries 2/","Thousands of dollars",-227373,-372080,-683151,-683924,-639097,-290446,-470783,-341883,-693285,-351746,-282895,-338810,-218677,-341374,-258298,-273384,-246473,-381015,-362716,-417871,-497113,-731515,-872374,-2224426,-1432601,-969982,-477680,-320410
+ "46000","South Dakota",4,SAGDP5,92,"...","Private services-providing industries 3/","Thousands of dollars",-17661,-22631,-23799,-23106,-26792,-24864,-28563,-29531,-37389,-32239,-28269,-34592,-59528,-126832,-149788,-165378,-82847,-73150,-68897,-95982,-69172,-54504,-59382,-1178582,-1097405,-130551,-146230,-86125
+"Note: See the included footnote file."
+"SAGDP5: Subsidies 1."
+"Last updated: September 26, 2025-- new statistics for 2024; revised statistics for 2020-2023."
+"U.S. Bureau of Economic Analysis"

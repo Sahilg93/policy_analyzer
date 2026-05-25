@@ -1,0 +1,97 @@
+GeoFIPS,GeoName,Region,TableName,LineCode,IndustryClassification,Description,Unit,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024
+ "20000","Kansas",4,SAGDP5,1,"...","All industry total ","Thousands of dollars",-616812,-915478,-1379275,-1234408,-1170264,-625396,-944398,-816669,-1274271,-872723,-818911,-998338,-994345,-964194,-1003030,-1019404,-1292916,-1240096,-1056493,-1121780,-1136171,-1300025,-1960247,-8298431,-6165199,-1787701,-1751561,-1263291
+ "20000","Kansas",4,SAGDP5,2,"..."," Private industries ","Thousands of dollars",-531276,-844495,-1309295,-1156076,-1048450,-492132,-803955,-662012,-1072329,-674217,-570599,-660963,-558239,-677511,-648312,-605477,-736304,-710060,-598638,-677947,-696082,-868505,-1468067,-7755664,-5447039,-842913,-877767,-652323
+ "20000","Kansas",4,SAGDP5,3,"11","  Agriculture, forestry, fishing and hunting ","Thousands of dollars",-449329,-748372,-1210038,-1060589,-952350,-395862,-692570,-548249,-928798,-553719,-462630,-547290,-403893,-536168,-459695,-427106,-565202,-552031,-452552,-526372,-545538,-724183,-1325511,-2222590,-1303227,-499791,-601834,-407684
+ "20000","Kansas",4,SAGDP5,4,"111-112","   Farms ","Thousands of dollars",-449329,-748372,-1210038,-1060589,-952350,-395862,-692570,-548249,-928798,-553719,-462630,-547290,-403893,-536168,-459695,-427106,-565202,-552031,-452552,-526372,-545538,-724183,-1325511,-2182217,-1280425,-499747,-601834,-407684
+ "20000","Kansas",4,SAGDP5,5,"113-115","   Forestry, fishing, and related activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-40374,-22802,-44,0,0
+ "20000","Kansas",4,SAGDP5,6,"21","  Mining, quarrying, and oil and gas extraction ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-51259,-61191,-209,0,0
+ "20000","Kansas",4,SAGDP5,7,"211","   Oil and gas extraction ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-20876,-33000,-108,0,0
+ "20000","Kansas",4,SAGDP5,8,"212","   Mining (except oil and gas) ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-4517,-1747,-5,0,0
+ "20000","Kansas",4,SAGDP5,9,"213","   Support activities for mining ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-25866,-26444,-96,0,0
+ "20000","Kansas",4,SAGDP5,10,"22","  Utilities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-35745,-14085,-254,0,0
+ "20000","Kansas",4,SAGDP5,11,"23","  Construction ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-650510,-380220,-764,0,0
+ "20000","Kansas",4,SAGDP5,12,"31-33","  Manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,-20,-10,-911,-2938,-8982,-11232,-10909,-3189,-5156,-2178,-2554,-2089,-2228,-2404,-745191,-569698,-4415,-4897,-8311
+ "20000","Kansas",4,SAGDP5,13,"321,327-339","   Durable goods manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,-898,-2650,-7799,-9449,-4941,-2402,-2178,-2007,-2382,-1918,-2048,-2246,-474278,-341543,-4118,-4617,-7891
+ "20000","Kansas",4,SAGDP5,14,"321","    Wood product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-16882,-13963,-10,0,0
+ "20000","Kansas",4,SAGDP5,15,"327","    Nonmetallic mineral product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-17282,-9887,0,0,0
+ "20000","Kansas",4,SAGDP5,16,"331","    Primary metal manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-11208,-3571,0,0,0
+ "20000","Kansas",4,SAGDP5,17,"332","    Fabricated metal product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-148448,-81553,-48,0,0
+ "20000","Kansas",4,SAGDP5,18,"333","    Machinery manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-121378,-51357,-23,0,0
+ "20000","Kansas",4,SAGDP5,19,"334","    Computer and electronic product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-29909,-25522,-13,0,0
+ "20000","Kansas",4,SAGDP5,20,"335","    Electrical equipment, appliance, and component manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,-898,-2650,-7799,-9449,-4941,-2402,-2178,-2007,-2382,-1918,-2048,-2246,-10258,-10403,-4000,-4617,-7891
+ "20000","Kansas",4,SAGDP5,21,"3361-3363","    Motor vehicles, bodies and trailers, and parts manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-14347,-23530,-6,0,0
+ "20000","Kansas",4,SAGDP5,22,"3364-3466,3369","    Other transportation equipment manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-62352,-93553,0,0,0
+ "20000","Kansas",4,SAGDP5,23,"337","    Furniture and related product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-15756,-9000,-6,0,0
+ "20000","Kansas",4,SAGDP5,24,"339","    Miscellaneous manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-26458,-19204,-12,0,0
+ "20000","Kansas",4,SAGDP5,25,"311-316,322-326","   Nondurable goods manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,-20,-10,-13,-288,-1183,-1782,-5968,-786,-2978,-171,-172,-171,-181,-158,-270912,-228156,-297,-280,-420
+ "20000","Kansas",4,SAGDP5,26,"311-312","    Food and beverage and tobacco product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-86404,-116505,-5,0,0
+ "20000","Kansas",4,SAGDP5,27,"313-314","    Textile mills and textile product mills ","Thousands of dollars",0,0,0,0,0,0,0,0,0,-20,-10,-13,-19,-15,-15,-19,-18,-15,-82,-80,-75,-98,-106,-12573,-1487,-60,-54,-33
+ "20000","Kansas",4,SAGDP5,28,"315-316","    Apparel, leather, and allied product manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-10396,-4258,-4,0,0
+ "20000","Kansas",4,SAGDP5,29,"322","    Paper manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-4263,-6777,0,0,0
+ "20000","Kansas",4,SAGDP5,30,"323","    Printing and related support activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-48402,-29260,-12,0,0
+ "20000","Kansas",4,SAGDP5,31,"324","    Petroleum and coal products manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-183,-1063,-876,-5716,-541,-2722,0,0,0,0,0,-6784,-2373,0,0,0
+ "20000","Kansas",4,SAGDP5,32,"325","    Chemical manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-86,-106,-891,-233,-227,-242,-89,-92,-95,-83,-52,-81556,-43380,-200,-226,-386
+ "20000","Kansas",4,SAGDP5,33,"326","    Plastics and rubber products manufacturing ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-20534,-24117,-16,0,0
+ "20000","Kansas",4,SAGDP5,34,"42","  Wholesale trade ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-355500,-107426,-100,0,0
+ "20000","Kansas",4,SAGDP5,35,"44-45","  Retail trade ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-25854,-2735,-26,0,0,0,0,0,0,0,0,-402208,-403412,-628,0,0
+ "20000","Kansas",4,SAGDP5,36,"48-49","  Transportation and warehousing ","Thousands of dollars",-944,-815,-855,-786,-4990,-964,-2981,-1298,-1527,-1979,-1410,-1744,-2068,-2504,-2078,-2011,-1993,-1884,-2014,-1963,-2384,-2554,-1997,-266804,-127245,-6427,-7900,-8292
+ "20000","Kansas",4,SAGDP5,37,"481","   Air transportation ","Thousands of dollars",-17,1,0,-1,-4302,-137,-2152,-15,-52,-80,-80,-121,-146,-175,-202,-222,-200,-187,-205,-95,-157,-128,-156,-19557,-10471,-444,-271,-168
+ "20000","Kansas",4,SAGDP5,38,"482","   Rail transportation ","Thousands of dollars",-922,-816,-855,-785,-676,-805,-775,-1042,-1230,-1256,-1141,-1427,-1806,-2311,-1847,-1759,-1792,-1696,-1809,-1868,-2227,-2425,-1842,-10058,-10809,-5593,-7629,-8123
+ "20000","Kansas",4,SAGDP5,39,"483","   Water transportation ","Thousands of dollars",-5,0,0,0,-13,-22,-17,0,-25,-47,-28,-19,-39,-18,-29,-30,0,0,0,0,0,0,0,-21,-46,0,0,0
+ "20000","Kansas",4,SAGDP5,40,"484","   Truck transportation ","Thousands of dollars",0,0,0,0,0,0,-36,-241,-220,-596,-160,-178,-76,0,0,0,0,0,0,0,0,0,0,-154327,-48904,-248,0,0
+ "20000","Kansas",4,SAGDP5,41,"485","   Transit and ground passenger transportation ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-11443,-20103,-49,0,0
+ "20000","Kansas",4,SAGDP5,42,"486","   Pipeline transportation ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-434,-781,0,0,0
+ "20000","Kansas",4,SAGDP5,43,"487-488,492","   Other transportation and support activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-29346,-16340,-45,0,0
+ "20000","Kansas",4,SAGDP5,44,"493","   Warehousing and storage ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-41618,-19792,-48,0,0
+ "20000","Kansas",4,SAGDP5,45,"51","  Information ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-698,-1702,-7083,-10261,-5790,-1475,-790,41,-85,-37,-46,-66355,-40173,-610,0,0
+ "20000","Kansas",4,SAGDP5,46,"511","   Publishing industries (except Internet) ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-20049,-14389,-36,0,0
+ "20000","Kansas",4,SAGDP5,47,"512","   Motion picture and sound recording industries ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-4635,-4671,-530,0,0
+ "20000","Kansas",4,SAGDP5,48,"515,517","   Broadcasting (except Internet) and telecommunications ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-698,-1702,-7083,-10261,-5790,-1475,-790,41,-85,-37,-46,-25253,-13717,-29,0,0
+ "20000","Kansas",4,SAGDP5,49,"518-519","   Data processing, hosting, and other information services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-16418,-7396,-15,0,0
+ "20000","Kansas",4,SAGDP5,50,"52,53","  Finance, insurance, real estate, rental, and leasing ","Thousands of dollars",-81003,-95308,-98402,-94701,-91109,-95306,-108405,-112465,-142004,-118499,-106549,-111018,-122787,-120390,-127658,-130491,-130592,-122176,-124744,-137280,-142455,-139385,-137990,-431308,-323391,-155708,-177497,-188911
+ "20000","Kansas",4,SAGDP5,51,"52","   Finance and insurance ","Thousands of dollars",-269,-350,-506,-543,-539,-729,-291,-170,-349,-226,-335,-504,-1309,-1924,-2943,-4116,-3065,-4205,-2831,-3486,-3756,-3239,-2275,-135383,-72300,-3799,-12939,-2614
+ "20000","Kansas",4,SAGDP5,52,"521-522","    Monetary Authorities- central bank, credit intermediation, and related services ","Thousands of dollars",-269,-350,-506,-543,-539,-729,-291,-170,-349,-226,-335,-504,-1309,-1924,-2943,-4116,-3065,-4205,-2831,-3486,-3756,-3239,-2275,-20777,-27075,-3683,-12919,-2612
+ "20000","Kansas",4,SAGDP5,53,"523","    Securities, commodity contracts, and other financial investments and related activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-29004,-8903,-27,-20,-2
+ "20000","Kansas",4,SAGDP5,54,"524","    Insurance carriers and related activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-81372,-36140,-89,0,0
+ "20000","Kansas",4,SAGDP5,55,"525","    Funds, trusts, and other financial vehicles ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-4230,-182,0,0,0
+ "20000","Kansas",4,SAGDP5,56,"53","   Real estate and rental and leasing ","Thousands of dollars",-80734,-94958,-97896,-94158,-90571,-94576,-108114,-112296,-141655,-118272,-106214,-110514,-121478,-118466,-124716,-126374,-127527,-117971,-121913,-133794,-138700,-136146,-135716,-295925,-251091,-151909,-164558,-186297
+ "20000","Kansas",4,SAGDP5,57,"531","    Real estate ","Thousands of dollars",-80734,-94958,-97896,-94158,-90571,-94576,-108114,-112296,-141655,-118272,-106214,-110514,-121478,-118466,-124716,-126374,-127527,-117971,-121913,-133794,-138700,-136146,-135716,-277579,-236897,-151881,-164558,-186297
+ "20000","Kansas",4,SAGDP5,58,"532-533","    Rental and leasing services and lessors of nonfinancial intangible assets ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-18346,-14194,-28,0,0
+ "20000","Kansas",4,SAGDP5,59,"54,55,56","  Professional and business services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-849301,-340313,-600,-201,-23
+ "20000","Kansas",4,SAGDP5,60,"54","   Professional, scientific, and technical services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-574221,-211713,-314,0,0
+ "20000","Kansas",4,SAGDP5,61,"5411","    Legal services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-85435,-32127,-53,0,0
+ "20000","Kansas",4,SAGDP5,62,"5415","    Computer systems design and related services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-108224,-42715,-63,0,0
+ "20000","Kansas",4,SAGDP5,63,"5412-5414,5416-5419","    Miscellaneous professional, scientific, and technical services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-380562,-136870,-198,0,0
+ "20000","Kansas",4,SAGDP5,64,"55","   Management of companies and enterprises ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-7826,-24831,-211,-201,-23
+ "20000","Kansas",4,SAGDP5,65,"56","   Administrative and support and waste management and remediation services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-267253,-103769,-75,0,0
+ "20000","Kansas",4,SAGDP5,66,"561","    Administrative and support services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-251329,-98436,-70,0,0
+ "20000","Kansas",4,SAGDP5,67,"562","    Waste management and remediation services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-15924,-5333,-5,0,0
+ "20000","Kansas",4,SAGDP5,68,"61,62","  Educational services, health care, and social assistance ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,-5029,-40540,-24700,-29539,-27338,-16359,-9820,-3531,-117,-118,-928815,-716233,-166019,-85438,-39103
+ "20000","Kansas",4,SAGDP5,69,"61","   Educational services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-23488,-30430,-53,0,0
+ "20000","Kansas",4,SAGDP5,70,"62","   Health care and social assistance ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,-5029,-40540,-24700,-29539,-27338,-16359,-9820,-3531,-117,-118,-905327,-685802,-165967,-85438,-39103
+ "20000","Kansas",4,SAGDP5,71,"621","    Ambulatory health care services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-565492,-377544,-54004,-8166,-5358
+ "20000","Kansas",4,SAGDP5,72,"622","    Hospitals ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,-5029,-40540,-24700,-29539,-27338,-16359,-9820,-3531,-117,-118,-142086,-70366,-32896,-5057,-3074
+ "20000","Kansas",4,SAGDP5,73,"623","    Nursing and residential care facilities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-125475,-71619,-6064,-898,-554
+ "20000","Kansas",4,SAGDP5,74,"624","    Social assistance ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-72274,-166274,-73003,-71316,-30117
+ "20000","Kansas",4,SAGDP5,75,"71,72","  Arts, entertainment, recreation, accommodation, and food services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-533049,-830548,-7006,0,0
+ "20000","Kansas",4,SAGDP5,76,"71","   Arts, entertainment, and recreation ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-66557,-83615,-6582,0,0
+ "20000","Kansas",4,SAGDP5,77,"711-712","    Performing arts, spectator sports, museums, and related activities ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-13508,-35801,-6523,0,0
+ "20000","Kansas",4,SAGDP5,78,"713","    Amusement, gambling, and recreation industries ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-53049,-47814,-59,0,0
+ "20000","Kansas",4,SAGDP5,79,"72","   Accommodation and food services ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-466491,-746932,-424,0,0
+ "20000","Kansas",4,SAGDP5,80,"721","    Accommodation ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-53950,-84046,-95,0,0
+ "20000","Kansas",4,SAGDP5,81,"722","    Food services and drinking places ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-412541,-662886,-329,0,0
+ "20000","Kansas",4,SAGDP5,82,"81","  Other services (except government and government enterprises) ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-217030,-229876,-382,0,0
+ "20000","Kansas",4,SAGDP5,83,"92"," Government and government enterprises ","Thousands of dollars",-85536,-70983,-69980,-78332,-121815,-133264,-140443,-154657,-201942,-198507,-248312,-337375,-436106,-286683,-354718,-413927,-556612,-530036,-457856,-443833,-440088,-431520,-492180,-542767,-718160,-944787,-873793,-610968
+ "20000","Kansas",4,SAGDP5,84,"...","  Federal civilian ","Thousands of dollars",-45762,-42489,-41207,-50156,-94044,-101692,-110668,-127088,-149587,-145502,-203642,-296644,-386962,-231725,-298863,-359578,-503090,-472398,-395373,-380485,-384812,-371476,-439444,-446207,-621238,-758262,-731947,-460954
+ "20000","Kansas",4,SAGDP5,85,"...","  Military ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+ "20000","Kansas",4,SAGDP5,86,"...","  State and local ","Thousands of dollars",-39774,-28494,-28773,-28176,-27771,-31573,-29775,-27569,-52356,-53005,-44670,-40731,-49144,-54958,-55854,-54349,-53522,-57639,-62483,-63348,-55277,-60045,-52736,-96560,-96923,-186525,-141846,-150014
+ "20000","Kansas",4,SAGDP5,87,"11,21","Natural resources and mining ","Thousands of dollars",-449329,-748372,-1210038,-1060589,-952350,-395862,-692570,-548249,-928798,-553719,-462630,-547290,-403893,-536168,-459695,-427106,-565202,-552031,-452552,-526372,-545538,-724183,-1325511,-2273849,-1364418,-500000,-601834,-407684
+ "20000","Kansas",4,SAGDP5,88,"42,44-45","Trade ","Thousands of dollars",0,0,0,0,0,0,0,0,0,0,0,0,-25854,-2735,-26,0,0,0,0,0,0,0,0,-757709,-510839,-729,0,0
+ "20000","Kansas",4,SAGDP5,89,"22,48-49","Transportation and utilities ","Thousands of dollars",-944,-815,-855,-786,-4990,-964,-2981,-1298,-1527,-1979,-1410,-1744,-2068,-2504,-2078,-2011,-1993,-1884,-2014,-1963,-2384,-2554,-1997,-302549,-141330,-6681,-7900,-8292
+ "20000","Kansas",4,SAGDP5,90,"31-33,51","Manufacturing and information ","Thousands of dollars",0,0,0,0,0,0,0,0,0,-20,-10,-911,-3637,-10684,-18314,-21170,-8978,-6631,-2968,-2513,-2174,-2266,-2450,-811545,-609871,-5025,-4897,-8311
+ "20000","Kansas",4,SAGDP5,91,"...","Private goods-producing industries 2/","Thousands of dollars",-449329,-748372,-1210038,-1060589,-952350,-395862,-692570,-548249,-928798,-553739,-462640,-548201,-406831,-545150,-470926,-438015,-568391,-557187,-454730,-528925,-547627,-726412,-1327915,-3669550,-2314336,-505180,-606731,-415994
+ "20000","Kansas",4,SAGDP5,92,"...","Private services-providing industries 3/","Thousands of dollars",-81947,-96123,-99258,-95487,-96100,-96270,-111385,-113763,-143531,-120477,-107959,-112762,-151408,-132361,-177386,-167463,-167913,-152873,-143907,-149022,-148455,-142093,-140152,-4086114,-3132703,-337734,-271036,-236329
+"Note: See the included footnote file."
+"SAGDP5: Subsidies 1."
+"Last updated: September 26, 2025-- new statistics for 2024; revised statistics for 2020-2023."
+"U.S. Bureau of Economic Analysis"
