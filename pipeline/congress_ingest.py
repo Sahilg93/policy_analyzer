@@ -15,7 +15,11 @@ class CongressIngestor:
             "limit": limit
         }
 
-        r = requests.get(url, params=params)
+        try:
+            r = requests.get(url, params=params, timeout=30)
+        except requests.exceptions.RequestException as e:
+            print("Congress API request failed:", e)
+            return pd.DataFrame()
 
         # Debug safety (only runs when needed)
         if r.status_code != 200:

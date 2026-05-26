@@ -85,21 +85,20 @@ class ScoringEngine:
         """
         Compute confidence score (0 to 1) based on analog quality and quantity.
         
-        Confidence = similarity_score * saturation_factor
-        where saturation_factor increases with num_analogs (sublinearly).
+        Confidence is defensive when the true analog sample is thin.
         """
-        # Similarity directly contributes to confidence
+        if num_analogs == 0:
+            return 0.0
+
         sim_conf = max(0.0, min(1.0, avg_similarity))
         
-        # Number of analogs contributes via log scale (diminishing returns)
-        # 1 analog = 0.5, 5 analogs = 0.85, 20+ analogs = ~1.0
-        if num_analogs == 0:
-            qty_conf = 0.0
-        else:
-            qty_conf = min(1.0, (1.0 + num_analogs) / (1.0 + num_analogs + 5.0))
+        # Quantity confidence saturates gradually as the analog sample grows.
+        qty_conf = min(1.0, num_analogs / 5.0)
         
-        # Combine: both similarity and quantity matter
-        confidence = (sim_conf + qty_conf) / 2.0
+        confidence = sim_conf * qty_conf
+        if num_analogs == 1:
+            confidence *= 0.5
+
         confidence = max(0.0, min(1.0, confidence))
         
         return confidence

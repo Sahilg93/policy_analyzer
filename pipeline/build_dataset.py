@@ -3,15 +3,18 @@ Master Orchestrator: Policy Intelligence Pipeline
 Routes bills through the historical-analog engine for scoring.
 """
 import logging
+import re
+import json
+from pathlib import Path
 from typing import Dict, Optional
+
 import pandas as pd
 import requests
-import json
 
 from pipeline.ingest_bea import fetch_gdp
 from pipeline.bls_client import BLSClient
 from pipeline.congress_ingest import CongressIngestor
-from pipeline.policy_embeddings import AnalogMatcher
+from pipeline.policy_matching import AnalogMatcher
 from pipeline.policy_impact_linker import OutcomeEngine
 from pipeline.policy_score import ScoringEngine
 
@@ -24,6 +27,8 @@ logger = logging.getLogger(__name__)
 
 API_KEY = "84DF9CAA-34FB-4555-BDF0-130FEA791DA2"
 BLS_API_KEY = "71ca07a939aa4e71a82ae2f88ac8ad1e"
+HISTORICAL_BILLS_PATH = Path("data/processed/historical_bills.parquet")
+POLICY_EVENTS_PATH = Path("data/policy_events.csv")
 
 
 def interpret_bill_ollama(title: str) -> Dict:
@@ -31,50 +36,105 @@ def interpret_bill_ollama(title: str) -> Dict:
     Local LLM-based policy interpreter using Ollama.
     Returns structured policy classification.
     """
+
+    DEFAULT_LLM_FALLBACK = {
+        "policy_type": "unknown",
+        "direction": "neutral",
+        "intensity": "low",
+        "sector": "unknown",
+        "macro_relevance": False
+    }
+
     prompt = f"""
-You are a policy classification system.
+You are a macroeconomic policy classification system.
 
 Analyze the US congressional bill title and return ONLY valid JSON.
 
 Title: {title}
+
+Set "macro_relevance" to true only when the bill has a direct, plausible
+transmission mechanism to federal or state GDP or unemployment, such as
+changes to public spending, taxes, labor markets, trade, industrial policy,
+healthcare financing, education funding, or sector-wide economic regulation.
+Set it to false for judicial appointments, criminal law changes, ceremonial
+resolutions, constitutional technicalities, subpoenas, agency procedure, or
+purely administrative changes without a direct macroeconomic channel.
 
 JSON schema:
 {{
   "policy_type": "tax | healthcare | education | regulation | spending | trade | other",
   "direction": "expansionary | contractionary | neutral",
   "intensity": "low | medium | high",
-  "sector": "business | households | government | mixed"
+  "sector": "business | households | government | mixed",
+  "macro_relevance": true | false
 }}
 """
 
+    payload = {
+        "model": "llama3",
+        "prompt": prompt,
+        "stream": False,
+        "format": "json"
+    }
+
     try:
-        r = requests.post(
+        response = requests.post(
             "http://localhost:11434/api/generate",
-            json={
-                "model": "phi3:mini",
-                "prompt": prompt,
-                "stream": False
-            },
-            timeout=10
+            json=payload,
+            timeout=45
         )
 
-        text = r.json().get("response", "")
-        start = text.find("{")
-        end = text.rfind("}") + 1
+        response.raise_for_status()
 
-        if start == -1 or end == -1:
-            raise ValueError("No JSON found")
+        raw_llm_text = response.json().get("response", "").strip()
 
-        return json.loads(text[start:end])
+        json_match = re.search(r"\{.*\}", raw_llm_text, re.DOTALL)
 
-    except Exception as e:
-        logger.warning(f"Ollama classification failed: {e}. Using defaults.")
-        return {
-            "policy_type": "unknown",
-            "direction": "neutral",
-            "intensity": "low",
-            "sector": "unknown"
-        }
+        if json_match:
+            clean_json_str = json_match.group(0)
+        else:
+            clean_json_str = raw_llm_text
+
+        bill_features = json.loads(clean_json_str)
+
+        required_keys = [
+            "policy_type",
+            "direction",
+            "intensity",
+            "sector",
+            "macro_relevance"
+        ]
+
+        for key in required_keys:
+            if key not in bill_features:
+                bill_features[key] = DEFAULT_LLM_FALLBACK[key]
+
+        bill_features["macro_relevance"] = _coerce_bool(
+            bill_features["macro_relevance"]
+        )
+
+        return bill_features
+
+    except (
+        requests.exceptions.RequestException,
+        json.JSONDecodeError,
+        AttributeError
+    ) as e:
+
+        logger.warning(
+            f"Ollama classification failed: {e}. Using defaults."
+        )
+
+        return DEFAULT_LLM_FALLBACK
+
+
+def _coerce_bool(value) -> bool:
+    """Parse boolean-like LLM output without trusting string truthiness."""
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        return value.strip().lower() in {"true", "yes", "1"}
+    return bool(value)
 
 
 def load_macro_data() -> Optional[pd.DataFrame]:
@@ -114,17 +174,162 @@ def load_macro_data() -> Optional[pd.DataFrame]:
 def load_historical_bills() -> Optional[pd.DataFrame]:
     """
     Load historical bills corpus for analog matching.
-    Currently loads from processed dataset; could extend to full Congress archive.
+    Prefers the generated policy-events CSV and falls back to cached parquet.
     """
     logger.info("Loading historical bills...")
-    
+
+    if POLICY_EVENTS_PATH.exists():
+        dataset = build_historical_bills_corpus()
+        if dataset.empty:
+            return None
+
+        try:
+            HISTORICAL_BILLS_PATH.parent.mkdir(parents=True, exist_ok=True)
+            dataset.to_parquet(HISTORICAL_BILLS_PATH, index=False)
+            logger.info(
+                f"Built historical bills from {POLICY_EVENTS_PATH}: "
+                f"shape={dataset.shape}"
+            )
+        except Exception as e:
+            logger.warning(f"Built historical bills but could not cache them: {e}")
+
+        return dataset
+
     try:
-        dataset = pd.read_parquet("data/processed/policy_dataset.parquet")
+        dataset = pd.read_parquet(HISTORICAL_BILLS_PATH)
+        dataset = _normalize_historical_bills(dataset)
         logger.info(f"Loaded historical bills: shape={dataset.shape}")
         return dataset
     except Exception as e:
         logger.warning(f"Failed to load historical bills: {e}")
-        return None
+
+    return None
+
+
+def build_historical_bills_corpus() -> pd.DataFrame:
+    """
+    Build a deterministic historical corpus from generated policy events.
+    """
+    if not POLICY_EVENTS_PATH.exists():
+        logger.warning(f"Policy events file not found: {POLICY_EVENTS_PATH}")
+        return pd.DataFrame()
+
+    rows = []
+    try:
+        policy_events = pd.read_csv(POLICY_EVENTS_PATH)
+        for idx, event in policy_events.iterrows():
+            rows.append(_policy_event_to_historical_bill(event, idx))
+    except Exception as e:
+        logger.warning(f"Failed to load policy events from {POLICY_EVENTS_PATH}: {e}")
+        return pd.DataFrame()
+
+    dataset = pd.DataFrame(rows)
+    return _normalize_historical_bills(dataset)
+
+
+def _policy_event_to_historical_bill(event: pd.Series, idx: int) -> Dict:
+    """Convert a row from data/policy_events.csv into analog-matcher shape."""
+    year = pd.to_numeric(event.get("year"), errors="coerce")
+    year = int(year) if pd.notna(year) else None
+    policy_change = str(event.get("policy_change", "")).strip()
+    description = str(event.get("description", "")).strip()
+    title = description or policy_change or f"Policy Event {idx + 1}"
+    inferred_type, inferred_direction, inferred_intensity, inferred_sector = (
+        _infer_policy_attributes(f"{policy_change} {description}")
+    )
+    policy_type = str(event.get("policy_type", inferred_type) or inferred_type).strip()
+    direction = str(event.get("direction", inferred_direction) or inferred_direction).strip()
+    intensity = str(event.get("intensity", inferred_intensity) or inferred_intensity).strip()
+    sector = str(event.get("sector", inferred_sector) or inferred_sector).strip()
+    state = str(event.get("state", "United States")).strip() or "United States"
+    level = "federal" if state in {"United States", "US", "Federal"} else "state"
+
+    return {
+        "bill_id": f"policy_event_{idx + 1}",
+        "title": title,
+        "introduced_date": f"{year}-01-01" if year else None,
+        "enacted_date": f"{year}-01-01" if year else None,
+        "policy_type": policy_type,
+        "direction": direction,
+        "intensity": intensity,
+        "sector": sector,
+        "state": state,
+        "level": level,
+        "text": f"{policy_change} {description}".strip(),
+    }
+
+
+def _infer_policy_attributes(text: str) -> tuple[str, str, str, str]:
+    """Infer coarse deterministic policy attributes for local seed events."""
+    normalized = text.lower()
+
+    if "tax" in normalized or "revenue" in normalized or "surtax" in normalized:
+        policy_type = "tax"
+        sector = "business" if "income" not in normalized else "households"
+    elif "health" in normalized or "medicaid" in normalized or "medicare" in normalized:
+        policy_type = "healthcare"
+        sector = "households"
+    elif "school" in normalized or "education" in normalized or "student" in normalized:
+        policy_type = "education"
+        sector = "government"
+    elif "regulation" in normalized or "reform" in normalized:
+        policy_type = "regulation"
+        sector = "business"
+    else:
+        policy_type = "other"
+        sector = "mixed"
+
+    if any(word in normalized for word in ["cut", "relief", "incentive", "spending"]):
+        direction = "expansionary"
+    elif any(word in normalized for word in ["increase", "surtax", "limit"]):
+        direction = "contractionary"
+    else:
+        direction = "neutral"
+
+    intensity = "high" if any(word in normalized for word in ["large", "major", "high"]) else "medium"
+    return policy_type, direction, intensity, sector
+
+
+def _normalize_historical_bills(dataset: pd.DataFrame) -> pd.DataFrame:
+    """Guarantee the columns expected by AnalogMatcher and OutcomeEngine."""
+    if dataset is None or dataset.empty:
+        return pd.DataFrame()
+
+    dataset = dataset.copy()
+    required_defaults = {
+        "bill_id": "",
+        "title": "",
+        "introduced_date": None,
+        "enacted_date": None,
+        "policy_type": "unknown",
+        "direction": "neutral",
+        "intensity": "low",
+        "sector": "mixed",
+        "state": "United States",
+        "level": "federal",
+        "text": "",
+    }
+
+    for column, default in required_defaults.items():
+        if column not in dataset.columns:
+            dataset[column] = default
+
+    dataset["bill_id"] = dataset["bill_id"].fillna("").astype(str)
+    missing_ids = dataset["bill_id"].str.strip().eq("")
+    dataset.loc[missing_ids, "bill_id"] = [
+        f"hist_{idx}" for idx in dataset.index[missing_ids]
+    ]
+
+    dataset["title"] = dataset["title"].fillna("").astype(str)
+    dataset["state"] = dataset["state"].fillna("United States").astype(str)
+    dataset["state"] = dataset["state"].replace({"US": "United States", "Federal": "United States"})
+    dataset["level"] = dataset["level"].fillna("federal").astype(str).str.lower()
+    dataset.loc[dataset["state"].eq("United States"), "level"] = "federal"
+    dataset["text"] = (
+        dataset["text"].fillna("").astype(str) + " " + dataset["title"].fillna("").astype(str)
+    ).str.strip()
+
+    return dataset[list(required_defaults.keys())].drop_duplicates(subset=["bill_id"])
 
 
 def score_bill(
@@ -156,10 +361,32 @@ def score_bill(
         "policy_type": bill.get("policy_type", "unknown"),
         "direction": bill.get("direction", "neutral"),
         "intensity": bill.get("intensity", "low"),
-        "sector": bill.get("sector", "unknown")
+        "sector": bill.get("sector", "unknown"),
+        "level": bill.get("level", "federal"),
+        "macro_relevance": _coerce_bool(bill.get("macro_relevance", True))
     }
+
+    if not target_policy["macro_relevance"]:
+        logger.info("Skipping macro scoring for non-economic bill: %s", bill_id)
+        return {
+            "bill_id": bill_id,
+            "title": title,
+            "policy_type": target_policy.get("policy_type"),
+            "direction": target_policy.get("direction"),
+            "macro_relevance": False,
+            "similar_bills": [],
+            "estimated_impacts": {
+                "gdp_effect": 0.0,
+                "unemployment_effect": 0.0,
+                "num_analogs_matched": 0,
+                "avg_similarity": 0.0
+            },
+            "net_score": 0.0,
+            "confidence": 0.0,
+            "explanation": "Policy classified as having no direct macroeconomic relevance."
+        }
     
-    analogs = analog_matcher.find_similar_bills(target_policy, top_k=5)
+    analogs = analog_matcher.find_similar_bills(target_policy, min_threshold=0.7)
     
     if not analogs:
         logger.warning(f"No analogs found for {bill_id}")
@@ -168,6 +395,7 @@ def score_bill(
             "title": title,
             "policy_type": target_policy.get("policy_type"),
             "direction": target_policy.get("direction"),
+            "macro_relevance": True,
             "similar_bills": [],
             "estimated_impacts": {
                 "gdp_effect": 0.0,
@@ -181,7 +409,10 @@ def score_bill(
         }
     
     # Step 2: Estimate directional impacts from analogs
-    impacts = outcome_engine.estimate_directional_impacts(analogs)
+    impacts = outcome_engine.estimate_directional_impacts(
+        analogs,
+        current_bill=target_policy
+    )
     
     # Step 3: Calculate net score and confidence
     score_result = scoring_engine.calculate_net_score(impacts, analogs)
@@ -191,7 +422,8 @@ def score_bill(
         {
             "bill_id": a.get("bill_id"),
             "title": a.get("title"),
-            "similarity_score": round(a.get("similarity_score", 0.0), 3)
+            "similarity_score": round(a.get("similarity_score", 0.0), 3),
+            "level": a.get("level", "federal")
         }
         for a in analogs
     ]
@@ -209,6 +441,7 @@ def score_bill(
         "title": title,
         "policy_type": target_policy.get("policy_type"),
         "direction": target_policy.get("direction"),
+        "macro_relevance": True,
         "similar_bills": analog_list,
         "estimated_impacts": {
             "gdp_effect": round(impacts.get("gdp_effect", 0.0), 3),
@@ -302,7 +535,7 @@ def build():
     if not congress_bills.empty:
         logger.info("Running Ollama policy classification...")
         
-        sample_size = min(10, len(congress_bills))
+        sample_size = min(30, len(congress_bills))
         congress_sample = congress_bills.head(sample_size).copy()
         
         ai_outputs = congress_sample["title"].apply(interpret_bill_ollama)
@@ -333,8 +566,10 @@ def build():
                 "direction": row.get("direction", "neutral"),
                 "intensity": row.get("intensity", "low"),
                 "sector": row.get("sector", "unknown"),
+                "macro_relevance": _coerce_bool(row.get("macro_relevance", False)),
                 "introduced_date": row.get("introduced_date"),
-                "state": "United States"
+                "state": "United States",
+                "level": row.get("level", "federal")
             }
             
             result = score_bill(bill, analog_matcher, outcome_engine, scoring_engine)

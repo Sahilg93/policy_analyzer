@@ -48,6 +48,7 @@ class OutcomeEngine:
     def estimate_directional_impacts(
         self,
         analog_bills: List[Dict],
+        current_bill: Optional[Dict] = None,
         window_months: int = 12
     ) -> Dict[str, float]:
         """
@@ -61,6 +62,8 @@ class OutcomeEngine:
                 - "enacted_date": datetime or str (YYYY-MM-DD), optional
                 - "similarity_score": float (0-1)
                 - "state": str, optional (defaults to "US" national)
+                - "level": str, optional (federal or state)
+            current_bill: Current bill metadata, including "level" when available.
             window_months: Months to measure macro change after bill date (default 12)
         
         Returns:
@@ -90,9 +93,12 @@ class OutcomeEngine:
         
         logger.info(f"Estimating impacts from {len(analog_bills)} analogs")
         
-        gdp_changes = []
-        unemp_changes = []
+        gdp_weighted_terms = []
+        unemp_weighted_terms = []
         sim_scores = []
+        current_level = self._normalize_level(
+            (current_bill or {}).get("level", "federal")
+        )
         
         for bill in analog_bills:
             try:
@@ -115,7 +121,7 @@ class OutcomeEngine:
                 if st.upper() in ["FEDERAL", "US"]:
                     st = "United States"
                 
-                # Lookup macro data at event year
+                # Lookup macro data at event year (Base Year)
                 macro_yr = self.macro[
                     (self.macro["year"] == evt_year) & 
                     (self.macro["state"] == st)
@@ -128,44 +134,73 @@ class OutcomeEngine:
                 gdp_base = macro_yr["gdp"].iloc[0]
                 unemp_base = macro_yr["unemployment_rate"].iloc[0]
                 
-                # Lookup macro data 12 months later (next year)
-                future_year = evt_year + 1
-                macro_fut = self.macro[
-                    (self.macro["year"] == future_year) & 
-                    (self.macro["state"] == st)
-                ]
-                
-                if macro_fut.empty:
-                    logger.debug(f"No future macro data for {st}/{future_year}")
+                if pd.isna(gdp_base) and pd.isna(unemp_base):
+                    logger.debug(f"Base year macro data is entirely missing for {st}/{evt_year}")
                     continue
                 
-                gdp_future = macro_fut["gdp"].iloc[0]
-                unemp_future = macro_fut["unemployment_rate"].iloc[0]
+                # We evaluate a 3-year trailing horizon (T+1, T+2, T+3) relative to Base Year T
+                decay_weights = {1: 1.0, 2: 0.5, 3: 0.25}
                 
-                # Handle missing values
-                if pd.isna(gdp_base) or pd.isna(gdp_future):
-                    logger.debug(f"Missing GDP data for {st} {evt_year}->{future_year}")
+                gdp_deltas = []
+                gdp_weights = []
+                unemp_deltas = []
+                unemp_weights = []
+                
+                for k, weight in decay_weights.items():
+                    future_year = evt_year + k
+                    macro_fut = self.macro[
+                        (self.macro["year"] == future_year) & 
+                        (self.macro["state"] == st)
+                    ]
+                    if macro_fut.empty:
+                        continue
+                    
+                    gdp_future = macro_fut["gdp"].iloc[0]
+                    unemp_future = macro_fut["unemployment_rate"].iloc[0]
+                    
+                    # GDP calculation
+                    if not pd.isna(gdp_base) and not pd.isna(gdp_future) and gdp_base != 0:
+                        pct = (gdp_future - gdp_base) / gdp_base
+                        pct = max(-1.0, min(1.0, pct))
+                        gdp_deltas.append(pct)
+                        gdp_weights.append(weight)
+                    
+                    # Unemployment calculation
+                    if not pd.isna(unemp_base) and not pd.isna(unemp_future):
+                        delta = unemp_future - unemp_base
+                        delta = max(-1.0, min(1.0, delta))
+                        unemp_deltas.append(delta)
+                        unemp_weights.append(weight)
+                
+                # If we have no valid steps for GDP or unemployment, we skip.
+                if not gdp_deltas and not unemp_deltas:
+                    logger.debug(f"No future multi-year macro data found for {st} after {evt_year}")
                     continue
                 
-                # Calculate percentage change (bounded -1 to 1)
+                # Calculate decay-weighted average for this specific analog bill
                 gdp_pct = 0.0
-                if gdp_base != 0:
-                    gdp_pct = (gdp_future - gdp_base) / gdp_base
-                    gdp_pct = max(-1.0, min(1.0, gdp_pct))
-                    gdp_changes.append(gdp_pct)
+                if gdp_deltas:
+                    gdp_pct = sum(d * w for d, w in zip(gdp_deltas, gdp_weights)) / sum(gdp_weights)
                 
-                # Calculate absolute change in unemployment (bounded -1 to 1)
                 unemp_delta = 0.0
-                if not pd.isna(unemp_base) and not pd.isna(unemp_future):
-                    unemp_delta = unemp_future - unemp_base
-                    # Clamp to [-1, 1] range
-                    unemp_delta = max(-1.0, min(1.0, unemp_delta))
-                    unemp_changes.append(unemp_delta)
+                if unemp_deltas:
+                    unemp_delta = sum(d * w for d, w in zip(unemp_deltas, unemp_weights)) / sum(unemp_weights)
                 
                 # Collect similarity score
                 sim = bill.get("similarity_score", 0.5)
                 sim = max(0.0, min(1.0, sim))  # Clamp to [0, 1]
+                sim = self._apply_scope_penalty(
+                    sim,
+                    current_level=current_level,
+                    analog_level=self._normalize_level(bill.get("level", "federal"))
+                )
                 sim_scores.append(sim)
+
+                if gdp_deltas:
+                    gdp_weighted_terms.append((gdp_pct, sim))
+
+                if unemp_deltas:
+                    unemp_weighted_terms.append((unemp_delta, sim))
                 
                 logger.debug(
                     f"Bill {bill.get('bill_id', '?')}: "
@@ -192,12 +227,12 @@ class OutcomeEngine:
         total_weight = sum(sim_scores)
         
         gdp_weighted = sum(
-            g * s for g, s in zip(gdp_changes, sim_scores[:len(gdp_changes)])
-        ) / total_weight if gdp_changes else 0.0
+            change * weight for change, weight in gdp_weighted_terms
+        ) / total_weight if gdp_weighted_terms else 0.0
         
         unemp_weighted = sum(
-            u * s for u, s in zip(unemp_changes, sim_scores[:len(unemp_changes)])
-        ) / total_weight if unemp_changes else 0.0
+            change * weight for change, weight in unemp_weighted_terms
+        ) / total_weight if unemp_weighted_terms else 0.0
         
         avg_sim = sum(sim_scores) / len(sim_scores)
         
@@ -219,3 +254,23 @@ class OutcomeEngine:
         )
         
         return result
+
+    def _apply_scope_penalty(
+        self,
+        similarity: float,
+        current_level: str,
+        analog_level: str
+    ) -> float:
+        """
+        Down-weight state-to-federal analogs to avoid scope leakage.
+        """
+        if current_level == "state" and analog_level == "federal":
+            return similarity * 0.5
+        return similarity
+
+    def _normalize_level(self, level: Optional[str]) -> str:
+        """Normalize level labels used by different ingestors."""
+        value = str(level or "federal").strip().lower()
+        if value in {"state", "states", "local"}:
+            return "state"
+        return "federal"
