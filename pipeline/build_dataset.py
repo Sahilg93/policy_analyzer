@@ -209,6 +209,37 @@ def _coerce_bool(value) -> bool:
     return bool(value)
 
 
+def clean_state_bill_title(title: str) -> str:
+    """
+    Strips out archaic legal preambles from state legislative titles.
+    Isolates core thematic policy content to optimize semantic text embeddings.
+    """
+    if not title:
+        return ""
+        
+    cleaned = title.strip()
+    
+    # 1. Remove bracketed or parenthesized P.L. / Act / No. citations
+    cleaned = re.sub(r'\(P\.L\..*?,?\s*No\..*?\)', '', cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r'P\.L\..*?,\s*No\..*?\b', '', cleaned, flags=re.IGNORECASE)
+    
+    # 2. Match standard "An Act amending..." or "An Act providing for..." patterns
+    match_prov = re.search(r'(?:further\s+)?providing\s+for\s+(.*)', cleaned, flags=re.IGNORECASE)
+    if match_prov:
+        cleaned = match_prov.group(1)
+    else:
+        match_rel = re.search(r'relating\s+to\s+(.*)', cleaned, flags=re.IGNORECASE)
+        if match_rel:
+            cleaned = match_rel.group(1)
+            
+    # 3. Strip leading/trailing punctuation or noise leftover
+    cleaned = re.sub(r'^[\s,.;:-]+', '', cleaned)
+    cleaned = re.sub(r'[\s,.;:-]+$', '', cleaned)
+    cleaned = cleaned.strip()
+    
+    return cleaned if cleaned else title.strip()
+
+
 def compress_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     """
     Optimize memory footprint of DataFrame by downcasting numeric columns.
@@ -314,8 +345,12 @@ def _policy_event_to_historical_bill(event: pd.Series, idx: int) -> Dict:
     state = str(event.get("state", "United States")).strip() or "United States"
     level = "federal" if state in {"United States", "US", "Federal"} else "state"
 
+    bill_id = str(event.get("bill_id", "")).strip() if "bill_id" in event and pd.notna(event.get("bill_id")) else ""
+    if not bill_id:
+        bill_id = f"policy_event_{idx + 1}"
+
     return {
-        "bill_id": f"policy_event_{idx + 1}",
+        "bill_id": bill_id,
         "title": title,
         "introduced_date": f"{year}-01-01" if year else None,
         "enacted_date": f"{year}-01-01" if year else None,
@@ -327,6 +362,7 @@ def _policy_event_to_historical_bill(event: pd.Series, idx: int) -> Dict:
         "level": level,
         "text": f"{policy_change} {description}".strip(),
     }
+
 
 
 def _infer_policy_attributes(text: str) -> tuple[str, str, str, str]:
@@ -398,7 +434,8 @@ def _normalize_historical_bills(dataset: pd.DataFrame) -> pd.DataFrame:
     
     for idx, row in dataset.iterrows():
         st = row["state"]
-        if st != "United States":
+        is_state = st != "United States"
+        if is_state:
             dataset.at[idx, "jurisdiction"] = st.lower()
             dataset.at[idx, "level"] = "state"
         else:
@@ -413,8 +450,14 @@ def _normalize_historical_bills(dataset: pd.DataFrame) -> pd.DataFrame:
             except Exception:
                 pass
                 
-        if not row.get("bill_text_clean"):
-            dataset.at[idx, "bill_text_clean"] = row.get("text", row.get("title", ""))
+        raw_text = row.get("bill_text_clean") or row.get("text") or row.get("title", "")
+        if is_state:
+            cleaned_title = clean_state_bill_title(row.get("title", ""))
+            cleaned_text = clean_state_bill_title(raw_text)
+            dataset.at[idx, "title"] = cleaned_title
+            dataset.at[idx, "bill_text_clean"] = cleaned_text
+        else:
+            dataset.at[idx, "bill_text_clean"] = raw_text
 
     return dataset[list(required_defaults.keys())].drop_duplicates(subset=["bill_id"])
 
@@ -513,7 +556,7 @@ def _build_explanation(target: Dict, impacts: Dict, score_result: Dict, num_anal
     return " ".join(parts)
 
 
-def build(jurisdiction: str = "federal", state_code: Optional[str] = None):
+def build(jurisdiction: str = "federal", state_code: Optional[str] = None, rebuild_embeddings: bool = False):
     """
     Main orchestrator: Detects target jurisdiction and dynamically routes
     to either the Federal Congress pipeline or the State Legislature pipeline.
@@ -528,7 +571,8 @@ def build(jurisdiction: str = "federal", state_code: Optional[str] = None):
             jurisdiction_name=jurisdiction,
             state_code=state_code,
             openstates_key="c9426a2c-debd-4870-9304-616b5e463ea3",
-            max_bills = 10
+            max_bills = 10,
+            rebuild_embeddings = rebuild_embeddings
         )
         
     logger.info("Policy Intelligence Platform - Federal Orchestration Started")
@@ -545,7 +589,7 @@ def build(jurisdiction: str = "federal", state_code: Optional[str] = None):
     
     logger.info("Initializing engines...")
     outcome_engine = OutcomeEngine(macro_df=macro_data)
-    analog_matcher = AnalogMatcher(historical_bills_df=historical_bills)
+    analog_matcher = AnalogMatcher(historical_bills_df=historical_bills, rebuild_embeddings=rebuild_embeddings)
     scoring_engine = ScoringEngine(gdp_weight=0.4, unemployment_weight=-0.3)
     
     logger.info("Fetching Congressional bills...")
@@ -653,7 +697,8 @@ def build_state_pipeline(
     jurisdiction_name: str, 
     state_code: str, 
     openstates_key: str, 
-    max_bills: int = 20
+    max_bills: int = 20,
+    rebuild_embeddings: bool = False
 ) -> Optional[List[Dict]]:
     """
     State Orchestrator: Ingest state bills, classify, and score via engines.
@@ -691,8 +736,12 @@ def build_state_pipeline(
     
     def enrich_single_bill(row_tuple) -> Dict:
         idx, row = row_tuple
-        title = row.get("title", "")
-        summary = row.get("bill_text_clean", "")
+        raw_title = row.get("title", "")
+        raw_summary = row.get("bill_text_clean", "")
+        
+        # Clean archaic East Coast legal preambles before vectorizing or classifying
+        title = clean_state_bill_title(raw_title)
+        summary = clean_state_bill_title(raw_summary) if raw_summary else title
         
         # Fire the macro interpreter to populate policy_type, direction, macro_relevance
         ai_features = interpret_bill_ollama(title, bill_text_clean=summary)
@@ -700,6 +749,10 @@ def build_state_pipeline(
         # Build out the target structured payload
         bill_dict = row.to_dict()
         bill_dict.update(ai_features)
+        
+        # Update with cleaned title and summary fields for optimized down-stream embedding matching
+        bill_dict["title"] = title
+        bill_dict["bill_text_clean"] = summary
         
         # Explicitly enforce jurisdictional tracking tags for state scoping
         bill_dict["level"] = "state"
@@ -718,7 +771,7 @@ def build_state_pipeline(
         
     # 4. Initialize Core Processing Engines
     outcome_engine = OutcomeEngine(macro_df=macro_data)
-    analog_matcher = AnalogMatcher(historical_bills_df=historical_bills)
+    analog_matcher = AnalogMatcher(historical_bills_df=historical_bills, rebuild_embeddings=rebuild_embeddings)
     scoring_engine = ScoringEngine()
     
     # 5. Execute scoring matrix loop using enriched dictionaries
@@ -747,9 +800,18 @@ if __name__ == "__main__":
         default=None,
         help="Two-letter state postal abbreviation code (e.g. 'FL')"
     )
+    parser.add_argument(
+        "--rebuild-embeddings",
+        action="store_true",
+        help="Force deletion of local disk cache and rebuild embeddings from scratch"
+    )
     
     args = parser.parse_args()
-    results = build(jurisdiction=args.jurisdiction, state_code=args.state_code)
+    results = build(
+        jurisdiction=args.jurisdiction, 
+        state_code=args.state_code, 
+        rebuild_embeddings=args.rebuild_embeddings
+    )
     
     if results:
         print("\n" + "="*60)

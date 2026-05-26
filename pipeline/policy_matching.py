@@ -19,7 +19,7 @@ class AnalogMatcher:
     Matches current bills to historical analogs using local semantic embeddings.
     """
 
-    def __init__(self, historical_bills_df: Optional[pd.DataFrame] = None):
+    def __init__(self, historical_bills_df: Optional[pd.DataFrame] = None, rebuild_embeddings: bool = False):
         """
         Initialize AnalogMatcher with historical bill corpus and load cached vectors if available.
         
@@ -27,6 +27,7 @@ class AnalogMatcher:
             historical_bills_df: DataFrame with columns:
                 - bill_id, title, introduced_date, enacted_date (optional)
                 - policy_type, direction, intensity (from Ollama classification)
+            rebuild_embeddings: Force deletion of local disk cache and rebuild embeddings from scratch
         """
         self.history = historical_bills_df.copy() if historical_bills_df is not None else None
         self.embedding_cache = {}
@@ -37,8 +38,8 @@ class AnalogMatcher:
 
         # Index by bill_id to enable O(1) metadata lookups
         self.history = self.history.set_index("bill_id", drop=False)
-        logger.info(f"AnalogMatcher initialized with {len(self.history)} historical bills")
-        self._build_embedding_cache()
+        logger.info(f"AnalogMatcher initialized with {len(self.history)} historical bills (Rebuild: {rebuild_embeddings})")
+        self._build_embedding_cache(rebuild=rebuild_embeddings)
     
     def find_similar_bills(
         self,
@@ -172,63 +173,76 @@ class AnalogMatcher:
 
         # Smart jurisdiction fallback logic:
         # If target is a state, and we find 0 analogs above the threshold,
-        # we dynamically fallback to allowing federal-level analogs with a relaxed federal-to-state penalty.
+        # we dynamically fallback to allowing federal-level analogs but with a strict mathematical floor of 0.60.
         if target_jur != "federal" and len(analogs) == 0:
             logger.info("No state-level analogs survived threshold filters. Engaging smart federal-fallback logic...")
-            # Relax federal-to-state penalty to half (scope leakage is bounded) and lower threshold slightly
-            relaxed_fed_penalty = fed_to_state_penalty * 0.5
-            penalties = np.zeros(len(bill_ids))
             
-            penalties[fed_mask] = relaxed_fed_penalty
+            # Enforce strict fallback floor threshold of 0.60 after the full federal-to-state penalty (-0.30) is applied
+            penalties = np.zeros(len(bill_ids))
+            penalties[fed_mask] = fed_to_state_penalty
             penalties[state_mask] = state_to_state_penalty
             
             penalized_similarities = np.clip(raw_similarities - penalties, 0.0, 1.0)
-            relaxed_threshold = max(0.5, threshold - 0.1) # Safe lower boundary
+            fallback_floor = 0.60
             
-            above_threshold_indices = np.where(penalized_similarities >= relaxed_threshold)[0]
+            above_threshold_indices = np.where(penalized_similarities >= fallback_floor)[0]
             
             for index in above_threshold_indices:
                 bid = bill_ids[index]
                 sim = float(penalized_similarities[index])
                 hist_bill = self.history.loc[bid]
                 
-                analog = {
-                    "bill_id": bid,
-                    "title": hist_bill.get("title", ""),
-                    "introduced_date": hist_bill.get("introduced_date"),
-                    "enacted_date": hist_bill.get("enacted_date"),
-                    "policy_type": hist_bill.get("policy_type", "unknown"),
-                    "direction": hist_bill.get("direction", "neutral"),
-                    "intensity": hist_bill.get("intensity", "low"),
-                    "sector": hist_bill.get("sector", "mixed"),
-                    "similarity_score": sim,
-                    "state": hist_bill.get("state", "United States"),
-                    "level": hist_bill.get("level", "federal"),
-                    "jurisdiction": hist_bill.get("jurisdiction", "federal"),
-                    "state_code": hist_bill.get("state_code", "US"),
-                    "session_year": hist_bill.get("session_year"),
-                    "enacted": hist_bill.get("enacted", True),
-                    "sponsor_party": hist_bill.get("sponsor_party", "mixed"),
-                    "bill_text_clean": hist_bill.get("bill_text_clean", ""),
-                    "major_topic": hist_bill.get("major_topic", "Macroeconomics"),
-                    "is_fallback": True
-                }
-                analogs.append(analog)
+                # Only accept federal-level analogs in this fallback pathway
+                if str(hist_bill.get("jurisdiction")).strip().lower() == "federal":
+                    analog = {
+                        "bill_id": bid,
+                        "title": hist_bill.get("title", ""),
+                        "introduced_date": hist_bill.get("introduced_date"),
+                        "enacted_date": hist_bill.get("enacted_date"),
+                        "policy_type": hist_bill.get("policy_type", "unknown"),
+                        "direction": hist_bill.get("direction", "neutral"),
+                        "intensity": hist_bill.get("intensity", "low"),
+                        "sector": hist_bill.get("sector", "mixed"),
+                        "similarity_score": sim,
+                        "state": hist_bill.get("state", "United States"),
+                        "level": hist_bill.get("level", "federal"),
+                        "jurisdiction": hist_bill.get("jurisdiction", "federal"),
+                        "state_code": hist_bill.get("state_code", "US"),
+                        "session_year": hist_bill.get("session_year"),
+                        "enacted": hist_bill.get("enacted", True),
+                        "sponsor_party": hist_bill.get("sponsor_party", "mixed"),
+                        "bill_text_clean": hist_bill.get("bill_text_clean", ""),
+                        "major_topic": hist_bill.get("major_topic", "Macroeconomics"),
+                        "is_fallback": True
+                    }
+                    analogs.append(analog)
+            
+            if len(analogs) == 0:
+                logger.info("Federal fallback analogs failed to clear the strict 0.60 floor threshold. Skipping base score generation.")
+                return []
             
         analogs.sort(key=lambda analog: analog["similarity_score"], reverse=True)
         logger.info("Found %d threshold-qualified analogs (vectorized search complete)", len(analogs))
         
         return analogs
 
-    def _build_embedding_cache(self) -> None:
+    def _build_embedding_cache(self, rebuild: bool = False) -> None:
         """
         Pre-compute embeddings for the historical corpus or load from persistent storage.
         """
         import os
         cache_path = "data/processed/historical_embeddings.parquet"
         
+        # If rebuild is True, clear the cache to force a fresh regeneration
+        if rebuild and os.path.exists(cache_path):
+            try:
+                os.remove(cache_path)
+                logger.info(f"Rebuild requested: Cleared historical embeddings cache file at {cache_path}")
+            except Exception as e:
+                logger.warning(f"Rebuild requested: Failed to delete cache file {cache_path}: {e}")
+        
         # Try loading persistent parquet vector storage
-        if os.path.exists(cache_path):
+        if not rebuild and os.path.exists(cache_path):
             try:
                 cache_df = pd.read_parquet(cache_path)
                 for _, row in cache_df.iterrows():
