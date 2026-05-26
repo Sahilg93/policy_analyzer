@@ -5,12 +5,17 @@ import numpy as np
 import os
 import requests
 from typing import Optional
+import logging
 from pipeline.config import (
     HISTORICAL_BILLS_PATH,
     EMBEDDINGS_PATH,
-    POLICY_DATASET_PATH
+    POLICY_DATASET_PATH,
+    OLLAMA_HOST
 )
 from pipeline.build_dataset import build
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 st.set_page_config(
     page_title="Policy Intelligence Platform",
@@ -98,7 +103,7 @@ def _get_proposal_embedding(text: str) -> Optional[np.ndarray]:
     """Fetch embedding for a campaign proposal via local Ollama API."""
     try:
         r = requests.post(
-            "http://localhost:11434/api/embeddings",
+            f"{OLLAMA_HOST}/api/embeddings",
             json={"model": "nomic-embed-text", "prompt": text},
             timeout=10
         )
@@ -109,106 +114,104 @@ def _get_proposal_embedding(text: str) -> Optional[np.ndarray]:
 
 
 @st.cache_data
-def get_semantic_map_data(df_campaign_dict=None, _db_token=0):
+def get_historical_svd_basis(_db_token=0):
+    """Calculates and caches the Singular Value Decomposition (SVD) basis of the historical corpus."""
     if not HISTORICAL_BILLS_PATH.exists() or not EMBEDDINGS_PATH.exists():
-        return pd.DataFrame()
-        
+        return None, None, None
     try:
         df_bills = pd.read_parquet(HISTORICAL_BILLS_PATH)
         df_embed = pd.read_parquet(EMBEDDINGS_PATH)
-        
-        # Merge on bill_id
         df_merged = df_bills.merge(df_embed, on="bill_id", how="inner")
         if df_merged.empty:
-            return pd.DataFrame()
+            return None, None, None
             
-        # Re-build campaign rows if provided
-        if df_campaign_dict is not None and len(df_campaign_dict) > 0:
-            df_camp = pd.DataFrame(df_campaign_dict)
-            if not df_camp.empty:
-                camp_rows = []
-                camp_vectors = []
-                for _, row in df_camp.iterrows():
-                    text = str(row.get("bill_text_clean") or row.get("title") or "").strip()
-                    emb = _get_proposal_embedding(text)
-                    if emb is not None:
-                        camp_vectors.append(emb)
-                        camp_rows.append({
-                            "bill_id": row["bill_id"],
-                            "title": row["title"],
-                            "policy_type": row["policy_type"],
-                            "direction": row["direction"],
-                            "intensity": row.get("intensity", "low"),
-                            "sector": row.get("sector", "mixed"),
-                            "state": row.get("candidate_name", "Candidate"),
-                            "level": "campaign",
-                            "text": text,
-                            "jurisdiction": "campaign",
-                            "state_code": "CAMP",
-                            "session_year": 2026,
-                            "enacted": False,
-                            "sponsor_party": row.get("party", "unknown"),
-                            "bill_text_clean": text,
-                            "major_topic": row.get("major_topic", "Macroeconomics")
-                        })
-                
-                if camp_rows:
-                    df_camp_aligned = pd.DataFrame(camp_rows)
-                    # Combine historical vectors and campaign vectors
-                    hist_vectors = np.stack(df_merged["embedding"].values)
-                    camp_vectors_stack = np.stack(camp_vectors)
-                    all_vectors = np.concatenate([hist_vectors, camp_vectors_stack], axis=0)
-                    
-                    # Calculate SVD PCA on the unified matrix
-                    pca_coords = calculate_cheap_pca(all_vectors, num_components=2)
-                    
-                    # Assign coords to historical
-                    df_merged["PCA 1"] = pca_coords[:len(hist_vectors), 0]
-                    df_merged["PCA 2"] = pca_coords[:len(hist_vectors), 1]
-                    
-                    # Assign coords to campaign
-                    df_camp_aligned["PCA 1"] = pca_coords[len(hist_vectors):, 0]
-                    df_camp_aligned["PCA 2"] = pca_coords[len(hist_vectors):, 1]
-                    
-                    # Combine dataframes
-                    df_final = pd.concat([df_merged.drop(columns=["embedding"]), df_camp_aligned], ignore_index=True)
-                    return df_final
-                    
-        # Fallback to pure historical SVD PCA
-        vectors = np.stack(df_merged["embedding"].values)
-        pca_coords = calculate_cheap_pca(vectors, num_components=2)
-        df_merged["PCA 1"] = pca_coords[:, 0]
-        df_merged["PCA 2"] = pca_coords[:, 1]
-        return df_merged.drop(columns=["embedding"])
+        hist_vectors = np.stack(df_merged["embedding"].values)
+        X_hist_mean = np.mean(hist_vectors, axis=0)
+        X_hist_centered = hist_vectors - X_hist_mean
+        U_hist, S_hist, Vt_hist = np.linalg.svd(X_hist_centered, full_matrices=False)
+        
+        # Deterministic sign locking (equivalent to scikit-learn's svd_flip)
+        max_abs_rows = np.argmax(np.abs(U_hist), axis=0)
+        signs = np.sign(U_hist[max_abs_rows, range(U_hist.shape[1])])
+        U_hist *= signs
+        Vt_hist *= signs[:, np.newaxis]
+        
+        hist_coords = np.dot(X_hist_centered, Vt_hist[:2].T)
+        
+        df_merged["PCA 1"] = hist_coords[:, 0]
+        df_merged["PCA 2"] = hist_coords[:, 1]
+        
+        return df_merged.drop(columns=["embedding"]), X_hist_mean, Vt_hist[:2]
     except Exception as e:
-        st.error(f"Failed to process semantic vector projections: {e}")
+        logger.error(f"Failed to calculate historical SVD basis: {e}")
+        return None, None, None
+
+
+@st.cache_data
+def get_semantic_map_data(df_campaign_dict=None, _db_token=0):
+    """Retrieves 2D coordinates for the interactive Semantic Policy Space map."""
+    df_merged_proj, hist_mean, Vt_basis = get_historical_svd_basis(_db_token=_db_token)
+    if df_merged_proj is None:
         return pd.DataFrame()
+        
+    df_merged = df_merged_proj.copy()
+    
+    # Project campaign rows if provided
+    if df_campaign_dict is not None and len(df_campaign_dict) > 0:
+        df_camp = pd.DataFrame(df_campaign_dict)
+        if not df_camp.empty:
+            camp_rows = []
+            camp_vectors = []
+            for _, row in df_camp.iterrows():
+                text = str(row.get("bill_text_clean") or row.get("title") or "").strip()
+                emb = _get_proposal_embedding(text)
+                if emb is not None:
+                    camp_vectors.append(emb)
+                    camp_rows.append({
+                        "bill_id": row["bill_id"],
+                        "title": row["title"],
+                        "policy_type": row["policy_type"],
+                        "direction": row["direction"],
+                        "intensity": row.get("intensity", "low"),
+                        "sector": row.get("sector", "mixed"),
+                        "state": row.get("candidate_name", "Candidate"),
+                        "level": "campaign",
+                        "text": text,
+                        "jurisdiction": "campaign",
+                        "state_code": "CAMP",
+                        "session_year": 2026,
+                        "enacted": False,
+                        "sponsor_party": row.get("party", "unknown"),
+                        "bill_text_clean": text,
+                        "major_topic": row.get("major_topic", "Macroeconomics")
+                    })
+            
+            if camp_rows:
+                df_camp_aligned = pd.DataFrame(camp_rows)
+                camp_vectors_stack = np.stack(camp_vectors)
+                
+                # Project campaign vectors onto existing historical basis
+                camp_centered = camp_vectors_stack - hist_mean
+                camp_coords = np.dot(camp_centered, Vt_basis.T)
+                
+                df_camp_aligned["PCA 1"] = camp_coords[:, 0]
+                df_camp_aligned["PCA 2"] = camp_coords[:, 1]
+                
+                df_final = pd.concat([df_merged, df_camp_aligned], ignore_index=True)
+                return df_final
+                
+    return df_merged
 
 
 # Parameterized cache loop allowing state injection updates
 @st.cache_data(show_spinner=False)
 def load_scored_bills(jurisdiction="federal", state_code=None, _db_token=0):
-    build(jurisdiction=jurisdiction, state_code=state_code)
-    
     csv_path = "data/processed/scored_bills.csv"
     if os.path.exists(csv_path):
         try:
             df = pd.read_csv(csv_path)
-            if "estimated_impacts" in df.columns:
-                import ast
-                def parse_dict(val):
-                    if isinstance(val, str):
-                        try:
-                            return ast.literal_eval(val)
-                        except Exception:
-                            return {}
-                    return val or {}
-                df["estimated_impacts"] = df["estimated_impacts"].apply(parse_dict)
-                impacts_df = pd.json_normalize(df["estimated_impacts"]).add_prefix("impact_")
-                df = pd.concat(
-                    [df.drop(columns=["estimated_impacts"]), impacts_df],
-                    axis=1
-                )
+            # If the CSV has nested fields, parse them safely.
+            # But serialize_scored_results already exports flat columns.
             return df
         except Exception as e:
             logger.error(f"Failed to read scored_bills.csv: {e}")
@@ -218,19 +221,14 @@ def load_scored_bills(jurisdiction="federal", state_code=None, _db_token=0):
 
 @st.cache_data(show_spinner=False)
 def load_campaign_scored_policies(jurisdiction="ohio", state_code="OH", _db_token=0):
-    from pipeline.build_dataset import build_campaign_pipeline
-    raw_results = build_campaign_pipeline(jurisdiction_name=jurisdiction, state_code=state_code)
-    if not raw_results:
-        return pd.DataFrame()
-
-    df = pd.DataFrame(raw_results)
-    if "estimated_impacts" in df.columns:
-        impacts_df = pd.json_normalize(df["estimated_impacts"]).add_prefix("impact_")
-        df = pd.concat(
-            [df.drop(columns=["estimated_impacts"]), impacts_df],
-            axis=1
-        )
-    return df
+    csv_path = "data/processed/campaign_scored_bills.csv"
+    if os.path.exists(csv_path):
+        try:
+            df = pd.read_csv(csv_path)
+            return df
+        except Exception as e:
+            logger.error(f"Failed to read campaign_scored_bills.csv: {e}")
+    return pd.DataFrame()
 
 
 @st.cache_data
@@ -274,6 +272,8 @@ db_token = _get_db_token()
 if simulation_mode == "Candidate Campaign Platforms":
     if run_pipeline:
         st.sidebar.info("Invoking Ohio Campaign Platform pipeline core...")
+        from pipeline.build_dataset import build_campaign_pipeline
+        build_campaign_pipeline(jurisdiction_name="Ohio", state_code="OH")
         st.cache_data.clear()
         df = load_campaign_scored_policies(jurisdiction="Ohio", state_code="OH", _db_token=db_token)
     else:
@@ -285,6 +285,7 @@ if simulation_mode == "Candidate Campaign Platforms":
 else:
     if run_pipeline:
         st.sidebar.info(f"Invoking {selected_pipeline} pipeline core...")
+        build(jurisdiction=selected_pipeline.lower(), state_code=target_state_code)
         st.cache_data.clear()
         df = load_scored_bills(jurisdiction=selected_pipeline.lower(), state_code=target_state_code, _db_token=db_token)
     else:

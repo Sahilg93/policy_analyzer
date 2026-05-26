@@ -1,0 +1,35 @@
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+
+# Python Cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local Environment Variables
+.env
+.env.local
+.env.*.local
+.env.development
+.env.test
+.env.production
+.env.staging
+
+# OS Generated
+.DS_Store
+Thumbs.db
+
+# Generated / Dynamic Data Cache Files
+data/processed/scored_bills.csv
+data/processed/campaign_scored_bills.csv
+data/processed/historical_embeddings.parquet
+data/processed/historical_bills.parquet
+data/processed/ai_classification_registry.parquet
+data/processed/campaign_distilled_registry.parquet

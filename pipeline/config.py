@@ -31,15 +31,15 @@ def load_env(env_path: str = ".env") -> None:
 load_env()
 
 # Secure Credential Keys
-OPENSTATES_API_KEY = os.getenv("OPENSTATES_API_KEY", "c9426a2c-debd-4870-9304-616b5e463ea3")
+OPENSTATES_API_KEY = os.getenv("OPENSTATES_API_KEY", "")
 BEA_API_KEY = os.getenv("BEA_API_KEY", "")
-BLS_API_KEY = os.getenv("BLS_API_KEY", "71ca07a939aa4e71a82ae2f88ac8ad1e")
-CONGRESS_API_KEY = os.getenv("CONGRESS_API_KEY", "fodYfBmI4cxpLigjhMdpY8jfEqUhbeSJKHKAKq4U")
+BLS_API_KEY = os.getenv("BLS_API_KEY", "")
+CONGRESS_API_KEY = os.getenv("CONGRESS_API_KEY", "")
 
 # Host Service Endpoints
 OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://localhost:11434").rstrip("/")
 OLLAMA_MODEL_EMBED = os.getenv("OLLAMA_MODEL_EMBED", "nomic-embed-text")
-OLLAMA_MODEL_GEN = os.getenv("OLLAMA_MODEL_GEN", "phi3:mini")
+OLLAMA_MODEL_GEN = os.getenv("OLLAMA_MODEL_GEN", "llama3")
 
 # Data File Paths
 DATA_DIR = Path("data")

@@ -1,17 +1,16 @@
-"""
-Analog Matcher: semantic historical policy similarity search via Ollama.
-"""
 import logging
 from typing import Dict, List, Optional
-
+import os
 import numpy as np
 import pandas as pd
 import requests
 
+from pipeline.config import OLLAMA_HOST, OLLAMA_MODEL_EMBED
+
 logger = logging.getLogger(__name__)
 
-OLLAMA_EMBEDDING_URL = "http://localhost:11434/api/embeddings"
-OLLAMA_EMBEDDING_MODEL = "nomic-embed-text"
+OLLAMA_EMBEDDING_URL = f"{OLLAMA_HOST}/api/embeddings"
+OLLAMA_EMBEDDING_MODEL = OLLAMA_MODEL_EMBED
 
 
 class AnalogMatcher:
@@ -22,15 +21,14 @@ class AnalogMatcher:
     def __init__(self, historical_bills_df: Optional[pd.DataFrame] = None, rebuild_embeddings: bool = False):
         """
         Initialize AnalogMatcher with historical bill corpus and load cached vectors if available.
-        
-        Args:
-            historical_bills_df: DataFrame with columns:
-                - bill_id, title, introduced_date, enacted_date (optional)
-                - policy_type, direction, intensity (from Ollama classification)
-            rebuild_embeddings: Force deletion of local disk cache and rebuild embeddings from scratch
         """
         self.history = historical_bills_df.copy() if historical_bills_df is not None else None
         self.embedding_cache = {}
+        
+        # Precomputed vectors & matrix properties for O(1) searches
+        self.bill_ids = []
+        self.embeddings_matrix = None
+        self.jurisdictions_array = None
         
         if self.history is None or self.history.empty:
             logger.info("AnalogMatcher initialized with 0 historical bills")
@@ -40,6 +38,41 @@ class AnalogMatcher:
         self.history = self.history.set_index("bill_id", drop=False)
         logger.info(f"AnalogMatcher initialized with {len(self.history)} historical bills (Rebuild: {rebuild_embeddings})")
         self._build_embedding_cache(rebuild=rebuild_embeddings)
+        self._precompute_matrices()
+        
+    def _precompute_matrices(self) -> None:
+        """Precomputes and caches normalized embedding matrices and jurisdiction lookup arrays."""
+        if self.history is None or self.history.empty or not self.embedding_cache:
+            self.bill_ids = []
+            self.embeddings_matrix = None
+            self.jurisdictions_array = None
+            return
+            
+        bill_ids = []
+        embeddings = []
+        jurisdictions = []
+        
+        for bid, hist_vector in self.embedding_cache.items():
+            if bid in self.history.index:
+                bill_ids.append(bid)
+                embeddings.append(hist_vector)
+                jurisdictions.append(str(self.history.at[bid, "jurisdiction"]).strip().lower())
+                
+        if not embeddings:
+            self.bill_ids = []
+            self.embeddings_matrix = None
+            self.jurisdictions_array = None
+            return
+            
+        self.bill_ids = bill_ids
+        M = np.array(embeddings)  # shape: (N, 768)
+        
+        # Pre-normalize row vectors to L2 norm = 1.0
+        row_norms = np.linalg.norm(M, axis=1, keepdims=True)
+        row_norms[row_norms == 0] = 1.0
+        self.embeddings_matrix = M / row_norms
+        self.jurisdictions_array = np.array(jurisdictions)
+        logger.info(f"Precomputed normalized similarity matrix: shape={self.embeddings_matrix.shape}")
     
     def find_similar_bills(
         self,
@@ -51,29 +84,12 @@ class AnalogMatcher:
         """
         Find every historical analog meeting the semantic similarity threshold,
         applying cross-jurisdiction matching penalties using vectorized NumPy matrix math.
-        
-        Args:
-            target_policy: Dict with keys:
-                - "title": str
-                - "bill_text_clean": str (optional summary)
-                - "jurisdiction": str ('federal' or state name)
-                - "policy_type": str (tax, healthcare, education, etc.)
-                - "direction": str (expansionary, contractionary, neutral)
-                - "intensity": str (low, medium, high)
-                - "sector": str (business, households, government, mixed)
-                - "level": str (federal or state)
-            min_threshold: Minimum similarity score required for inclusion.
-            state_to_state_penalty: Mismatch penalty between different states.
-            fed_to_state_penalty: Mismatch penalty between federal and state levels.
-        
-        Returns:
-            List of dicts, each containing similarity_score and metadata.
         """
         if self.history is None or self.history.empty:
             logger.warning("No historical bills available")
             return []
 
-        if not self.embedding_cache:
+        if self.embeddings_matrix is None or not self.bill_ids:
             logger.warning("No historical embeddings available")
             return []
         
@@ -90,51 +106,29 @@ class AnalogMatcher:
 
         target_vector = self._get_embedding(target_text)
         if target_vector is None:
-            logger.warning("Unable to embed target bill text")
-            return []
-        
-        threshold = max(0.0, min(1.0, min_threshold))
-        
-        # 1. Build vectorized array metrics from self.history matching embedding_cache
-        bill_ids = []
-        embeddings = []
-        jurisdictions = []
-        
-        for bid, hist_vector in self.embedding_cache.items():
-            if bid in self.history.index:
-                bill_ids.append(bid)
-                embeddings.append(hist_vector)
-                jurisdictions.append(str(self.history.at[bid, "jurisdiction"]).strip().lower())
-                
-        if not embeddings:
-            logger.warning("No matching cache embeddings found in historical bills")
+            logger.warning("Unable to embed target bill bill_text_clean")
             return []
             
-        M = np.array(embeddings)  # shape: (N, 768)
-        
-        # 2. Vectorized Cosine Similarity
         target_norm = np.linalg.norm(target_vector)
         if target_norm == 0:
             return []
             
-        matrix_norms = np.linalg.norm(M, axis=1)
-        matrix_norms[matrix_norms == 0] = 1.0  # avoid division by zero
+        # Target vector normalized to L2 norm = 1.0
+        target_vector_normed = target_vector / target_norm
+        threshold = max(0.0, min(1.0, min_threshold))
         
-        # Calculate raw similarities using BLAS dot product
-        raw_similarities = np.dot(M, target_vector) / (matrix_norms * target_norm)
+        # 1. Cosine similarity via single BLAS matrix-vector dot product
+        raw_similarities = np.dot(self.embeddings_matrix, target_vector_normed)
         
         # In-memory Min-Max Scalar to stretch the local distribution across a clean [0, 1] coordinate boundary
         sim_min = raw_similarities.min()
         sim_max = raw_similarities.max()
         norm_similarities = (raw_similarities - sim_min) / (sim_max - sim_min + 1e-9)
         
-        # 3. Vectorized Match Penalties
-        # Evaluated IMMEDIATELY to fail fast and trigger threshold checks
-        penalties = np.zeros(len(bill_ids))
-        jur_array = np.array(jurisdictions)
-        
-        mismatch_mask = jur_array != target_jur
-        fed_mask = mismatch_mask & ((jur_array == "federal") | (target_jur == "federal"))
+        # 2. Vectorized Match Penalties
+        penalties = np.zeros(len(self.bill_ids))
+        mismatch_mask = self.jurisdictions_array != target_jur
+        fed_mask = mismatch_mask & ((self.jurisdictions_array == "federal") | (target_jur == "federal"))
         state_mask = mismatch_mask & ~fed_mask
         
         penalties[fed_mask] = fed_to_state_penalty
@@ -143,16 +137,15 @@ class AnalogMatcher:
         # Subtract matching penalties and clamp immediately
         penalized_similarities = np.clip(norm_similarities - penalties, 0.0, 1.0)
         
-        # 4. Fail-fast filtering using numpy selection
+        # 3. Fail-fast filtering using numpy selection
         above_threshold_indices = np.where(penalized_similarities >= threshold)[0]
         
         analogs = []
         for index in above_threshold_indices:
-            bid = bill_ids[index]
+            bid = self.bill_ids[index]
             sim = float(penalized_similarities[index])
             hist_bill = self.history.loc[bid]
             
-            # Construct structural analogs dictionary only for items surviving threshold gate
             analog = {
                 "bill_id": bid,
                 "title": hist_bill.get("title", ""),
@@ -176,24 +169,18 @@ class AnalogMatcher:
             }
             analogs.append(analog)
 
-        # Smart jurisdiction fallback logic:
-        # If target is a state, and we find 0 analogs above the threshold,
-        # we dynamically fallback to allowing federal-level analogs but with a strict mathematical floor of 0.60.
+        # Smart jurisdiction fallback logic
         if target_jur != "federal" and len(analogs) == 0:
             logger.info("No state-level analogs survived threshold filters. Engaging smart federal-fallback logic...")
             
-            # Enforce strict fallback floor threshold of 0.60 after the full federal-to-state penalty (-0.30) is applied
-            penalties = np.zeros(len(bill_ids))
-            penalties[fed_mask] = fed_to_state_penalty
-            penalties[state_mask] = state_to_state_penalty
-            
+            # Use raw_similarities directly for fallback bounds
             penalized_similarities = np.clip(raw_similarities - penalties, 0.0, 1.0)
             fallback_floor = 0.55
             
             above_threshold_indices = np.where(penalized_similarities >= fallback_floor)[0]
             
             for index in above_threshold_indices:
-                bid = bill_ids[index]
+                bid = self.bill_ids[index]
                 sim = float(penalized_similarities[index])
                 hist_bill = self.history.loc[bid]
                 

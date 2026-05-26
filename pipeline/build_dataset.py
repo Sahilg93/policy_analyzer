@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Dict, Optional, List
 
 import pandas as pd
+import numpy as np
 import requests
 import hashlib
 import threading
@@ -168,7 +169,7 @@ JSON schema:
 
     try:
         response = requests.post(
-            "http://localhost:11434/api/generate",
+            f"{OLLAMA_HOST}/api/generate",
             json=payload,
             timeout=90
         )
@@ -426,6 +427,44 @@ def _infer_policy_attributes(text: str) -> tuple[str, str, str, str]:
     return policy_type, direction, intensity, sector
 
 
+def serialize_scored_results(scored_results: List[Dict], output_path: str = "data/processed/scored_bills.csv") -> None:
+    """Consolidates and serializes scored results into a flat persistent CSV file."""
+    import os
+    rows = []
+    for r in scored_results:
+        impacts = r.get("estimated_impacts", {})
+        row_dict = {
+            "bill_id": r.get("bill_id"),
+            "title": r.get("title"),
+            "policy_type": r.get("policy_type"),
+            "direction": r.get("direction"),
+            "macro_relevance": r.get("macro_relevance", True),
+            "net_score": r.get("net_score"),
+            "raw_score": r.get("net_score"),
+            "confidence": r.get("confidence"),
+            "explanation": r.get("explanation"),
+            "gdp_comp": impacts.get("gdp_effect", 0.0),
+            "unemp_comp": impacts.get("unemployment_effect", 0.0),
+            "impact_gdp_effect": impacts.get("gdp_effect", 0.0),
+            "impact_unemployment_effect": impacts.get("unemployment_effect", 0.0),
+            "impact_num_analogs_matched": impacts.get("num_analogs_matched", 0),
+            "impact_avg_similarity": impacts.get("avg_similarity", 0.0),
+            # Campaign candidate tags
+            "candidate_id": r.get("candidate_id"),
+            "candidate_name": r.get("candidate_name"),
+            "party": r.get("party"),
+            "raw_proposal_text": r.get("raw_proposal_text"),
+            "bill_text_clean": r.get("bill_text_clean"),
+            "major_topic": r.get("major_topic", "Macroeconomics")
+        }
+        rows.append(row_dict)
+        
+    df = pd.DataFrame(rows)
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    df.to_csv(output_path, index=False)
+    logger.info(f"[SERIALIZATION SUCCESS] Exported {len(df)} scored records to {output_path}")
+
+
 def _normalize_historical_bills(dataset: pd.DataFrame) -> pd.DataFrame:
     """Guarantee the columns expected by AnalogMatcher and OutcomeEngine."""
     if dataset is None or dataset.empty:
@@ -463,32 +502,32 @@ def _normalize_historical_bills(dataset: pd.DataFrame) -> pd.DataFrame:
         dataset["text"].fillna("").astype(str) + " " + dataset["title"].fillna("").astype(str)
     ).str.strip()
     
-    for idx, row in dataset.iterrows():
-        st = row["state"]
-        is_state = st != "United States"
-        if is_state:
-            dataset.at[idx, "jurisdiction"] = st.lower()
-            dataset.at[idx, "level"] = "state"
-        else:
-            dataset.at[idx, "jurisdiction"] = "federal"
-            dataset.at[idx, "level"] = "federal"
-            
-        dataset.at[idx, "state_code"] = state_map.get(st, "US")
-        evt_date = row.get("enacted_date") or row.get("introduced_date")
-        if evt_date and pd.notna(evt_date):
-            try:
-                dataset.at[idx, "session_year"] = int(str(evt_date)[:4])
-            except Exception:
-                pass
-                
-        raw_text = row.get("bill_text_clean") or row.get("text") or row.get("title", "")
-        if is_state:
-            cleaned_title = clean_state_bill_title(row.get("title", ""))
-            cleaned_text = clean_state_bill_title(raw_text)
-            dataset.at[idx, "title"] = cleaned_title
-            dataset.at[idx, "bill_text_clean"] = cleaned_text
-        else:
-            dataset.at[idx, "bill_text_clean"] = raw_text
+    # High-performance Vectorized Normalization (zero iterrows overhead)
+    is_state_series = dataset["state"] != "United States"
+    
+    dataset["jurisdiction"] = np.where(is_state_series, dataset["state"].str.lower(), "federal")
+    dataset["level"] = np.where(is_state_series, "state", "federal")
+    dataset["state_code"] = dataset["state"].map(state_map).fillna("US")
+    
+    evt_date_series = dataset["enacted_date"].fillna(dataset["introduced_date"])
+    dataset["session_year"] = pd.to_numeric(evt_date_series.astype(str).str[:4], errors="coerce").astype("Int64")
+    
+    raw_text_series = dataset["bill_text_clean"].fillna("").astype(str)
+    raw_text_series = np.where(raw_text_series == "", dataset["text"].fillna("").astype(str), raw_text_series)
+    raw_text_series = np.where(raw_text_series == "", dataset["title"].fillna("").astype(str), raw_text_series)
+    
+    vectorized_clean = np.vectorize(clean_state_bill_title)
+    
+    dataset["title"] = np.where(
+        is_state_series,
+        vectorized_clean(dataset["title"].fillna("").astype(str)),
+        dataset["title"]
+    )
+    dataset["bill_text_clean"] = np.where(
+        is_state_series,
+        vectorized_clean(raw_text_series),
+        raw_text_series
+    )
 
     return dataset[list(required_defaults.keys())].drop_duplicates(subset=["bill_id"])
 
@@ -610,10 +649,17 @@ def build(jurisdiction: str = "federal", state_code: Optional[str] = None, rebui
         if not state_code:
             logger.error("State code (e.g., 'FL') must be provided for state-level pipelines.")
             return None
+            
+        key = OPENSTATES_API_KEY
+        if not key:
+            raise ValueError(
+                "[CONFIGURATION ERROR] Missing OPENSTATES_API_KEY environment variable. "
+                "Please configure your credentials in the local .env configuration file."
+            )
         return build_state_pipeline(
             jurisdiction_name=jurisdiction,
             state_code=state_code,
-            openstates_key="c9426a2c-debd-4870-9304-616b5e463ea3",
+            openstates_key=key,
             max_bills = 20,
             rebuild_embeddings = rebuild_embeddings
         )
@@ -641,7 +687,13 @@ def build(jurisdiction: str = "federal", state_code: Optional[str] = None, rebui
     )
     
     logger.info("Fetching Congressional bills...")
-    congress_ingestor = CongressIngestor("fodYfBmI4cxpLigjhMdpY8jfEqUhbeSJKHKAKq4U")
+    c_key = CONGRESS_API_KEY
+    if not c_key:
+        raise ValueError(
+            "[CONFIGURATION ERROR] Missing CONGRESS_API_KEY environment variable. "
+            "Please configure your credentials in the local .env configuration file."
+        )
+    congress_ingestor = CongressIngestor(c_key)
     congress_bills = congress_ingestor.fetch_bills()
     
     if congress_bills is None or congress_bills.empty:
@@ -687,35 +739,8 @@ def build(jurisdiction: str = "federal", state_code: Optional[str] = None, rebui
             result = score_bill(bill, analog_matcher, outcome_engine, scoring_engine)
             scored_results.append(result)
             
-    # Serialize to scored_bills.csv
-    import os
-    rows = []
-    for r in scored_results:
-        impacts = r.get("estimated_impacts", {})
-        row_dict = {
-            "bill_id": r.get("bill_id"),
-            "title": r.get("title"),
-            "policy_type": r.get("policy_type"),
-            "direction": r.get("direction"),
-            "macro_relevance": r.get("macro_relevance", True),
-            "net_score": r.get("net_score"),
-            "raw_score": r.get("net_score"),
-            "confidence": r.get("confidence"),
-            "explanation": r.get("explanation"),
-            "gdp_comp": impacts.get("gdp_effect", 0.0),
-            "unemp_comp": impacts.get("unemployment_effect", 0.0),
-            "impact_gdp_effect": impacts.get("gdp_effect", 0.0),
-            "impact_unemployment_effect": impacts.get("unemployment_effect", 0.0),
-            "impact_num_analogs_matched": impacts.get("num_analogs_matched", 0),
-            "impact_avg_similarity": impacts.get("avg_similarity", 0.0)
-        }
-        rows.append(row_dict)
-        
-    df = pd.DataFrame(rows)
-    os.makedirs("data/processed", exist_ok=True)
-    df.to_csv("data/processed/scored_bills.csv", index=False)
-    
-    logger.info(f"[SERIALIZATION SUCCESS] Exported {len(df)} scored records to data/processed/scored_bills.csv")
+    # Serialize to scored_bills.csv using unified helper
+    serialize_scored_results(scored_results)
     
     logger.info("\n" + "="*60)
     logger.info("FEDERAL SCORING COMPLETE")
@@ -757,7 +782,7 @@ def classify_major_topic_ollama(title: str, clean_text: str) -> str:
         }
     }
     try:
-        response = requests.post("http://localhost:11434/api/generate", json=payload, timeout=20)
+        response = requests.post(f"{OLLAMA_HOST}/api/generate", json=payload, timeout=20)
         response.raise_for_status()
         raw_text = response.json().get("response", "").strip()
         
@@ -864,35 +889,8 @@ def build_state_pipeline(
         result = score_bill(bill, analog_matcher, outcome_engine, scoring_engine)
         scored_results.append(result)
         
-    # Serialize to scored_bills.csv
-    import os
-    rows = []
-    for r in scored_results:
-        impacts = r.get("estimated_impacts", {})
-        row_dict = {
-            "bill_id": r.get("bill_id"),
-            "title": r.get("title"),
-            "policy_type": r.get("policy_type"),
-            "direction": r.get("direction"),
-            "macro_relevance": r.get("macro_relevance", True),
-            "net_score": r.get("net_score"),
-            "raw_score": r.get("net_score"),
-            "confidence": r.get("confidence"),
-            "explanation": r.get("explanation"),
-            "gdp_comp": impacts.get("gdp_effect", 0.0),
-            "unemp_comp": impacts.get("unemployment_effect", 0.0),
-            "impact_gdp_effect": impacts.get("gdp_effect", 0.0),
-            "impact_unemployment_effect": impacts.get("unemployment_effect", 0.0),
-            "impact_num_analogs_matched": impacts.get("num_analogs_matched", 0),
-            "impact_avg_similarity": impacts.get("avg_similarity", 0.0)
-        }
-        rows.append(row_dict)
-        
-    df = pd.DataFrame(rows)
-    os.makedirs("data/processed", exist_ok=True)
-    df.to_csv("data/processed/scored_bills.csv", index=False)
-    
-    logger.info(f"[SERIALIZATION SUCCESS] Exported {len(df)} scored records to data/processed/scored_bills.csv")
+    # Serialize to scored_bills.csv using unified helper
+    serialize_scored_results(scored_results)
     
     return scored_results
         
@@ -986,6 +984,9 @@ def build_campaign_pipeline(
         result["major_topic"] = prop.get("major_topic", "Macroeconomics")
         scored_results.append(result)
         
+    # Serialize campaign scored results to disk using unified helper
+    serialize_scored_results(scored_results, "data/processed/campaign_scored_bills.csv")
+    
     return scored_results
 
 

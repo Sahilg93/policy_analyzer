@@ -8,7 +8,7 @@ import requests
 import json
 import pandas as pd
 from typing import Dict, List, Optional
-from pipeline.config import PROCESSED_DIR
+from pipeline.config import PROCESSED_DIR, OLLAMA_HOST
 
 logger = logging.getLogger(__name__)
 
@@ -116,7 +116,7 @@ ONLY 2-sentence dry administrative abstract:
             }
         }
         try:
-            r = requests.post("http://localhost:11434/api/generate", json=payload, timeout=20)
+            r = requests.post(f"{OLLAMA_HOST}/api/generate", json=payload, timeout=20)
             r.raise_for_status()
             s_new = r.json().get("response", "").strip()
             # Prune again recursively without re-prompting
@@ -171,7 +171,7 @@ Campaign Statement:
 
     try:
         response = requests.post(
-            "http://localhost:11434/api/generate",
+            f"{OLLAMA_HOST}/api/generate",
             json=payload,
             timeout=30
         )
