@@ -123,6 +123,11 @@ class AnalogMatcher:
         # Calculate raw similarities using BLAS dot product
         raw_similarities = np.dot(M, target_vector) / (matrix_norms * target_norm)
         
+        # In-memory Min-Max Scalar to stretch the local distribution across a clean [0, 1] coordinate boundary
+        sim_min = raw_similarities.min()
+        sim_max = raw_similarities.max()
+        norm_similarities = (raw_similarities - sim_min) / (sim_max - sim_min + 1e-9)
+        
         # 3. Vectorized Match Penalties
         # Evaluated IMMEDIATELY to fail fast and trigger threshold checks
         penalties = np.zeros(len(bill_ids))
@@ -136,7 +141,7 @@ class AnalogMatcher:
         penalties[state_mask] = state_to_state_penalty
         
         # Subtract matching penalties and clamp immediately
-        penalized_similarities = np.clip(raw_similarities - penalties, 0.0, 1.0)
+        penalized_similarities = np.clip(norm_similarities - penalties, 0.0, 1.0)
         
         # 4. Fail-fast filtering using numpy selection
         above_threshold_indices = np.where(penalized_similarities >= threshold)[0]
@@ -183,7 +188,7 @@ class AnalogMatcher:
             penalties[state_mask] = state_to_state_penalty
             
             penalized_similarities = np.clip(raw_similarities - penalties, 0.0, 1.0)
-            fallback_floor = 0.60
+            fallback_floor = 0.55
             
             above_threshold_indices = np.where(penalized_similarities >= fallback_floor)[0]
             
@@ -258,6 +263,19 @@ class AnalogMatcher:
             except Exception as e:
                 logger.warning("Failed to load persistent embedding cache from disk: %s", e)
         
+        # Detect index drift: any keys in embedding_cache that are NOT in self.history represent lingering/deleted bills
+        history_ids = set(self.history.index)
+        cache_ids = set(self.embedding_cache.keys())
+        if cache_ids and (cache_ids != history_ids):
+            drift_keys = cache_ids - history_ids
+            logger.warning(
+                "[INDEX DRIFT DETECTED] Mismatch between history (%d keys) and embedding cache (%d keys). "
+                "Lingering/deleted keys in cache: %s. Filtering cache to enforce inner-join intersection.",
+                len(history_ids), len(cache_ids), list(drift_keys)[:5]
+            )
+            # Filter embedding cache to only keys in self.history (inner-join intersection)
+            self.embedding_cache = {bid: vec for bid, vec in self.embedding_cache.items() if bid in history_ids}
+
         # Check if there are missing vectors
         missing_rows = []
         for idx, row in self.history.iterrows():
@@ -278,23 +296,33 @@ class AnalogMatcher:
                     newly_fetched += 1
             
             logger.info("Successfully fetched %d/%d new embeddings", newly_fetched, len(missing_rows))
-            
-            # Serialize the entire cache back to the local persistent cache file
-            if newly_fetched > 0:
-                try:
-                    os.makedirs(os.path.dirname(cache_path), exist_ok=True)
-                    # Convert embedding dictionary back to standard format
-                    serializable_rows = [
-                        {"bill_id": bid, "embedding": vec.tolist()}
-                        for bid, vec in self.embedding_cache.items()
-                    ]
-                    df_cache = pd.DataFrame(serializable_rows)
-                    df_cache.to_parquet(cache_path, index=False)
-                    logger.info("Successfully serialized and updated persistent embedding cache on disk")
-                except Exception as e:
-                    logger.warning("Failed to write persistent embedding cache to disk: %s", e)
         else:
             logger.info("All historical embeddings were successfully loaded from disk cache.")
+
+        # Final alignment validation: enforce strict 1:1 inner-join intersection to align indexing
+        final_history_ids = set(self.history.index)
+        final_cache_ids = set(self.embedding_cache.keys())
+        if final_history_ids != final_cache_ids:
+            intersection = final_history_ids.intersection(final_cache_ids)
+            logger.warning(
+                "[FINAL INDEX ALIGNMENT] Enforcing strict 1:1 inner-join intersection. "
+                "Retaining only %d aligned records.", len(intersection)
+            )
+            self.history = self.history.loc[list(intersection)]
+            self.embedding_cache = {bid: vec for bid, vec in self.embedding_cache.items() if bid in intersection}
+
+        # Always serialize the synchronized embedding cache back to the local persistent cache file
+        try:
+            os.makedirs(os.path.dirname(cache_path), exist_ok=True)
+            serializable_rows = [
+                {"bill_id": bid, "embedding": vec.tolist()}
+                for bid, vec in self.embedding_cache.items()
+            ]
+            df_cache = pd.DataFrame(serializable_rows)
+            df_cache.to_parquet(cache_path, index=False)
+            logger.info("Successfully serialized synchronized embedding cache on disk")
+        except Exception as e:
+            logger.warning("Failed to write persistent embedding cache to disk: %s", e)
 
         logger.info(
             "Cached %d/%d historical embeddings",

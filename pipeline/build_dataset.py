@@ -328,6 +328,37 @@ def build_historical_bills_corpus() -> pd.DataFrame:
     return _normalize_historical_bills(dataset)
 
 
+def rebuild_historical_embeddings() -> pd.DataFrame:
+    """
+    Directly re-compiles the historical bills corpus from data/policy_events.csv,
+    updates the local parquet cache, and batch-vectorizes missing embeddings
+    using the AnalogMatcher, serializing them atomically to disk.
+    """
+    logger.info("Starting automated re-embedding and corpus reconstruction...")
+    
+    # 1. Force rebuild corpus from CSV to Parquet
+    dataset = build_historical_bills_corpus()
+    if dataset.empty:
+        logger.warning("Historical bills corpus is empty. Cannot rebuild embeddings.")
+        return pd.DataFrame()
+        
+    dataset = compress_dataframe(dataset)
+    try:
+        HISTORICAL_BILLS_PATH.parent.mkdir(parents=True, exist_ok=True)
+        dataset.to_parquet(HISTORICAL_BILLS_PATH, index=False)
+        logger.info(f"Overwrote historical bills parquet cache at {HISTORICAL_BILLS_PATH}: shape={dataset.shape}")
+    except Exception as e:
+        logger.error(f"Failed to save historical bills parquet cache: {e}")
+        
+    # 2. Trigger AnalogMatcher to batch-query Ollama and update parquet embeddings cache
+    logger.info("Initializing AnalogMatcher to batch-vectorize any new or updated policies...")
+    matcher = AnalogMatcher(historical_bills_df=dataset, rebuild_embeddings=False)
+    
+    logger.info("Re-embedding management completed successfully.")
+    return dataset
+
+
+
 def _policy_event_to_historical_bill(event: pd.Series, idx: int) -> Dict:
     """Convert a row from data/policy_events.csv into analog-matcher shape."""
     year = pd.to_numeric(event.get("year"), errors="coerce")
@@ -476,6 +507,27 @@ def score_bill(
     logger.info(f"Scoring bill: {bill_id}")
     logger.info(f"Title: {title}")
     
+    # Hierarchical Override Gate completely outside the concurrent thread pool map:
+    # Evaluate fully compiled major_topic string variable against CORE_ECONOMIC_TOPICS before skip check
+    CORE_ECONOMIC_TOPICS = ["Macroeconomics", "Labor", "Domestic Commerce", "Agriculture"]
+    if bill.get("major_topic") in CORE_ECONOMIC_TOPICS and not _coerce_bool(bill.get("macro_relevance", True)):
+        logger.info(
+            "[OVERRIDE SUCCESS] Enforced macro_relevance=True for %s under Topic: %s",
+            bill_id,
+            bill.get("major_topic")
+        )
+        bill["macro_relevance"] = True
+
+    # Ensure that before `if not bill.get("macro_relevance")` is checked for skips, the override is evaluated.
+    if not bill.get("macro_relevance"):
+        logger.info("Skipping macro scoring for non-economic bill: %s", bill_id)
+        return {
+            "bill_id": bill_id, "title": title, "policy_type": bill.get("policy_type", "unknown"),
+            "direction": bill.get("direction", "neutral"), "macro_relevance": False, "similar_bills": [],
+            "estimated_impacts": {"gdp_effect": 0.0, "unemployment_effect": 0.0, "num_analogs_matched": 0, "avg_similarity": 0.0},
+            "net_score": 0.0, "confidence": 0.0, "explanation": "Policy classified as having no direct macroeconomic relevance."
+        }
+
     target_policy = {
         "title": title,
         "policy_type": bill.get("policy_type", "unknown"),
@@ -490,15 +542,6 @@ def score_bill(
         "major_topic": bill.get("major_topic", "Macroeconomics"),
         "macro_relevance": _coerce_bool(bill.get("macro_relevance", True))
     }
-
-    if not target_policy["macro_relevance"]:
-        logger.info("Skipping macro scoring for non-economic bill: %s", bill_id)
-        return {
-            "bill_id": bill_id, "title": title, "policy_type": target_policy.get("policy_type"),
-            "direction": target_policy.get("direction"), "macro_relevance": False, "similar_bills": [],
-            "estimated_impacts": {"gdp_effect": 0.0, "unemployment_effect": 0.0, "num_analogs_matched": 0, "avg_similarity": 0.0},
-            "net_score": 0.0, "confidence": 0.0, "explanation": "Policy classified as having no direct macroeconomic relevance."
-        }
     
     analogs = analog_matcher.find_similar_bills(target_policy, min_threshold=0.7)
     
@@ -530,8 +573,8 @@ def score_bill(
         "bill_id": bill_id, "title": title, "policy_type": target_policy.get("policy_type"),
         "direction": target_policy.get("direction"), "macro_relevance": True, "similar_bills": analog_list,
         "estimated_impacts": {
-            "gdp_effect": round(impacts.get("gdp_effect", 0.0), 3),
-            "unemployment_effect": round(impacts.get("unemployment_effect", 0.0), 3),
+            "gdp_effect": round(score_result.get("true_gdp_delta", 0.0), 5),
+            "unemployment_effect": round(score_result.get("true_unemployment_delta", 0.0), 5),
             "num_analogs_matched": impacts.get("num_analogs_matched", 0),
             "avg_similarity": round(impacts.get("avg_similarity", 0.0), 3)
         },
@@ -571,7 +614,7 @@ def build(jurisdiction: str = "federal", state_code: Optional[str] = None, rebui
             jurisdiction_name=jurisdiction,
             state_code=state_code,
             openstates_key="c9426a2c-debd-4870-9304-616b5e463ea3",
-            max_bills = 10,
+            max_bills = 20,
             rebuild_embeddings = rebuild_embeddings
         )
         
@@ -590,7 +633,12 @@ def build(jurisdiction: str = "federal", state_code: Optional[str] = None, rebui
     logger.info("Initializing engines...")
     outcome_engine = OutcomeEngine(macro_df=macro_data)
     analog_matcher = AnalogMatcher(historical_bills_df=historical_bills, rebuild_embeddings=rebuild_embeddings)
-    scoring_engine = ScoringEngine(gdp_weight=0.4, unemployment_weight=-0.3)
+    
+    scoring_engine = ScoringEngine(
+        gdp_weight=0.4,
+        unemployment_weight=-0.3,
+        macro_df=macro_data
+    )
     
     logger.info("Fetching Congressional bills...")
     congress_ingestor = CongressIngestor("fodYfBmI4cxpLigjhMdpY8jfEqUhbeSJKHKAKq4U")
@@ -604,7 +652,7 @@ def build(jurisdiction: str = "federal", state_code: Optional[str] = None, rebui
     
     if not congress_bills.empty:
         logger.info("Running Ollama policy classification...")
-        sample_size = min(10, len(congress_bills))
+        sample_size = min(20, len(congress_bills))
         congress_sample = congress_bills.head(sample_size).copy()
         
         ai_outputs = congress_sample.apply(
@@ -638,6 +686,36 @@ def build(jurisdiction: str = "federal", state_code: Optional[str] = None, rebui
             }
             result = score_bill(bill, analog_matcher, outcome_engine, scoring_engine)
             scored_results.append(result)
+            
+    # Serialize to scored_bills.csv
+    import os
+    rows = []
+    for r in scored_results:
+        impacts = r.get("estimated_impacts", {})
+        row_dict = {
+            "bill_id": r.get("bill_id"),
+            "title": r.get("title"),
+            "policy_type": r.get("policy_type"),
+            "direction": r.get("direction"),
+            "macro_relevance": r.get("macro_relevance", True),
+            "net_score": r.get("net_score"),
+            "raw_score": r.get("net_score"),
+            "confidence": r.get("confidence"),
+            "explanation": r.get("explanation"),
+            "gdp_comp": impacts.get("gdp_effect", 0.0),
+            "unemp_comp": impacts.get("unemployment_effect", 0.0),
+            "impact_gdp_effect": impacts.get("gdp_effect", 0.0),
+            "impact_unemployment_effect": impacts.get("unemployment_effect", 0.0),
+            "impact_num_analogs_matched": impacts.get("num_analogs_matched", 0),
+            "impact_avg_similarity": impacts.get("avg_similarity", 0.0)
+        }
+        rows.append(row_dict)
+        
+    df = pd.DataFrame(rows)
+    os.makedirs("data/processed", exist_ok=True)
+    df.to_csv("data/processed/scored_bills.csv", index=False)
+    
+    logger.info(f"[SERIALIZATION SUCCESS] Exported {len(df)} scored records to data/processed/scored_bills.csv")
     
     logger.info("\n" + "="*60)
     logger.info("FEDERAL SCORING COMPLETE")
@@ -772,7 +850,12 @@ def build_state_pipeline(
     # 4. Initialize Core Processing Engines
     outcome_engine = OutcomeEngine(macro_df=macro_data)
     analog_matcher = AnalogMatcher(historical_bills_df=historical_bills, rebuild_embeddings=rebuild_embeddings)
-    scoring_engine = ScoringEngine()
+    
+    scoring_engine = ScoringEngine(
+        gdp_weight=0.4,
+        unemployment_weight=-0.3,
+        macro_df=macro_data
+    )
     
     # 5. Execute scoring matrix loop using enriched dictionaries
     scored_results = []
@@ -781,7 +864,130 @@ def build_state_pipeline(
         result = score_bill(bill, analog_matcher, outcome_engine, scoring_engine)
         scored_results.append(result)
         
+    # Serialize to scored_bills.csv
+    import os
+    rows = []
+    for r in scored_results:
+        impacts = r.get("estimated_impacts", {})
+        row_dict = {
+            "bill_id": r.get("bill_id"),
+            "title": r.get("title"),
+            "policy_type": r.get("policy_type"),
+            "direction": r.get("direction"),
+            "macro_relevance": r.get("macro_relevance", True),
+            "net_score": r.get("net_score"),
+            "raw_score": r.get("net_score"),
+            "confidence": r.get("confidence"),
+            "explanation": r.get("explanation"),
+            "gdp_comp": impacts.get("gdp_effect", 0.0),
+            "unemp_comp": impacts.get("unemployment_effect", 0.0),
+            "impact_gdp_effect": impacts.get("gdp_effect", 0.0),
+            "impact_unemployment_effect": impacts.get("unemployment_effect", 0.0),
+            "impact_num_analogs_matched": impacts.get("num_analogs_matched", 0),
+            "impact_avg_similarity": impacts.get("avg_similarity", 0.0)
+        }
+        rows.append(row_dict)
+        
+    df = pd.DataFrame(rows)
+    os.makedirs("data/processed", exist_ok=True)
+    df.to_csv("data/processed/scored_bills.csv", index=False)
+    
+    logger.info(f"[SERIALIZATION SUCCESS] Exported {len(df)} scored records to data/processed/scored_bills.csv")
+    
     return scored_results
+        
+def build_campaign_pipeline(
+    jurisdiction_name: str,
+    state_code: str,
+    rebuild_embeddings: bool = False
+) -> Optional[List[Dict]]:
+    """
+    Campaign Orchestrator: Ingest candidate proposals, distill campaign rhetoric,
+    classify policies, and score via vectorized engines.
+    """
+    logger.info("="*60)
+    logger.info(f"Starting Campaign Simulation Pipeline for: {jurisdiction_name.strip().title()} ({state_code.upper()})")
+    logger.info("="*60)
+    
+    from pipeline.campaign_adapter import load_and_distill_campaign_policies
+    
+    # 1. Load macro historical baselines
+    macro_data = load_macro_data()
+    if macro_data is None or macro_data.empty:
+        logger.error("No macro data available. Cannot proceed.")
+        return None
+        
+    historical_bills = load_historical_bills()
+    if historical_bills is None or historical_bills.empty:
+        logger.warning("No historical bills available. Analog matching disabled.")
+        historical_bills = pd.DataFrame()
+        
+    # 2. Ingest and distill campaign policies
+    campaign_df = load_and_distill_campaign_policies(jurisdiction_name)
+    if campaign_df.empty:
+        logger.warning("No campaign policies found.")
+        return None
+        
+    # 3. AI Enrichment & Policy Classification
+    logger.info("Running Ollama policy classification and topic mapping for campaign proposals...")
+    
+    def enrich_campaign_proposal(row_tuple) -> Dict:
+        idx, row = row_tuple
+        title = clean_state_bill_title(row.get("policy_title", ""))
+        summary = clean_state_bill_title(row.get("distilled_abstract", ""))
+        
+        # Fire the macro interpreter to populate policy_type, direction, macro_relevance
+        ai_features = interpret_bill_ollama(title, bill_text_clean=summary)
+        
+        # Keep the local CAP topic classifier
+        topic = classify_major_topic_ollama(title, summary)
+        
+        proposal_dict = {
+            "bill_id": str(row.get("candidate_id")) + f"_{idx}",
+            "title": title,
+            "bill_text_clean": summary,
+            "state": jurisdiction_name,
+            "level": "state",
+            "jurisdiction": jurisdiction_name.lower(),
+            "state_code": state_code.upper(),
+            "candidate_id": row.get("candidate_id"),
+            "candidate_name": row.get("candidate_name"),
+            "party": row.get("party"),
+            "raw_proposal_text": row.get("raw_proposal_text"),
+            "major_topic": topic
+        }
+        proposal_dict.update(ai_features)
+        return proposal_dict
+
+    row_tuples = list(campaign_df.iterrows())
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        enriched_proposals = list(executor.map(enrich_campaign_proposal, row_tuples))
+        
+    # 4. Initialize Core Processing Engines
+    outcome_engine = OutcomeEngine(macro_df=macro_data)
+    analog_matcher = AnalogMatcher(historical_bills_df=historical_bills, rebuild_embeddings=rebuild_embeddings)
+    scoring_engine = ScoringEngine(
+        gdp_weight=0.4,
+        unemployment_weight=-0.3,
+        macro_df=macro_data
+    )
+    
+    # 5. Execute scoring matrix loop using enriched dictionaries
+    scored_results = []
+    logger.info(f"Scoring {len(enriched_proposals)} campaign proposals...")
+    for prop in enriched_proposals:
+        result = score_bill(prop, analog_matcher, outcome_engine, scoring_engine)
+        # Retain candidate tracking tags
+        result["candidate_id"] = prop["candidate_id"]
+        result["candidate_name"] = prop["candidate_name"]
+        result["party"] = prop["party"]
+        result["raw_proposal_text"] = prop["raw_proposal_text"]
+        result["bill_text_clean"] = prop["bill_text_clean"]
+        result["major_topic"] = prop.get("major_topic", "Macroeconomics")
+        scored_results.append(result)
+        
+    return scored_results
+
 
 
 if __name__ == "__main__":

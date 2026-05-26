@@ -134,12 +134,42 @@ class OutcomeEngine:
                 gdp_base = macro_yr["gdp"].iloc[0]
                 unemp_base = macro_yr["unemployment_rate"].iloc[0]
                 
+                # Dynamic Historical Fallback for missing pre-2010 US unemployment rates
+                US_HISTORICAL_UNEMP = {
+                    1990: 5.6, 1991: 6.8, 1992: 7.5, 1993: 6.9, 1994: 6.1,
+                    1995: 5.6, 1996: 5.4, 1997: 4.9, 1998: 4.5, 1999: 4.2,
+                    2000: 4.0, 2001: 4.7, 2002: 5.8, 2003: 6.0, 2004: 5.5,
+                    2005: 5.1, 2006: 4.6, 2007: 4.6, 2008: 5.8, 2009: 9.3
+                }
+                
+                if st == "United States" and pd.isna(unemp_base) and evt_year in US_HISTORICAL_UNEMP:
+                    unemp_base = US_HISTORICAL_UNEMP[evt_year]
+                elif pd.isna(unemp_base):
+                    # Fallback to United States federal unemployment rate for that year if state-specific is missing
+                    macro_us = self.macro[
+                        (self.macro["year"] == evt_year) & 
+                        (self.macro["state"] == "United States")
+                    ]
+                    if not macro_us.empty:
+                        unemp_base = macro_us["unemployment_rate"].iloc[0]
+                    if pd.isna(unemp_base) and evt_year in US_HISTORICAL_UNEMP:
+                        unemp_base = US_HISTORICAL_UNEMP[evt_year]
+                
                 if pd.isna(gdp_base) and pd.isna(unemp_base):
                     logger.debug(f"Base year macro data is entirely missing for {st}/{evt_year}")
                     continue
                 
                 # We evaluate a 3-year trailing horizon (T+1, T+2, T+3) relative to Base Year T
-                decay_weights = {1: 1.0, 2: 0.5, 3: 0.25}
+                # Category-indexed decay profiles map to eliminate scale distortion and support lag horizons
+                DECAY_PROFILES = {
+                    "Macroeconomics": [1.0, 0.50, 0.25],
+                    "Domestic Commerce": [0.25, 1.0, 0.50],
+                    "Labor": [0.50, 1.0, 0.25],
+                    "Default": [1.0, 0.50, 0.25]
+                }
+                topic = current_bill.get("major_topic", "Default")
+                profile = DECAY_PROFILES.get(topic, DECAY_PROFILES["Default"])
+                decay_weights = {1: profile[0], 2: profile[1], 3: profile[2]}
                 
                 gdp_deltas = []
                 gdp_weights = []
@@ -157,6 +187,19 @@ class OutcomeEngine:
                     
                     gdp_future = macro_fut["gdp"].iloc[0]
                     unemp_future = macro_fut["unemployment_rate"].iloc[0]
+                    
+                    if st == "United States" and pd.isna(unemp_future) and future_year in US_HISTORICAL_UNEMP:
+                        unemp_future = US_HISTORICAL_UNEMP[future_year]
+                    elif pd.isna(unemp_future):
+                        # Fallback to United States federal unemployment rate for that year if state-specific is missing
+                        macro_us_fut = self.macro[
+                            (self.macro["year"] == future_year) & 
+                            (self.macro["state"] == "United States")
+                        ]
+                        if not macro_us_fut.empty:
+                            unemp_future = macro_us_fut["unemployment_rate"].iloc[0]
+                        if pd.isna(unemp_future) and future_year in US_HISTORICAL_UNEMP:
+                            unemp_future = US_HISTORICAL_UNEMP[future_year]
                     
                     # GDP calculation
                     if not pd.isna(gdp_base) and not pd.isna(gdp_future) and gdp_base != 0:

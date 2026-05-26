@@ -4,6 +4,7 @@ import plotly.express as px
 import numpy as np
 import os
 import requests
+from typing import Optional
 from pipeline.config import (
     HISTORICAL_BILLS_PATH,
     EMBEDDINGS_PATH,
@@ -57,14 +58,58 @@ STATE_CODE_MAP = {
 }
 
 def calculate_cheap_pca(vectors_matrix, num_components=2):
-    """Vectorized Singular Value Decomposition (SVD) projection."""
+    """Vectorized Singular Value Decomposition (SVD) projection with deterministic sign-locking (svd_flip)."""
     X_centered = vectors_matrix - np.mean(vectors_matrix, axis=0)
     U, S, Vt = np.linalg.svd(X_centered, full_matrices=False)
+    
+    # Deterministic sign-locking (equivalent to scikit-learn's svd_flip)
+    # Find the row index of the maximum absolute value for each column of U
+    max_abs_rows = np.argmax(np.abs(U), axis=0)
+    # Extract the sign of the element at the maximum absolute row for each column
+    signs = np.sign(U[max_abs_rows, range(U.shape[1])])
+    # Apply signs to U and Vt to lock sign direction deterministically
+    U *= signs
+    Vt *= signs[:, np.newaxis]
+    
     return np.dot(X_centered, Vt[:num_components].T)
 
 
+def _get_db_token():
+    """Extracts last-modified timestamp of local policy databases and scored file as a cache buster."""
+    t1 = 0
+    csv_path = "data/policy_events.csv"
+    if os.path.exists(csv_path):
+        t1 = int(os.path.getmtime(csv_path))
+        
+    t2 = 0
+    camp_path = "data/campaign_policies.csv"
+    if os.path.exists(camp_path):
+        t2 = int(os.path.getmtime(camp_path))
+        
+    t3 = 0
+    scored_path = "data/processed/scored_bills.csv"
+    if os.path.exists(scored_path):
+        t3 = int(os.path.getmtime(scored_path))
+        
+    return max(t1, t2, t3)
+
+
+def _get_proposal_embedding(text: str) -> Optional[np.ndarray]:
+    """Fetch embedding for a campaign proposal via local Ollama API."""
+    try:
+        r = requests.post(
+            "http://localhost:11434/api/embeddings",
+            json={"model": "nomic-embed-text", "prompt": text},
+            timeout=10
+        )
+        r.raise_for_status()
+        return np.array(r.json().get("embedding", []), dtype=float)
+    except Exception:
+        return None
+
+
 @st.cache_data
-def get_semantic_map_data():
+def get_semantic_map_data(df_campaign_dict=None, _db_token=0):
     if not HISTORICAL_BILLS_PATH.exists() or not EMBEDDINGS_PATH.exists():
         return pd.DataFrame()
         
@@ -77,14 +122,63 @@ def get_semantic_map_data():
         if df_merged.empty:
             return pd.DataFrame()
             
-        # Extract embeddings into a 2D numpy array
+        # Re-build campaign rows if provided
+        if df_campaign_dict is not None and len(df_campaign_dict) > 0:
+            df_camp = pd.DataFrame(df_campaign_dict)
+            if not df_camp.empty:
+                camp_rows = []
+                camp_vectors = []
+                for _, row in df_camp.iterrows():
+                    text = str(row.get("bill_text_clean") or row.get("title") or "").strip()
+                    emb = _get_proposal_embedding(text)
+                    if emb is not None:
+                        camp_vectors.append(emb)
+                        camp_rows.append({
+                            "bill_id": row["bill_id"],
+                            "title": row["title"],
+                            "policy_type": row["policy_type"],
+                            "direction": row["direction"],
+                            "intensity": row.get("intensity", "low"),
+                            "sector": row.get("sector", "mixed"),
+                            "state": row.get("candidate_name", "Candidate"),
+                            "level": "campaign",
+                            "text": text,
+                            "jurisdiction": "campaign",
+                            "state_code": "CAMP",
+                            "session_year": 2026,
+                            "enacted": False,
+                            "sponsor_party": row.get("party", "unknown"),
+                            "bill_text_clean": text,
+                            "major_topic": row.get("major_topic", "Macroeconomics")
+                        })
+                
+                if camp_rows:
+                    df_camp_aligned = pd.DataFrame(camp_rows)
+                    # Combine historical vectors and campaign vectors
+                    hist_vectors = np.stack(df_merged["embedding"].values)
+                    camp_vectors_stack = np.stack(camp_vectors)
+                    all_vectors = np.concatenate([hist_vectors, camp_vectors_stack], axis=0)
+                    
+                    # Calculate SVD PCA on the unified matrix
+                    pca_coords = calculate_cheap_pca(all_vectors, num_components=2)
+                    
+                    # Assign coords to historical
+                    df_merged["PCA 1"] = pca_coords[:len(hist_vectors), 0]
+                    df_merged["PCA 2"] = pca_coords[:len(hist_vectors), 1]
+                    
+                    # Assign coords to campaign
+                    df_camp_aligned["PCA 1"] = pca_coords[len(hist_vectors):, 0]
+                    df_camp_aligned["PCA 2"] = pca_coords[len(hist_vectors):, 1]
+                    
+                    # Combine dataframes
+                    df_final = pd.concat([df_merged.drop(columns=["embedding"]), df_camp_aligned], ignore_index=True)
+                    return df_final
+                    
+        # Fallback to pure historical SVD PCA
         vectors = np.stack(df_merged["embedding"].values)
-        
-        # Calculate SVD PCA
         pca_coords = calculate_cheap_pca(vectors, num_components=2)
         df_merged["PCA 1"] = pca_coords[:, 0]
         df_merged["PCA 2"] = pca_coords[:, 1]
-        
         return df_merged.drop(columns=["embedding"])
     except Exception as e:
         st.error(f"Failed to process semantic vector projections: {e}")
@@ -93,8 +187,39 @@ def get_semantic_map_data():
 
 # Parameterized cache loop allowing state injection updates
 @st.cache_data(show_spinner=False)
-def load_scored_bills(jurisdiction="federal", state_code=None):
-    raw_results = build(jurisdiction=jurisdiction, state_code=state_code)
+def load_scored_bills(jurisdiction="federal", state_code=None, _db_token=0):
+    build(jurisdiction=jurisdiction, state_code=state_code)
+    
+    csv_path = "data/processed/scored_bills.csv"
+    if os.path.exists(csv_path):
+        try:
+            df = pd.read_csv(csv_path)
+            if "estimated_impacts" in df.columns:
+                import ast
+                def parse_dict(val):
+                    if isinstance(val, str):
+                        try:
+                            return ast.literal_eval(val)
+                        except Exception:
+                            return {}
+                    return val or {}
+                df["estimated_impacts"] = df["estimated_impacts"].apply(parse_dict)
+                impacts_df = pd.json_normalize(df["estimated_impacts"]).add_prefix("impact_")
+                df = pd.concat(
+                    [df.drop(columns=["estimated_impacts"]), impacts_df],
+                    axis=1
+                )
+            return df
+        except Exception as e:
+            logger.error(f"Failed to read scored_bills.csv: {e}")
+            
+    return pd.DataFrame()
+
+
+@st.cache_data(show_spinner=False)
+def load_campaign_scored_policies(jurisdiction="ohio", state_code="OH", _db_token=0):
+    from pipeline.build_dataset import build_campaign_pipeline
+    raw_results = build_campaign_pipeline(jurisdiction_name=jurisdiction, state_code=state_code)
     if not raw_results:
         return pd.DataFrame()
 
@@ -109,7 +234,7 @@ def load_scored_bills(jurisdiction="federal", state_code=None):
 
 
 @st.cache_data
-def load_macro_data():
+def load_macro_data(_db_token=0):
     if not POLICY_DATASET_PATH.exists():
         return pd.DataFrame()
     return pd.read_parquet(POLICY_DATASET_PATH)
@@ -121,25 +246,51 @@ def load_macro_data():
 st.sidebar.title("⚖️ Policy Intelligence Platform")
 st.sidebar.markdown("Configure target parameters and fire live evaluation pipelines across multi-tiered jurisdictions.")
 
-selected_pipeline = st.sidebar.selectbox(
-    "Target Ingestion Pipeline",
-    options=list(STATE_CODE_MAP.keys()),
+simulation_mode = st.sidebar.radio(
+    "Select Analysis Mode",
+    ["Active Legislative Session", "Candidate Campaign Platforms"],
     index=0
 )
 
-target_state_code = STATE_CODE_MAP[selected_pipeline]
+if simulation_mode == "Candidate Campaign Platforms":
+    selected_pipeline = "Ohio"
+    target_state_code = "OH"
+    st.sidebar.markdown("**Active Campaign Jurisdiction:** Ohio (Amy Acton vs. Vivek Ramaswamy)")
+else:
+    selected_pipeline = st.sidebar.selectbox(
+        "Target Ingestion Pipeline",
+        options=list(STATE_CODE_MAP.keys()),
+        index=0
+    )
+    target_state_code = STATE_CODE_MAP[selected_pipeline]
 
 # Add an explicit processing button trigger to prevent layout flashing
 run_pipeline = st.sidebar.button("Run Simulation Pipeline Core", use_container_width=True)
 
-# Handle baseline memory mapping states securely
-if run_pipeline:
-    st.sidebar.info(f"Invoking {selected_pipeline} pipeline core...")
-    df = load_scored_bills(jurisdiction=selected_pipeline.lower(), state_code=target_state_code)
-else:
-    df = load_scored_bills(jurisdiction="federal", state_code=None)
+# Extract flat file database token
+db_token = _get_db_token()
 
-macro_df = load_macro_data()
+# Handle baseline memory mapping states reactively and securely
+if simulation_mode == "Candidate Campaign Platforms":
+    if run_pipeline:
+        st.sidebar.info("Invoking Ohio Campaign Platform pipeline core...")
+        st.cache_data.clear()
+        df = load_campaign_scored_policies(jurisdiction="Ohio", state_code="OH", _db_token=db_token)
+    else:
+        df = load_campaign_scored_policies(jurisdiction="Ohio", state_code="OH", _db_token=db_token)
+        # Robust safety barrier: if cache is stale and missing vital keys, clear and force reload
+        if not df.empty and "bill_text_clean" not in df.columns:
+            st.cache_data.clear()
+            df = load_campaign_scored_policies(jurisdiction="Ohio", state_code="OH", _db_token=db_token)
+else:
+    if run_pipeline:
+        st.sidebar.info(f"Invoking {selected_pipeline} pipeline core...")
+        st.cache_data.clear()
+        df = load_scored_bills(jurisdiction=selected_pipeline.lower(), state_code=target_state_code, _db_token=db_token)
+    else:
+        df = load_scored_bills(jurisdiction=selected_pipeline.lower(), state_code=target_state_code, _db_token=db_token)
+
+macro_df = load_macro_data(_db_token=db_token)
 
 # ------------------------------------------------------------
 # ADVANCED DISPLAY SIDEBAR FILTERS
@@ -174,18 +325,24 @@ selected_topics = st.sidebar.multiselect(
 # ------------------------------------------------------------
 # EXECUTIVE BRIEFING GENERATOR & EXPORTER
 # ------------------------------------------------------------
-def generate_markdown_briefing(df_brief, current_jur):
+def generate_markdown_briefing(df_brief, current_jur, is_campaign=False):
     if df_brief.empty:
         return "# POLICY INTELLIGENCE BRIEFING\n\nNo active bill records available for briefing compilation."
         
     brief = "# POLICY INTELLIGENCE BRIEFING & STRATEGIC EXECUTIVE SUMMARY\n\n"
-    brief += f"**Jurisdiction Scope Focus:** {str(current_jur).upper()}\n"
+    if is_campaign:
+        brief += f"**Jurisdiction Scope Focus:** {str(current_jur).upper()} CAMPAIGN PLATFORMS\n"
+    else:
+        brief += f"**Jurisdiction Scope Focus:** {str(current_jur).upper()}\n"
     brief += "**Compiled By:** Pure NumPy Vectorized Policy Analyst Engine\n"
     brief += "**Grounding Framework:** Local nomic-embed-text + Phi-3 Semantic Linking\n\n"
     brief += "## 1. Projected Macroeconomic Outcomes\n\n"
     
-    for idx, row in df_brief.head(5).iterrows():
-        brief += f"### Act: {row.get('title')} (ID: {row.get('bill_id')})\n"
+    for idx, row in df_brief.iterrows():
+        title_prefix = f"Candidate: {row.get('candidate_name')} - " if is_campaign else "Act: "
+        brief += f"### {title_prefix}{row.get('title')} (ID: {row.get('bill_id')})\n"
+        if is_campaign:
+            brief += f"- **Candidate:** {row.get('candidate_name')} ({row.get('party')})\n"
         brief += f"- **Target Level:** {str(row.get('jurisdiction', 'federal')).upper()}\n"
         brief += f"- **CAP Topic Category:** {row.get('major_topic', 'Macroeconomics')}\n"
         brief += f"- **Analytical Confidence:** {row.get('confidence', 0.0):.1%}\n"
@@ -203,11 +360,12 @@ def generate_markdown_briefing(df_brief, current_jur):
     return brief
 
 if not df.empty:
-    briefing_md = generate_markdown_briefing(df, selected_pipeline)
+    is_camp_mode = (simulation_mode == "Candidate Campaign Platforms")
+    briefing_md = generate_markdown_briefing(df, selected_pipeline, is_campaign=is_camp_mode)
     st.sidebar.download_button(
         label="📥 Export Executive Briefing (MD)",
         data=briefing_md,
-        file_name=f"policy_briefing_{selected_pipeline.lower()}.md",
+        file_name=f"policy_briefing_{selected_pipeline.lower()}_{'campaign' if is_camp_mode else 'session'}.md",
         mime="text/markdown",
         use_container_width=True
     )
@@ -224,83 +382,187 @@ tab_dashboard, tab_methodology = st.tabs(["📊 Policy Intelligence Dashboard", 
 # TAB 1: DASHBOARD VISUALIZATIONS
 # ------------------------------------------------------------
 with tab_dashboard:
-    st.markdown(f"Currently visualizing evaluation profiles under active jurisdiction channel: **{selected_pipeline.upper()}**")
-    
-    # 1. Render Executive Scorecard
-    if not df.empty:
-        st.subheader("Legislative Strategic Outlines")
+    if simulation_mode == "Candidate Campaign Platforms":
+        st.markdown(f"Currently visualizing evaluation profiles under Campaign Simulation Mode: **{selected_pipeline.upper()}**")
         
-        # Display up to top 3 active bills in beautiful metric outlining rows
-        for idx, row in df.head(3).iterrows():
-            with st.container():
-                col1, col2, col3, col4 = st.columns([2, 1, 1, 2])
-                with col1:
-                    st.markdown(f"**{row.get('title')}**")
-                    st.caption(f"ID: `{row.get('bill_id')}` | Category: `{row.get('major_topic', 'Macroeconomics')}`")
-                with col2:
-                    st.metric("Net Economic Score", f"{row.get('net_score', 0.0):+.3f}", help="Score bounds: -1.0 (strongly contractionary) to +1.0 (strongly expansionary)")
-                with col3:
-                    conf_val = row.get("confidence", 0.0)
-                    if conf_val >= 0.70:
+        if df.empty:
+            st.info("No campaign analysis results loaded. Hit 'Run Simulation Pipeline Core' to execute semantic distillation.")
+        else:
+            # 1. Filter candidates
+            df_acton = df[df["candidate_name"].str.contains("Acton", case=False, na=False)]
+            df_ramaswamy = df[df["candidate_name"].str.contains("Ramaswamy", case=False, na=False)]
+            
+            # Split into two columns for side-by-side comparative dashboard
+            col1, col2 = st.columns(2)
+            
+            # 2. Render Amy Acton Portfolio
+            portfolio_score_acton = df_acton["net_score"].mean() if not df_acton.empty else 0.0
+            gdp_acton = df_acton["impact_gdp_effect"].mean() if not df_acton.empty else 0.0
+            unemp_acton = df_acton["impact_unemployment_effect"].mean() if not df_acton.empty else 0.0
+            conf_acton = df_acton["confidence"].mean() if not df_acton.empty else 0.0
+            conf_acton = max(0.0, min(1.0, conf_acton))
+            
+            with col1:
+                st.markdown(
+                    f"""
+                    <div style="background: linear-gradient(135deg, rgba(33, 150, 243, 0.15) 0%, rgba(33, 150, 243, 0.05) 100%); padding: 25px; border-radius: 12px; border: 1px solid rgba(33, 150, 243, 0.2); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2); margin-bottom: 20px;">
+                        <h3 style="margin-top: 0; color: #2196f3; font-family: 'Inter', sans-serif;">🔵 Amy Acton</h3>
+                        <span style="background-color: rgba(33, 150, 243, 0.2); color: #2196f3; padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: bold;">Democratic Portfolio</span>
+                        <div style="margin-top: 20px; font-size: 2.2rem; font-weight: bold; color: {'#2ecc71' if portfolio_score_acton >= 0 else '#e74c3c'};">
+                            {portfolio_score_acton:+.3f} <span style="font-size: 1rem; color: #888; font-weight: normal;">Portfolio Score</span>
+                        </div>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
+                m_col1, m_col2, m_col3 = st.columns(3)
+                with m_col1:
+                    st.metric("Avg GDP Component", f"{gdp_acton:+.3%}")
+                with m_col2:
+                    st.metric("Avg Unemployment Adj", f"{unemp_acton:+.3f} pp")
+                with m_col3:
+                    if conf_acton >= 0.70:
                         conf_badge = "🟢 HIGH"
-                    elif conf_val >= 0.40:
+                    elif conf_acton >= 0.40:
                         conf_badge = "🟡 MODERATE"
                     else:
                         conf_badge = "🔴 LOW"
-                    st.metric("Analytical Confidence", conf_badge, delta=f"{conf_val:.1%}")
-                with col4:
-                    st.caption(f"**System Explanation:** {row.get('explanation')}")
-                st.markdown("---")
+                    st.metric("Clamped Confidence", conf_badge, f"{conf_acton:.1%}")
+                    
+                st.markdown("#### Distilled Policy Abstract Analysis")
+                for idx, row in df_acton.iterrows():
+                    with st.expander(f"📖 {row['title']} (Net Score: {row['net_score']:+.3f})"):
+                        # Check for the distilled text, fallback to raw campaign text, then fallback to the legislative text column
+                        display_text = row.get('distilled_abstract') or row.get('raw_proposal_text') or row.get('bill_text_clean', 'No text summary available.')
 
-    # 2. Raw Scored Matrix with display filters
-    st.subheader("Scored Bills Matrix")
-
-    if df.empty:
-        st.info("No scored bills are available for this specific path framework. Hit the sidebar simulation trigger to fetch live data targets.")
+                        st.markdown(f"**Distilled Abstract:** *{display_text}*")                        
+                        st.markdown(f"**Original Statement:** {row['raw_proposal_text']}")
+                        st.markdown(f"**GDP growth effect:** {row['impact_gdp_effect']:+.3%}")
+                        st.markdown(f"**Unemployment delta:** {row['impact_unemployment_effect']:+.3f} pp")
+                        st.markdown(f"**System Explanation:** {row['explanation']}")
+                        
+            # 3. Render Vivek Ramaswamy Portfolio
+            portfolio_score_ramaswamy = df_ramaswamy["net_score"].mean() if not df_ramaswamy.empty else 0.0
+            gdp_ramaswamy = df_ramaswamy["impact_gdp_effect"].mean() if not df_ramaswamy.empty else 0.0
+            unemp_ramaswamy = df_ramaswamy["impact_unemployment_effect"].mean() if not df_ramaswamy.empty else 0.0
+            conf_ramaswamy = df_ramaswamy["confidence"].mean() if not df_ramaswamy.empty else 0.0
+            conf_ramaswamy = max(0.0, min(1.0, conf_ramaswamy))
+            
+            with col2:
+                st.markdown(
+                    f"""
+                    <div style="background: linear-gradient(135deg, rgba(244, 67, 54, 0.15) 0%, rgba(244, 67, 54, 0.05) 100%); padding: 25px; border-radius: 12px; border: 1px solid rgba(244, 67, 54, 0.2); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2); margin-bottom: 20px;">
+                        <h3 style="margin-top: 0; color: #f44336; font-family: 'Inter', sans-serif;">🔴 Vivek Ramaswamy</h3>
+                        <span style="background-color: rgba(244, 67, 54, 0.2); color: #f44336; padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: bold;">Republican Portfolio</span>
+                        <div style="margin-top: 20px; font-size: 2.2rem; font-weight: bold; color: {'#2ecc71' if portfolio_score_ramaswamy >= 0 else '#e74c3c'};">
+                            {portfolio_score_ramaswamy:+.3f} <span style="font-size: 1rem; color: #888; font-weight: normal;">Portfolio Score</span>
+                        </div>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
+                m_col1, m_col2, m_col3 = st.columns(3)
+                with m_col1:
+                    st.metric("Avg GDP Component", f"{gdp_ramaswamy:+.3%}")
+                with m_col2:
+                    st.metric("Avg Unemployment Adj", f"{unemp_ramaswamy:+.3f} pp")
+                with m_col3:
+                    if conf_ramaswamy >= 0.70:
+                        conf_badge = "🟢 HIGH"
+                    elif conf_ramaswamy >= 0.40:
+                        conf_badge = "🟡 MODERATE"
+                    else:
+                        conf_badge = "🔴 LOW"
+                    st.metric("Clamped Confidence", conf_badge, f"{conf_ramaswamy:.1%}")
+                    
+                st.markdown("#### Distilled Policy Abstract Analysis")
+                for idx, row in df_ramaswamy.iterrows():
+                    with st.expander(f"📖 {row['title']} (Net Score: {row['net_score']:+.3f})"):
+                        display_text = row.get('distilled_abstract') or row.get('raw_proposal_text') or row.get('bill_text_clean', 'No text summary available.')
+                        st.markdown(f"**Distilled Abstract:** *{display_text}*")
+                        st.markdown(f"**Original Statement:** {row['raw_proposal_text']}")
+                        st.markdown(f"**GDP growth effect:** {row['impact_gdp_effect']:+.3%}")
+                        st.markdown(f"**Unemployment delta:** {row['impact_unemployment_effect']:+.3f} pp")
+                        st.markdown(f"**System Explanation:** {row['explanation']}")
+                        
     else:
-        # Apply displayed filters to table view
-        df_filtered = df.copy()
+        st.markdown(f"Currently visualizing evaluation profiles under active jurisdiction channel: **{selected_pipeline.upper()}**")
         
-        # Jurisdiction Filter
-        if jurisdiction_display_filter == "Federal":
-            df_filtered = df_filtered[df_filtered["jurisdiction"] == "federal"]
-        elif jurisdiction_display_filter == "States":
-            df_filtered = df_filtered[df_filtered["jurisdiction"] != "federal"]
+        # 1. Render Executive Scorecard
+        if not df.empty:
+            st.subheader("Legislative Strategic Outlines")
             
-        # Policy Topic Filter
-        if "All" not in selected_topics and len(selected_topics) > 0:
-            df_filtered = df_filtered[df_filtered["major_topic"].isin(selected_topics)]
-            
-        # Similarity Filter
-        if "impact_avg_similarity" in df_filtered.columns:
-            df_filtered = df_filtered[df_filtered["impact_avg_similarity"] >= min_similarity_filter]
+            # Display up to top 3 active bills in beautiful metric outlining rows
+            for idx, row in df.head(3).iterrows():
+                with st.container():
+                    col1, col2, col3, col4 = st.columns([2, 1, 1, 2])
+                    with col1:
+                        st.markdown(f"**{row.get('title')}**")
+                        st.caption(f"ID: `{row.get('bill_id')}` | Category: `{row.get('major_topic', 'Macroeconomics')}`")
+                    with col2:
+                        st.metric("Net Economic Score", f"{row.get('net_score', 0.0):+.3f}", help="Score bounds: -1.0 (strongly contractionary) to +1.0 (strongly expansionary)")
+                    with col3:
+                        conf_val = row.get("confidence", 0.0)
+                        if conf_val >= 0.70:
+                            conf_badge = "🟢 HIGH"
+                        elif conf_val >= 0.40:
+                            conf_badge = "🟡 MODERATE"
+                        else:
+                            conf_badge = "🔴 LOW"
+                        st.metric("Analytical Confidence", conf_badge, delta=f"{conf_val:.1%}")
+                    with col4:
+                        st.caption(f"**System Explanation:** {row.get('explanation')}")
+                    st.markdown("---")
 
-        if df_filtered.empty:
-            st.warning("All bill records filtered out by active Display Filters in the sidebar.")
+        # 2. Raw Scored Matrix with display filters
+        st.subheader("Scored Bills Matrix")
+
+        if df.empty:
+            st.info("No scored bills are available for this specific path framework. Hit the sidebar simulation trigger to fetch live data targets.")
         else:
-            preview_cols = [
-                "bill_id", "title", "policy_type", "direction", "net_score", 
-                "confidence", "impact_num_analogs_matched", "impact_avg_similarity", "major_topic"
-            ]
-            preview_cols = [col for col in preview_cols if col in df_filtered.columns]
-            st.dataframe(df_filtered[preview_cols].head(50), use_container_width=True)
+            # Apply displayed filters to table view
+            df_filtered = df.copy()
+            
+            # Jurisdiction Filter
+            if jurisdiction_display_filter == "Federal":
+                df_filtered = df_filtered[df_filtered["jurisdiction"] == "federal"]
+            elif jurisdiction_display_filter == "States":
+                df_filtered = df_filtered[df_filtered["jurisdiction"] != "federal"]
+                
+            # Policy Topic Filter
+            if "All" not in selected_topics and len(selected_topics) > 0:
+                df_filtered = df_filtered[df_filtered["major_topic"].isin(selected_topics)]
+                
+            # Similarity Filter
+            if "impact_avg_similarity" in df_filtered.columns:
+                df_filtered = df_filtered[df_filtered["impact_avg_similarity"] >= min_similarity_filter]
 
-    # 3. Plots & Dispersion Charts
-    if not df.empty and {"title", "net_score", "confidence"}.issubset(df.columns):
-        st.subheader("Policy Scores Volatility")
+            if df_filtered.empty:
+                st.warning("All bill records filtered out by active Display Filters in the sidebar.")
+            else:
+                preview_cols = [
+                    "bill_id", "title", "policy_type", "direction", "net_score", 
+                    "confidence", "impact_num_analogs_matched", "impact_avg_similarity", "major_topic"
+                ]
+                preview_cols = [col for col in preview_cols if col in df_filtered.columns]
+                st.dataframe(df_filtered[preview_cols].head(50), use_container_width=True)
 
-        fig = px.bar(
-            df.sort_values("net_score", ascending=False),
-            x="net_score",
-            y="title",
-            color="confidence",
-            color_continuous_scale=px.colors.sequential.Viridis,
-            orientation="h",
-            hover_data=["bill_id", "policy_type", "direction"],
-            labels={"net_score": "Net Economic Impact Score", "title": "Legislative Act Title"}
-        )
-        fig.update_layout(yaxis={"categoryorder": "total ascending"})
-        st.plotly_chart(fig, use_container_width=True)
+        # 3. Plots & Dispersion Charts
+        if not df.empty and {"title", "net_score", "confidence"}.issubset(df.columns):
+            st.subheader("Policy Scores Volatility")
+
+            fig = px.bar(
+                df.sort_values("net_score", ascending=False),
+                x="net_score",
+                y="title",
+                color="confidence",
+                color_continuous_scale=px.colors.sequential.Viridis,
+                orientation="h",
+                hover_data=["bill_id", "policy_type", "direction"],
+                labels={"net_score": "Net Economic Impact Score", "title": "Legislative Act Title"}
+            )
+            fig.update_layout(yaxis={"categoryorder": "total ascending"})
+            st.plotly_chart(fig, use_container_width=True)
 
     # ----------------------------
     # SEMANTIC POLICY SPACE (PCA)
@@ -312,7 +574,10 @@ with tab_dashboard:
         "are semantically similar in subject matter and intent."
     )
 
-    df_semantic = get_semantic_map_data()
+    if simulation_mode == "Candidate Campaign Platforms" and not df.empty:
+        df_semantic = get_semantic_map_data(df_campaign_dict=df.to_dict(orient="records"), _db_token=db_token)
+    else:
+        df_semantic = get_semantic_map_data(_db_token=db_token)
 
     if df_semantic.empty:
         st.info("Semantic vector topological coordinate matrix not found. Build out an embed repository on disk cache first.")
@@ -322,18 +587,18 @@ with tab_dashboard:
         
         # Jurisdiction Filter
         if jurisdiction_display_filter == "Federal":
-            df_plot = df_plot[df_plot["jurisdiction"] == "federal"]
+            df_plot = df_plot[(df_plot["jurisdiction"] == "federal") | (df_plot["jurisdiction"] == "campaign")]
         elif jurisdiction_display_filter == "States":
-            df_plot = df_plot[df_plot["jurisdiction"] != "federal"]
+            df_plot = df_plot[(df_plot["jurisdiction"] != "federal") | (df_plot["jurisdiction"] == "campaign")]
             
         # Policy Topic Filter
         if "All" not in selected_topics and len(selected_topics) > 0:
-            df_plot = df_plot[df_plot["major_topic"].isin(selected_topics)]
+            df_plot = df_plot[(df_plot["major_topic"].isin(selected_topics)) | (df_plot["jurisdiction"] == "campaign")]
 
         if df_plot.empty:
             st.warning("No cached vector markers identified for active display filters.")
         else:
-            # Color by jurisdiction and change marker shape by level (federal vs state)
+            # Color by jurisdiction and change marker shape by level (federal vs state vs campaign)
             color_col = "jurisdiction" if "jurisdiction" in df_plot.columns else "policy_type"
             symbol_col = "level" if "level" in df_plot.columns else None
             
@@ -346,7 +611,7 @@ with tab_dashboard:
                 y="PCA 2",
                 color=color_col,
                 symbol=symbol_col,
-                symbol_sequence=['circle', 'diamond'],
+                symbol_sequence=['circle', 'diamond', 'square'],
                 hover_data=hover_cols,
                 title="Cross-Jurisdictional Semantic Policy Cluster Projections",
                 labels={"PCA 1": "Principal Component 1 (Axis Alpha)", "PCA 2": "Principal Component 2 (Axis Beta)"}
