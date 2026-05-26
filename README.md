@@ -1,4 +1,4 @@
-# Policy Explorer - Policy Intelligence Platform
+# Intelipol - Policy Intelligence Platform
 
 Policy Explorer is a modular, deterministic decision-support dashboard and data ingestion pipeline designed to model and project the macroeconomic impacts of proposed U.S. Congressional bills. 
 
