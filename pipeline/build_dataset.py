@@ -29,13 +29,19 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-API_KEY = "c9426a2c-debd-4870-9304-616b5e463ea3"
-BLS_API_KEY = "71ca07a939aa4e71a82ae2f88ac8ad1e"
-HISTORICAL_BILLS_PATH = Path("data/processed/historical_bills.parquet")
-POLICY_EVENTS_PATH = Path("data/policy_events.csv")
+from pipeline.config import (
+    OPENSTATES_API_KEY,
+    BEA_API_KEY,
+    BLS_API_KEY,
+    CONGRESS_API_KEY,
+    OLLAMA_HOST,
+    HISTORICAL_BILLS_PATH,
+    POLICY_EVENTS_PATH,
+    AI_REGISTRY_PATH
+)
 
-
-REGISTRY_PATH = Path("data/processed/ai_classification_registry.parquet")
+API_KEY = OPENSTATES_API_KEY
+REGISTRY_PATH = AI_REGISTRY_PATH
 registry_lock = threading.Lock()
 _registry_df = None
 
@@ -151,7 +157,7 @@ JSON schema:
 """
 
     payload = {
-        "model": "phi3:mini",
+        "model": "llama3",
         "prompt": prompt,
         "stream": False,
         "format": "json",

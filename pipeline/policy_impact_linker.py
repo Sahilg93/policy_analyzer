@@ -178,13 +178,27 @@ class OutcomeEngine:
                     continue
                 
                 # Calculate decay-weighted average for this specific analog bill
+                regime = self._get_economic_regime(evt_year)
+                
                 gdp_pct = 0.0
                 if gdp_deltas:
-                    gdp_pct = sum(d * w for d, w in zip(gdp_deltas, gdp_weights)) / sum(gdp_weights)
+                    raw_gdp_pct = sum(d * w for d, w in zip(gdp_deltas, gdp_weights)) / sum(gdp_weights)
+                    # De-bias cyclical recession drag & inflation distortions
+                    if regime["is_recession"]:
+                        gdp_pct = raw_gdp_pct + 0.015  # Add 1.5% drag correction
+                    elif regime["is_high_inflation"]:
+                        gdp_pct = raw_gdp_pct * 0.85   # Dampen by 15% to account for stagflation drag
+                    else:
+                        gdp_pct = raw_gdp_pct
                 
                 unemp_delta = 0.0
                 if unemp_deltas:
-                    unemp_delta = sum(d * w for d, w in zip(unemp_deltas, unemp_weights)) / sum(unemp_weights)
+                    raw_unemp_delta = sum(d * w for d, w in zip(unemp_deltas, unemp_weights)) / sum(unemp_weights)
+                    # De-bias cyclical unemployment spikes during recessions
+                    if regime["is_recession"]:
+                        unemp_delta = raw_unemp_delta - 0.20  # Subtract 0.20% cyclical spike
+                    else:
+                        unemp_delta = raw_unemp_delta
                 
                 # Collect similarity score
                 sim = bill.get("similarity_score", 0.5)
@@ -204,7 +218,8 @@ class OutcomeEngine:
                 
                 logger.debug(
                     f"Bill {bill.get('bill_id', '?')}: "
-                    f"GDP {gdp_pct:.3f}, Unemp {unemp_delta:.3f}, Sim {sim:.3f}"
+                    f"GDP {gdp_pct:.3f}, Unemp {unemp_delta:.3f}, Sim {sim:.3f} "
+                    f"(Regime: Recession={regime['is_recession']}, Inflation={regime['is_high_inflation']})"
                 )
                 
             except Exception as e:
@@ -274,3 +289,13 @@ class OutcomeEngine:
         if value in {"state", "states", "local"}:
             return "state"
         return "federal"
+
+    def _get_economic_regime(self, year: int) -> dict:
+        """Analyze the economic environment of a given historical year."""
+        recession_years = {1929, 1930, 1931, 1932, 1933, 1974, 1975, 1980, 1981, 1982, 1990, 1991, 2001, 2008, 2009, 2020}
+        inflation_years = {1973, 1974, 1975, 1976, 1977, 1978, 1979, 1980, 1981, 2021, 2022}
+        
+        return {
+            "is_recession": year in recession_years,
+            "is_high_inflation": year in inflation_years
+        }

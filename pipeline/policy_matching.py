@@ -165,9 +165,55 @@ class AnalogMatcher:
                 "enacted": hist_bill.get("enacted", True),
                 "sponsor_party": hist_bill.get("sponsor_party", "mixed"),
                 "bill_text_clean": hist_bill.get("bill_text_clean", ""),
-                "major_topic": hist_bill.get("major_topic", "Macroeconomics")
+                "major_topic": hist_bill.get("major_topic", "Macroeconomics"),
+                "is_fallback": False
             }
             analogs.append(analog)
+
+        # Smart jurisdiction fallback logic:
+        # If target is a state, and we find 0 analogs above the threshold,
+        # we dynamically fallback to allowing federal-level analogs with a relaxed federal-to-state penalty.
+        if target_jur != "federal" and len(analogs) == 0:
+            logger.info("No state-level analogs survived threshold filters. Engaging smart federal-fallback logic...")
+            # Relax federal-to-state penalty to half (scope leakage is bounded) and lower threshold slightly
+            relaxed_fed_penalty = fed_to_state_penalty * 0.5
+            penalties = np.zeros(len(bill_ids))
+            
+            penalties[fed_mask] = relaxed_fed_penalty
+            penalties[state_mask] = state_to_state_penalty
+            
+            penalized_similarities = np.clip(raw_similarities - penalties, 0.0, 1.0)
+            relaxed_threshold = max(0.5, threshold - 0.1) # Safe lower boundary
+            
+            above_threshold_indices = np.where(penalized_similarities >= relaxed_threshold)[0]
+            
+            for index in above_threshold_indices:
+                bid = bill_ids[index]
+                sim = float(penalized_similarities[index])
+                hist_bill = self.history.loc[bid]
+                
+                analog = {
+                    "bill_id": bid,
+                    "title": hist_bill.get("title", ""),
+                    "introduced_date": hist_bill.get("introduced_date"),
+                    "enacted_date": hist_bill.get("enacted_date"),
+                    "policy_type": hist_bill.get("policy_type", "unknown"),
+                    "direction": hist_bill.get("direction", "neutral"),
+                    "intensity": hist_bill.get("intensity", "low"),
+                    "sector": hist_bill.get("sector", "mixed"),
+                    "similarity_score": sim,
+                    "state": hist_bill.get("state", "United States"),
+                    "level": hist_bill.get("level", "federal"),
+                    "jurisdiction": hist_bill.get("jurisdiction", "federal"),
+                    "state_code": hist_bill.get("state_code", "US"),
+                    "session_year": hist_bill.get("session_year"),
+                    "enacted": hist_bill.get("enacted", True),
+                    "sponsor_party": hist_bill.get("sponsor_party", "mixed"),
+                    "bill_text_clean": hist_bill.get("bill_text_clean", ""),
+                    "major_topic": hist_bill.get("major_topic", "Macroeconomics"),
+                    "is_fallback": True
+                }
+                analogs.append(analog)
             
         analogs.sort(key=lambda analog: analog["similarity_score"], reverse=True)
         logger.info("Found %d threshold-qualified analogs (vectorized search complete)", len(analogs))

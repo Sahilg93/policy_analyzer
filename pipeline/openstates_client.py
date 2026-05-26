@@ -8,13 +8,14 @@ import requests
 import pandas as pd
 import logging
 from typing import Dict, List, Optional
+from pipeline.config import OPENSTATES_API_KEY
 
 logger = logging.getLogger(__name__)
 
 
 class OpenStatesClient:
-    def __init__(self, api_key: str, max_retries: int = 5, backoff_factor: float = 1.5):
-        self.api_key = api_key
+    def __init__(self, api_key: Optional[str] = None, max_retries: int = 5, backoff_factor: float = 1.5):
+        self.api_key = api_key or OPENSTATES_API_KEY
         self.base_url = "https://v3.openstates.org"
         self.headers = {"X-API-KEY": self.api_key}
         self.max_retries = max_retries
@@ -111,7 +112,18 @@ class OpenStatesClient:
                 # 3. Clean Text Summary and Process
                 title = b.get("title", "").strip()
                 abstract = b.get("abstract", "") or ""
-                bill_text_clean = f"{title} | {abstract}".strip() if abstract else title
+                description = b.get("description", "") or ""
+                
+                # Synthesize high-quality clean text summary prioritizing abstract/description
+                if abstract.strip():
+                    bill_text_clean = abstract.strip()
+                elif description.strip():
+                    bill_text_clean = description.strip()
+                else:
+                    bill_text_clean = title
+                
+                # Make sure it's clean
+                bill_text_clean = bill_text_clean.strip()
                 
                 introduced_date = b.get("first_action_date") or b.get("created_at")
                 session_year = None
